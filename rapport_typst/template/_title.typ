@@ -32,11 +32,7 @@
       columns: (50%, 50%),
       [*#if TBfeminineForm { "Étudiante" } else { "Étudiant" }*], [*#TBauthor*],
       [*#if TBsupervisorFeminineForm { "Enseignante" } else { "Enseignant" } responsable*], [#TBsupervisor],
-      [*Entreprise mandante*], [
-        #TBindustryContact \
-        #TBindustryName \
-        #TBindustryAddress
-      ],
+      
       [*Année académique*], [#TBacademicYears]
     )
   ])])

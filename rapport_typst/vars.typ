@@ -16,7 +16,7 @@
 
 #let TBdpt = "Département des Technologie de l'information et de la communication (TIC)"
 #let TBfiliere = "Informatique et systèmes de communication"
-#let TBorient = "Sécurité informatique"
+#let TBorient = "Informatique logicielle"
 
 #let TBauthor = studentFirstname + " " + studentLastname
 #let TBsupervisor = "Prof. Bertrand Hochet"
