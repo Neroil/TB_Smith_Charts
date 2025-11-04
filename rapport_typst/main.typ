@@ -4,6 +4,7 @@
 #import "vars.typ": *
 
 #set text(lang: language)
+#set par(justify: true)
 
 /*
  Includes
