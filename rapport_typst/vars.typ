@@ -10,7 +10,7 @@
 #let confidential = false
 
 #let TBtitle = "Editeur d'abaque de Smith "
-#let TBsubtitle = "Sous-titre"
+#let TBsubtitle = "Développement d'un outil moderne et multiplateforme"
 #let TByear = "2025"
 #let TBacademicYears = "2024-25"
 

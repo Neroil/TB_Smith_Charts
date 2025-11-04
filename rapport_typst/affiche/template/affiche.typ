@@ -69,9 +69,7 @@
     align: (left + top, bottom + right),
     text(size: 12pt)[
       Auteur: #author \
-      Répondant externe: #industryContact \
       Prof. responsable: #supervisor \
-      Sujet proposé par: #industryName \
     ],
     image("images/logo_hes-so.png", width: 25%)
   ))
