@@ -31,8 +31,16 @@ Ces trois critères serviront de base pour évaluer les différentes solutions e
 
 Qt est un framework multiplateforme très utilisé dans le monde entier. C++ est aussi un langage qui m'est familié et qui est très performant donc ça ne serait pas problématique d'utiliser. Vu que c'est très utilisé, il y a beaucoup de documentation et des plugins customs par ci par là. A tester car je n'ai jamais utilisé QT auparavant.
 
+Ensuite il y a la question de s'il vaut mieux utiliser python ou c++. Vu que le but est d'avoir un logiciel qui soit performant, prendre python semble ne pas être le bon choix mais des tests sont à effectuer. 
+
 === JavaFX
 
-JavaFX est un framework de développement d'application multiplateforme vu qu'il utilise java qui lui même est multiplateforme grace à la sainte JVM. C'est un framework très complet et 
+JavaFX est un framework de développement d'application multiplateforme vu qu'il utilise java qui lui même est multiplateforme grace à la sainte JVM. C'est un framework très complet avec beaucoup de widgets pre existant créé par la communauté : https://github.com/palexdev/MaterialFX, https://github.com/mkpaz/atlantafx et d'autres.
+
+C'est très important pour avoir une interface qui soit moderne et plaisante à utiliser. 
+
+L'utilisation de java est bon tout aussi vu que java est multiplateforme de base, pas besoin de trop s'embêter et question performance java dans ses dernières version est très performant (il faut encore faire des tests)
 
 == Choix et justification
+
+Pas encore de choix :( 

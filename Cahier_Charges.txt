@@ -1,0 +1,36 @@
+Editeur d'abaque de Smith
+
+http://www.jcoppens.com/soft/linsmith/index.en.php
+	> renvois vers des explications théoriques
+	https://www.rohde-schwarz.com/se/products/test-and-measurement/essentials-test-equipment/spectrum-analyzers/understanding-the-smith-chart_257989.html
+	https://www.analog.com/en/resources/interactive-design-tools/rf-impedance-matching-calculator.html
+
+http://genelaix.free.fr/archives/iufmGE_IUFM_AIX_MARSEILLE/data/siteDR/hyperfrequences/pdf/AB-SMIT.pdf
+https://esicours.flolep.fr/ESICOURS/2A_S3/PH230/ChapterIDA3.pdf
+
+
+Spécification
+- Windows et Linux, ou WebApp ?
+
+- Fonctionnalité similaire à Smith.exe
+	Abaque
+	Placement d'impédances et/ou d'admittances
+	Placement de composants passifs shunt et série (R,L,C,Line,Stubs)
+	Optionnel : Transfo, RLCs
+	Chargement de fichier S1p
+	Fonction Sweep
+	Tuning
+- s'inspirer de linSmith (jcoppens, voir ci-dessus)
+	Modification d'une valeur avec une scrollbar
+	Log permettant de reproduire tout ou partie d'une expérimentation
+
+- Nouvelles fonctionnalités
+	Possibilité d'éditer plusieurs circuits (jusqu'à 10) à partir d'une même paire [charge,source]
+		Sélection de la couleur pour la trajectoire de chaque circuit
+	Fenêtre "Cursor": ajouter la possibilité que le cursor s'aimante sur un des points calculés
+		Ceci suppose que les trajectoires soient représentées par un nombre de points paramétrable (pas fréquentiel)
+	Zoom (avec param %) et Pan
+	Export de fichier S1p issu d'un sweep
+	Tuning à partir d'une liste de valeurs normalisées CEI_60063 (https://fr.wikipedia.org/wiki/CEI_60063)
+	Optionnel : Affichage Z, Y, Mod/Arg pour les points intermédiaires du circuit
+

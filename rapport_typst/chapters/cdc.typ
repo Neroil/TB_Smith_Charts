@@ -14,7 +14,7 @@ Actuellement, les étudiants en systèmes embarqués utilisent un logiciel déve
 === Problématique <problématique>
 Comment fournir aux étudiants un logiciel intuitif, simple d'utilisation et agréable à prendre en main pour manipuler digitalement une abaque de Smith ?
 
-=== Solutions existantes <solutions-existantes> TODO TESTER LES SOLUTIONS
+=== Solutions existantes <solutions-existantes>
 Il existe bien entendu d'autres logiciels, natifs ou en ligne, qui permettent de manipuler un abaque de Smith. 
 
 Par exemple, *SimSmith* (appelé SimNec dans ses versions récentes)#footnote[https://www.ae6ty.com/smith_charts/] est un outil multiplateforme développé en Java. L'outil semble très complet, quoique pas très intuitif au premier abord.
