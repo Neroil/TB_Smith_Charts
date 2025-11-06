@@ -17,6 +17,8 @@ Smith, ou plus couramment *Smith.exe*, est un logiciel dont la dernière mise à
 
 Le principal problème de ce logiciel est son absence de support sur d'autres plateformes comme Linux ou macOS. Son ergonomie, basée sur un système de sous-fenêtres daté, rend son utilisation peu intuitive. De plus, plusieurs fonctionnalités manquent par rapport aux besoins définis pour ce projet.
 
+Mais vu que le projet va largement s'inspirer de celui-ci, il est important de comprendre comment il fonctionne
+
 == Bibliothèques et frameworks graphiques pour applications multiplateformes
 
 Afin de développer une application moderne et accessible sur plusieurs systèmes d'exploitation, il est important de choisir des technologies adaptées. Cette section présente une analyse des principaux frameworks et bibliothèques permettant la création d'interfaces graphiques multiplateformes.
