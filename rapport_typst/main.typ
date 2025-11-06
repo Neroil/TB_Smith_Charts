@@ -43,6 +43,8 @@
 */
 #include "chapters/introduction.typ"
 
+#include "chapters/principes-theoriques.typ"
+
 #include "chapters/planification.typ"
 
 #include "chapters/etat-de-lart.typ"

@@ -15,10 +15,6 @@ C'est en 1939 que Smith publie dans le volume 12 du journal "Electronics" offici
 #figure(image("../template/images/abbacus-page-00001.jpg", width:60%),
 caption: [L'abaque de Smith tel que présenté dans le journal "Electronics"])
 
-== Fonctionnement
-
-Avant se foncer la tête première dans un projet de coder un abaque de Smith, il est important de comprendre comment concrètement il fonctionne et comment l'utiliser.
-
 == Actualité
 
 En 2025, près de 86 ans après sa publication, les étudiants et les ingénieurs utilisent encore cet outil maintenant incontournable. Même pour quelqu'un de neophyte dans la matière, l'abaque de Smith permet de comprendre facilement des phénomène complexes et permet quasiment à n'importe qui de créer un circuit un circuit adapté à une antenne intuitivement. Et c'est dans ce contexte que ce travail de bachelor est utile, moderniser un outil existant pour répondre aux besoins des étudiants.
