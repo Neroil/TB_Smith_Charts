@@ -45,9 +45,9 @@
 
 #include "chapters/principes-theoriques.typ"
 
-#include "chapters/planification.typ"
-
 #include "chapters/etat-de-lart.typ"
+
+#include "chapters/planification.typ"
 
 //#include "chapters/ch_exemple.typ"
 
