@@ -21,7 +21,7 @@ Le principal problème de ce logiciel est son absence de support sur d'autres pl
 
 Afin de développer une application moderne et accessible sur plusieurs systèmes d'exploitation, il est important de choisir des technologies adaptées. Cette section présente une analyse des principaux frameworks et bibliothèques permettant la création d'interfaces graphiques multiplateformes.
 
-Dans le cadre de ce projet, le public cible étant constitué d'étudiants, le choix technologique doit répondre à plusieurs exigences. L'application doit avant tout être multiplateforme afin d'assurer une compatibilité avec Windows, macOS et Linux. Elle doit également être moderne visuellement, de manière à offrir une interface intuitive et agréable à utiliser. Enfin, elle doit rester performante pour garantir une expérience fluide, même sur des machines pas très performante.
+Dans le cadre de ce projet, le public cible étant constitué d'étudiants et d'ingénieur, le choix technologique doit répondre à plusieurs exigences. L'application doit avant tout être multiplateforme afin d'assurer une compatibilité avec Windows, macOS et Linux. Elle doit également être moderne visuellement, de manière à offrir une interface intuitive et agréable à utiliser. Enfin, elle doit rester performante pour garantir une expérience fluide, même sur des machines pas très performante.
 
 Ces trois critères serviront de base pour évaluer les différentes solutions envisagées dans la suite de ce travail.
 
@@ -37,13 +37,16 @@ JavaFX est un framework de développement d'application multiplateforme vu qu'il
 
 C'est très important pour avoir une interface qui soit moderne et plaisante à utiliser. 
 
-L'utilisation de java est bon tout aussi vu que java est multiplateforme de base, pas besoin de trop s'embêter et question performance java dans ses dernières version est très performant (il faut encore faire des tests).
+L'utilisation de java est bon tout aussi vu que java est multiplateforme de base, pas besoin de trop s'embêter et question performance java dans ses dernières version est très performant car nous avions pu l'utiliser pour faire des simulations assez rapide dans le cadre du cours donné par J.F Hêches nommé optimisation et simulation.
+
+Finalement un test a pu être effectué et la prise en main de JavaFX semble être adaptée pour le projet.
+
 
 === GTK
 
 GTK, anciennement GIMP ToolKit est un toolkit qui permet d'effectuer des GUI majoritairement sur Linux mais est aussi compatible avec Windows et MacOS. C'est un outil très utilisé dans la communauté Linux, son avantage est que sa librairie fonctionne avec plusieurs language différent, C, Javascript, Perl, Python, Rust, etc...
 
-Cela peut-être une bonne alternative même s'il est possible que le support soit limité sur les plateforme autre que Linux. A vérifier.
+Cela peut-être une bonne alternative même s'il est possible que le support soit limité sur les plateforme autre que Linux.
 
 === Flutter
 
@@ -51,11 +54,14 @@ Flutter est un framework créé par Google pour faire des applications multiplat
 
 Le principal frein est que ça utilise le langage Dart, que je ne connais pas du tout. En plus, Flutter a été pensé d'abord pour le mobile, le support desktop étant quelque chose de plus récent même si apparemment bien supporté. 
 
+
 === Tauri (Rust)
 
 Tauri est un framework qui utilise une architecture du type web pour le frontend et un backend en Rust. Vu que l'application tourne en backend avec Rust et en frontend avec une technologie web tel que React, Vue, etc. Ce choix peut-être le bon vu que ça peut être une bonne introduction à Rust et l'utilisation de technologie Web m'est plus que familier.
 
 Un grand plus de ce framework est aussi la performance et sa moindre emprunte mémoire.
+
+Après avoir fait quelques recherche, je vois que si je veux faire quelque chose de graphique avec Tauri comme dessiner l'abaque de Smith, je vais sûrement devoir utiliser une libraire js pour le faire, ce qui ne m'enchante pas beaucoup... De plus, le backend ne sera pas très complexe dans ce projet or, avec Tauri, toute la partie graphique doit être réalisée en JavaScript via une technologie web (React, Vue, etc.), ce qui ajoute une couche supplémentaire et ne me semble pas pertinent ici. Je préférerais une solution où le dessin et l'interactivité sont gérés directement dans le langage principal du framework et qui n'utilise si possible pas de Javascript 
 
 == Choix et justification
 
