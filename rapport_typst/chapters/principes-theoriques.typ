@@ -76,7 +76,32 @@ Graphiquement cette abaque est exactement la même que l'abaque des impédances 
 
 === Utiliser l'abaque
 
-Maintenant pour l'utiliser, rien de plus simple, on mesure l'impédance de notre composant de charge. On positionne cette mesure sur l'abaque.
+Maintenant pour l'utiliser, rien de plus simple, on mesure l'impédance de notre composant de charge. On positionne cette mesure sur l'abaque. Dans le cas d'une abaque papier, cette mesure devra être normalisée par rapport à l'impédance de réferance. Par exemple si notre impédance mesurée est de 75 + j50 Ohm dans un système à 50 Ohm, cette impédance se trouvera sur un point normalisé de 1.5 + j1 sur l'abaque.
+
+#align(center, grid(
+    columns:2,
+    figure(image("../template/images/smithexe/point_base.png", width:100%), caption: [Impédance de 75 + j50 Ohm]),
+    figure(image("../template/images/smithexe/point_adapte.png", width:100%), caption: [Impédance avec circuit d'adaptation])
+))
+
+Ensuite le but du jeu est de ramener ce point le plus proche du centre de l'abaque possible, le point d'adaptation parfaite. Et pour y arriver, on va ajouter des composants, des inductances et des condensateurs, soit en série, soit en parallèle. Ce n'est pas le seul moyen de pouvoir adapter la charge mais c'est le moyen sur lequel ces expliquation vont se reposer.
+
+#figure(image("../template/images/incidance_composants_smith.png", width:50%), caption: [Effet d'ajouts d'inductances et de capacités en série et parallèle#footnote[Cours sur l'abaque de Smith de l'IUFM d'Aix Marseille par Denis Rabasté]])
+
+Selon le composant qu'on ajoute et selon son placement dans le circuit, l'impédance vue depuis la source va changer de position sur l'abaque. En se basant sur l'exemple de notre impédance mesurée, une des possibilités est d'utiliser le circuit ci-dessous pour réaliser l'adaptation:
+
+#align(grid(
+    columns:(1fr,0.3fr,2fr),
+    image("image.png",width: 100%),
+    "",
+    text()[
+    1. Ajout d'un condensateur en série de 1.9pF pour rejoindre le cercle de conductance qui à l'echelle de 50Ohm indique une conductance de 4 milliSiemens constante.
+    2. Ajout d'un condensateur en parallèle de 621.8 fF pour ensuite rejoindre le cercle de resistance constante de 50 Ohm, c'est grace à celui-ci que nous allons pouvoir nous rapprocher du centre.
+    3. Finalement l'ajout d'une inductance en série de 31.6 nH pour nous ramener vers le centre de l'abaque en suivant le cercle de resistance constante de 50 Ohm.
+    ]
+))
+
+C'est en cela que l'abaque de smith est extremement puissante.
 
 
 
