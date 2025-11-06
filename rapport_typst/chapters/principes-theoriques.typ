@@ -28,13 +28,63 @@ Cette désadaptation est quantifiable mathématiquement avec le coéfficient de 
 
 #align(center, $Gamma = frac(Z_L - Z_0,Z_L + Z_0)$)
 
-Ou $Z_L$ est l'impédance de la charge et $Z_0$ est l'impédance de la source (50 Ohm dans les cas les plus courants). Avec cette formule on peut voir que si l'impédance de la source et de la charge sont les même, on obtient alors 0, une adaptation parfaite. Alors qu'inversement plus la différence entre $Z_0$ et $Z_L$ est grande, plus on se rapprochera d'un coefficient qui se rapproche du 1 ou -1, une réflexion alors totale de l'énergie.
+Ou $Z_L$ est l'impédance de la charge et $Z_0$ est l'impédance de la source (50 Ohm dans les cas les plus courants). Avec cette formule on peut voir que si l'impédance de la source et de la charge sont les même, on obtient alors 0, une adaptation parfaite. Alors qu'inversement plus la différence entre $Z_0$ et $Z_L$ est grande, plus le module du coefficient se rapprochera du 1, une réflexion alors totale de l'énergie.
+
+Physiquement les conséquence de cette reflexion sont l'apparition d'onde stationnaire. Ces ondes sont des pics de courant qui arrive lorsqu'un milieu cablé reçoit un courant de retour en plus d'un courant d'allé. Ce qu'il se passe c'est que les deux fréquences vont se superposer et former des ondes stationnaires. 
+
+#figure(image("../template/images/01-Standing-Wave-t0-1024x448.jpg", width:80%), caption: [Phénomène des ondes stationnaires #footnote[Source #link("https://sciencesanctuary.com/standing-waves")[Science Sanctuary]]])
+
+Ce sont ces ondes stationnaires qui sont les causes physique de problèmes mentionnés plus haut. Et à partir de ces ondes stationnaire, on peut calculer le VSWR (Voltage Standing Wave Ratio) qui est une mesure du rapport entre l'amplitude maximale et l'amplitude minimale que peut atteindre l'onde stationnaire.
+
+#align(center, $"VSWR" = frac(1 + |Gamma| , 1 - |Gamma|)$)
+
+Finalement, à partir de cette mesure on peut aussi calculer le montant de puissance du signal qui est retourné à la source, une mesure appelée Return Loss, qui est exprimée en décibel.
+
+#align(center, $"Return Loss" = 20 log_10 (frac("VSWR" + 1 , "VSWR" - 1))$)
+
+
 
 === Représentation graphique
 
+Sans entrer dans des détails pas très important pour le projet, les calculs pour trouver les bons composants étaient long et fastidieux, et on a vite commencer à utiliser des représentations graphique pour trouver ces composants. 
+
+La représentation graphique est une représentation du point d'impédance de la charge $Z_L$ par rapport à l'impédance de référence de la source $Z_O$. On pose alors sur l'axe des ordonnée la rélation imaginaire, la réactance $X$. Et sur l'axe des abscisse la relation réelle, la résistance.
+
+ Il est complexe de représenter cette relation sur le plan cartésien car on utilise d'une part seulement le coté droit du plan, étant donnée que la résistance ne peut être négative, mais surtout qu'autant les valeurs de réactance comme de résistance peuvent pointer vers l'infini, rendant impossible la visualisation de toutes les impédances sur une seule feuille.
+
+C'est là que l'abaque de Smith offre la solution. Au lieu de représenter directement le plan des impédances, l'abaque de Smith est une représentation graphique du plan du coefficient de réflexion complexe $Gamma$.
+
+Comme le module de $Gamma$ est toujours compris entre 0 et 1, toutes les valeurs possibles peuvent être contenues à l'intérieur d'un cercle de rayon 1. Smith a ensuite développé une transformation mathématique qui permet de superposer des lignes de résistance et de réactance constantes sur ce même plan circulaire. On obtient ainsi un diagramme où chaque point correspond à la fois à une valeur d'impédance unique et son coefficient de reflexion associé.
+
+#figure(image("../template/images/Smith_chart_explanation.svg.png", width:80%), caption: [Explication graphique de l'abaque #footnote[Source Sbyrnes321 sur #link("https://en.wikipedia.org/wiki/Smith_chart#/media/File:Smith_chart_explanation.svg")[Wikipedia]]])
+
+=== Lire l'abaque
+
+Tout comme sur le schéma sur un plan cartésien, l'axe des ordonnée est l'axe des nombre imaginaire et l'axe des abscisses est l'axe des nombre réel, la resistance. Du coté gauche complètement réel de l'abaque on a une resistance nulle, un court circuit. Et du coté droit complètement réel, on a une resistance "infinie", en gros un circuit ouvert. À partir de là, on peut voir que l'abaque est dessiné avec deux types de lignes. D'abord, il y a des cercles qui se touchent tous au point de circuit ouvert. Ce sont les cercles de résistance constante. Chaque point se trouvant sur un même cercle partage exactement la même partie résistive.
+
+ TODO SCHéMA des cercles de resistance
+
+Ensuite, des courbes partent toutes du même point de circuit ouvert et s'étendent vers l'extérieur. Ces courbes représentent les lignes de réactance constante. La moitié supérieure de l'abaque correspond aux réactances inductives ($+j X$), tandis que la moitié inférieure représente les réactances capacitives ($-j X$). Tout comme pour les cercles, chaque point situé sur la même courbe possède la même partie réactive.
+
+TODO SCHéMA sur les courbes de réactance
+
+Jusqu'ici, on a parlé de l'abaque d'impédance, aussi appelé la forme Z de l'abaque. Il est parfait pour visualiser l'ajout de composants en série, car les impédances s'additionnent. Mais pour pouvoir pleinement utiliser l'outil dans le cas de la recherche de circuits d'adaptation, il nous faut aussi pouvoir gérer les composants en parallèle (shunt).
+
+Pour cela, on utilise aussi une abaque d'admittance ($Y$) qui est simplement l'inverse de l'impédance ($Y = 1/Z$). La partie réelle de l'admittance est appelée la conductance et la partie imaginaire la susceptance. 
+
+Graphiquement cette abaque est exactement la même que l'abaque des impédances mais pivotée de 180 degrés, on peut alors superposer les deux abaque dans un mode commun qui est aussi appelé abaque $Z-Y$. C'est cette visualisation de l'abaque qui est le plus pratique et qui est utilisée majoritairement par les logiciel actuels. Cela sera aussi cet abaque que nous allons dessiner dans notre version du logiciel.
+
+=== Utiliser l'abaque
+
+Maintenant pour l'utiliser, rien de plus simple, on mesure l'impédance de notre composant de charge. On positionne cette mesure sur l'abaque.
 
 
 
+
+
+
+
+ 
 
 
 == Sources (à mettre plus tard dans la bibliographie)
