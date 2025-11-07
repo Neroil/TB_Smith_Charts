@@ -5,7 +5,7 @@
 Le but de ce projet est de proposer un outil moderne et complet pour l'utilisation de l'abaque de Smith. Parmi les fonctionnalités attendues, il doit être possible d'éditer plusieurs circuits par projet, et non pas être limité à un seul.
 
 
-== Logiciel déjà existant (Pas sûr si pertinant d'en parler)
+== Logiciel déjà existant
 
 L'idée initiale de ce travail de bachelor est de moderniser l'outil existant développé par Fritz Dellsperger, sur lequel s'appuient actuellement les étudiants pour leurs laboratoires. Le produit final s'en inspirera largement tout en cherchant à corriger ses principales limites et en ajoutant les nouvelles fonctionnalités souhaitées.
 
@@ -15,15 +15,15 @@ Smith, ou plus couramment *Smith.exe*, est un logiciel dont la dernière mise à
 
 #figure(image("../template/images/smithexe/apercu.png", width:70%), caption: [Aperçu de Smith.exe])
 
-Le principal problème de ce logiciel est son absence de support sur d'autres plateformes comme Linux ou macOS. Son ergonomie, basée sur un système de sous-fenêtres daté, rend son utilisation peu intuitive. De plus, plusieurs fonctionnalités manquent par rapport aux besoins définis pour ce projet.
+Le principal problème de ce logiciel est son absence de support sur d'autres plateformes, comme Linux ou macOS. Son ergonomie, basée sur un système de sous-fenêtres daté, rend son utilisation peu intuitive. De plus, plusieurs fonctionnalités manquent par rapport aux besoins définis pour ce projet.
 
-Mais vu que le projet va largement s'inspirer de celui-ci, il est important de comprendre comment il fonctionne
+Mais vu que le projet va largement s'inspirer de celui-ci, il est important de comprendre comment il fonctionne.
 
 == Bibliothèques et frameworks graphiques pour applications multiplateformes
 
 Afin de développer une application moderne et accessible sur plusieurs systèmes d'exploitation, il est important de choisir des technologies adaptées. Cette section présente une analyse des principaux frameworks et bibliothèques permettant la création d'interfaces graphiques multiplateformes.
 
-Dans le cadre de ce projet, le public cible étant constitué d'étudiants et d'ingénieur, le choix technologique doit répondre à plusieurs exigences. L'application doit avant tout être multiplateforme afin d'assurer une compatibilité avec Windows, macOS et Linux. Elle doit également être moderne visuellement, de manière à offrir une interface intuitive et agréable à utiliser. Enfin, elle doit rester performante pour garantir une expérience fluide, même sur des machines pas très performante.
+Dans le cadre de ce projet, le public cible étant constitué d'étudiants et d'ingénieurs, le choix technologique doit répondre à plusieurs exigences. L'application doit avant tout être multiplateforme afin d'assurer une compatibilité avec Windows, macOS et Linux. Elle doit également être moderne visuellement, de manière à offrir une interface intuitive et agréable à utiliser. Enfin, elle doit rester performante pour garantir une expérience fluide, même sur des machines pas très performantes.
 
 Ces trois critères serviront de base pour évaluer les différentes solutions envisagées dans la suite de ce travail.
 
@@ -31,40 +31,53 @@ Ces trois critères serviront de base pour évaluer les différentes solutions e
 
 Qt est un framework multiplateforme très répandu, utilisé tout aussi bien dans l'industrie que dans le monde académique. Il offre une excellente performance, une interface native sur chaque système et il possède une large communauté active.  
 
-Le fait que Qt puisse être utilisé en C++ ou en Python est un avantage, bien que Python puisse poser des limites de performance dans le cadre de calculs intensifs. Je n'ai encore jamais utilisé Qt, mais c'est un candidat serieux que ne demande qu'a être testé.
+Le fait que Qt puisse être utilisé en C++ ou en Python est un avantage, bien que Python puisse poser des limites de performance dans le cadre de calculs intensifs. 
+
+Après quelques essais, l'interface graphique de QtDesigner et les modules de dessins de Qt semblent être vraiment bien adaptés au projet. Le seul mauvais point notable est que, pour pouvoir compiler de façon multiplateforme, il faut devoir avoir différentes machines sur lesquelles compiler. C'est-à-dire avoir une machine Windows, Linux (avec ses différents distro) et MacOS. Ce n'est pas un problème avec les machines virtuelles, mais cela représente tout de même un frein, surtout que l'affiche pourrait ne pas être exactement le même selon sur quel OS le logiciel final tourne.
 
 === JavaFX
 
-JavaFX est un framework de développement d'application multiplateforme vu qu'il utilise java qui lui même est multiplateforme grace à la sainte JVM. C'est un framework très complet avec beaucoup de widgets pre existant créé par la communauté : https://github.com/palexdev/MaterialFX, https://github.com/mkpaz/atlantafx et d'autres.
 
-C'est très important pour avoir une interface qui soit moderne et plaisante à utiliser. 
+JavaFX est un framework de développement d'applications multiplateforme, puisqu'il repose sur Java et sa fameuse Machine virtuelle (JVM), fidèle au slogan "Write once, run anywhere".
 
-L'utilisation de java est bon tout aussi vu que java est multiplateforme de base, pas besoin de trop s'embêter et question performance java dans ses dernières version est très performant car nous avions pu l'utiliser pour faire des simulations assez rapide dans le cadre du cours donné par J.F Hêches nommé optimisation et simulation.
+C'est aussi un framework très complet, enrichi par une communauté active qui propose de nombreux composants graphiques prêts à l'emploi (comme [MaterialFX](https://github.com/palexdev/MaterialFX) ou [AtlantaFX](https://github.com/mkpaz/atlantafx)). C'est un atout majeur pour obtenir facilement une interface moderne et agréable à utiliser.
 
-Finalement un test a pu être effectué et la prise en main de JavaFX semble être adaptée pour le projet.
+L'un des plus grands avantages de Java, c'est qu'il est multiplateforme par nature. Pas besoin de s'embêter avec la cross compilation, on produit un seul fichier qui fonctionnera partout où la JVM est installée, et quasiment tout appareil à Java d'installé. \
+Et question performance, les dernières versions de Java sont très efficaces. On a pu le constater en réalisant des simulations de recherche de chemin optimum dans des graphes dans le cadre du cours "Optimisation et Simulation" donné par J.F. Hêches.
+
+Finalement, après un premier test, la prise en main de JavaFX s'est révélée intuitive et bien adaptée aux besoins du projet.
 
 
 === GTK
 
-GTK, anciennement GIMP ToolKit est un toolkit qui permet d'effectuer des GUI majoritairement sur Linux mais est aussi compatible avec Windows et MacOS. C'est un outil très utilisé dans la communauté Linux, son avantage est que sa librairie fonctionne avec plusieurs language différent, C, Javascript, Perl, Python, Rust, etc...
+GTK, anciennement GIMP ToolKit est un toolkit qui permet d'effectuer des GUI majoritairement sur Linux, mais est aussi compatible avec Windows et MacOS. C'est un outil très utilisé dans la communauté Linux, son avantage est que sa librairie fonctionne avec plusieurs langages différents, C, JavaScript, Perl, Python, Rust, etc...
 
-Cela peut-être une bonne alternative même s'il est possible que le support soit limité sur les plateforme autre que Linux.
+Cela peut-être une bonne alternative, même s'il est possible que le support soit limité sur les plateformes autres que Linux.
 
 === Flutter
 
 Flutter est un framework créé par Google pour faire des applications multiplateformes. D'après les retours sur Reddit et ailleurs, Flutter a l'air solide avec des APIs matures et un bon rendu graphique.
 
-Le principal frein est que ça utilise le langage Dart, que je ne connais pas du tout. En plus, Flutter a été pensé d'abord pour le mobile, le support desktop étant quelque chose de plus récent même si apparemment bien supporté. 
+Le principal frein est que ça utilise le langage Dart, que je ne connais pas du tout. En plus, Flutter a été pensé d'abord pour le mobile, le support desktop étant quelque chose de plus récent, même si apparemment bien supporté.
 
+De plus, une considération par rapport au projet est la maintenabilité future. Lorsque mon projet sera terminé, sûrement d'autres étudiants ou même ingénieurs voudront rajouter des features sur celui-ci. Sachant que le logiciel est destiné aux ingérnieur en électique, electronique (pas sûr haha), il faudrait mieux se focaliser sur une solution utilisant des langages avec lesquels ils sont déjà à l'aise, C, C++ et possiblement du Java. 
 
 === Tauri (Rust)
 
 Tauri est un framework qui utilise une architecture du type web pour le frontend et un backend en Rust. Vu que l'application tourne en backend avec Rust et en frontend avec une technologie web tel que React, Vue, etc. Ce choix peut-être le bon vu que ça peut être une bonne introduction à Rust et l'utilisation de technologie Web m'est plus que familier.
 
-Un grand plus de ce framework est aussi la performance et sa moindre emprunte mémoire.
+Un grand plus de ce framework est aussi la performance et sa moindre empreinte mémoire.
 
-Après avoir fait quelques recherche, je vois que si je veux faire quelque chose de graphique avec Tauri comme dessiner l'abaque de Smith, je vais sûrement devoir utiliser une libraire js pour le faire, ce qui ne m'enchante pas beaucoup... De plus, le backend ne sera pas très complexe dans ce projet or, avec Tauri, toute la partie graphique doit être réalisée en JavaScript via une technologie web (React, Vue, etc.), ce qui ajoute une couche supplémentaire et ne me semble pas pertinent ici. Je préférerais une solution où le dessin et l'interactivité sont gérés directement dans le langage principal du framework et qui n'utilise si possible pas de Javascript 
+Après avoir fait quelques recherches, on peut voir que, si l'on veut faire quelque chose de graphique avec Tauri comme dessiner l'abaque de Smith, l'utilisation d'une libraire JavaScript est obligatoire pour le faire, ce qui pose un grand frein pour l'adaptation de ce framework. De plus, le backend ne sera pas très complexe dans ce projet or, avec Tauri, toute la partie graphique doit être réalisée en JavaScript via une technologie web (React, Vue, etc.), ce qui ajoute une couche supplémentaire et ne semble pas pertinent ici. Une solution où le dessin et l'interactivité sont gérés directement dans le langage principal du framework et qui n'utilise si possible pas de JavaScript est préférable. 
 
 == Choix et justification
 
-Pas encore de choix :( 
+Finalement, après avoir passé en revue ces différents frameworks, ce qui semble le plus adapté pour le scope de ce travail de bachelor reste JavaFX. 
+
+Qt était un bon concurrent, de part par sa performance et sa maturité. Mais le problème de déploiement, de compilation multiplateforme représente un obstacle trop important pour un projet solo mené dans un temps limité. Trop de temps serait potentiellement perdu lorsqu'un build devrait être fait.
+
+C'est pour ça que l'utilisation de Java fais sens ici, pas besoin de se focaliser sur la compilation, juste besoin de produire un seul artefact qui tournera de toute façon sur toutes les machines. 
+
+Les autres solutions ont été écartées, car soit le langage n'était pas adapté aux besoins qui dépassent l'étendue de ce TB, notamment si le travail est repris par d'autres étudiants de la filière électrique. 
+
+Donc, en conclusion, le projet d'abaque de Smith sera codé en utilisant du Java et en utilisant le framework JavaFX, qui est plus que suffisant pour l'étendue de ce travail.
