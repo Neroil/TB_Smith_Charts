@@ -132,3 +132,9 @@ Au milieu de l'abaque, l'axe horizontal représente l'axe des résistances pures
 
 *   Les réactances normalisées sont représentées par des **courbes de réactance**.
 *   Chaque point le long d'une courbe a la même partie réactive (ou imaginaire) normalisée.
+
+
+## Notes liées à ce que veux le prof de TB
+
+- Il faut quelque part toujours indiqué la fréquence à laquelle on travail.
+- 
