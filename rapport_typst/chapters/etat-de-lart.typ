@@ -17,7 +17,7 @@ Smith, ou plus couramment *Smith.exe*, est un logiciel dont la dernière mise à
 
 Le principal problème de ce logiciel est son absence de support sur d'autres plateformes, comme Linux ou macOS. Son ergonomie, basée sur un système de sous-fenêtres daté, rend son utilisation peu intuitive. De plus, plusieurs fonctionnalités manquent par rapport aux besoins définis pour ce projet.
 
-Mais vu que le projet va largement s'inspirer de celui-ci, il est important de comprendre comment il fonctionne.
+Mais, vu que le projet va largement s'inspirer de celui-ci, il est important de comprendre comment il fonctionne.
 
 == Bibliothèques et frameworks graphiques pour applications multiplateformes
 
@@ -60,7 +60,7 @@ Flutter est un framework créé par Google pour faire des applications multiplat
 
 Le principal frein est que ça utilise le langage Dart, que je ne connais pas du tout. En plus, Flutter a été pensé d'abord pour le mobile, le support desktop étant quelque chose de plus récent, même si apparemment bien supporté.
 
-De plus, une considération par rapport au projet est la maintenabilité future. Lorsque mon projet sera terminé, sûrement d'autres étudiants ou même ingénieurs voudront rajouter des features sur celui-ci. Sachant que le logiciel est destiné aux ingérnieur en électique, electronique (pas sûr haha), il faudrait mieux se focaliser sur une solution utilisant des langages avec lesquels ils sont déjà à l'aise, C, C++ et possiblement du Java. 
+De plus, une considération par rapport au projet est la maintenabilité future. Lorsque mon projet sera terminé, sûrement d'autres étudiants ou même ingénieurs voudront rajouter des features sur celui-ci. Sachant que le logiciel est destiné aux ingénieur en électique, electronique (pas sûr haha), il faudrait mieux se focaliser sur une solution utilisant des langages avec lesquels ils sont déjà à l'aise, C, C++ et possiblement du Java. 
 
 === Tauri (Rust)
 
