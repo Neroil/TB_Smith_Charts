@@ -10,7 +10,7 @@ Logiquement, il poursuit des études d'ingénierie électrique et, en 1928, il o
 
 Premièrement, Smith développe une méthode rapide pour pouvoir calculer les impédances des lignes de transmission en utilisant un graphique rectangulaire. Cependant, ce graphique rectangulaire présentait rapidement ses limites. Smith, entouré de deux de ses collègues, E.B. Ferrell et J.W. McRae, développe alors une transformation mathématique permettant de projeter les impédances sur un plan circulaire correspondant au coefficient de réflexion#footnote[Explication dans la partie des principes théoriques], offrant ainsi une représentation beaucoup plus claire et pratique.
 
-C'est en 1939 que Smith publie dans le volume 12 du journal "Electronics" officiellement l'abaque de Smith, qui est toujours et encore utilisé aujourd'hui, et c'est cet abaque que nous allons étudier et digitaliser.
+C'est en 1939 que Smith publie dans le volume 12 du journal "Electronics" officiellement l'abaque de Smith, qui est toujours et encore utilisé aujourd'hui, et c'est cet abaque que nous allons étudier et digitaliser. @smith_history
 
 #figure(image("../template/images/abbacus-page-00001.jpg", width:60%),
 caption: [L'abaque de Smith tel que présenté dans le journal "Electronics"])

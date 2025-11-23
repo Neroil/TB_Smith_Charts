@@ -62,11 +62,4 @@ Fonctionnalités avancées :
 === Déroulement <déroulement>
 Le travail commence le 3 novembre 2025 et se termine le 16 janvier 2026. L'entièreté de ce travail sera réalisé à plein temps.
 
-Un rendu intermédiaire noté est demandé le 25 novembre 2025 à 15 heures et le rendu final est prévu pour le x à 12h00.
-
-La défense sera organisée entre le x et le y.
-
-=== Livrables <livrables>
-Les délivrables seront les suivants :
-
-- A voir avec le prof de TB 
+Un rendu intermédiaire noté est demandé le 25 novembre 2025 à 15 heures et le rendu final est prévu pour le 16 janvier 2026 à 12 heures.

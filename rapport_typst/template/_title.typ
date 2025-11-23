@@ -12,7 +12,7 @@
   
   v(20%)
   
-  align(center, [#text(size: 14pt, [*Travail de Bachelor*])])
+  align(center, [#text(size: 14pt, [*Travail de Bachelor (Rapport Intermédiaire)*])])
   v(4%)
   align(center, [#text(size: 20pt, [*#TBtitle*])])
   v(1%)
