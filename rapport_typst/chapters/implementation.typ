@@ -1,26 +1,26 @@
 = État de l'application au rapport intermédiaire <implementation>
 
-Pour le moment, l'application n'est bien entendue pas terminée, mais après avoir mis en place les différentes bibliothèques et le language utilisé, j'ai pu développer un début d'application qui contient les éléments de base du fonctionnement d'un abaque de Smith. 
+Pour le moment, l'application n'est bien entendu pas terminée. Cependant, après avoir mis en place les différentes bibliothèques et le langage, j'ai pu développer une version initiale qui contient les éléments de base du fonctionnement d'un abaque de Smith.
 
-#figure(image("../images/JSmithFX_overview.png",width:100%), caption : "Overview de l'application")
+#figure(image("../images/JSmithFX_overview.png",width:100%), caption : "Vue d'ensemble de l'application")
 
-Pour le moment l'application ne propose qu'un mode sombre mais bien entendu il y aura le choix entre un mode clair et un mode sombre dans l'application finale.
+Actuellement, l'interface ne propose qu'un mode sombre, mais le choix entre mode clair et mode sombre sera intégré dans l'application finale.
 
-Ce qui a été déjà mis en place : 
+Les fonctionnalités déjà mises en place sont :
 
 - Ajout de composants RLC en série et en parallèle.
-- Ajout de ligne et de stub ouvert et fermé.
-- Visualisation de l'abaque de Smith.
-- Visualisation du circuit créé par l'ajout de composant sur l'abaque.
-- Calcul des valeurs nécessaires à l'utilisation de l'abaque. 
-- Ajout des composants soit en entrant les valeurs directement ou bien en utilisant la souris (qui se magnétise ou elle doit se trouver).
+- Ajout de lignes de transmission et de stubs (ouverts et fermés).
+- Visualisation graphique de l'abaque de Smith.
+- Visualisation du schéma du circuit créé par l'ajout de composants.
+- Calcul en temps réel des valeurs nécessaires à l'utilisation de l'abaque (VSWR, Return Loss, etc.).
+- Ajout des composants soit en entrant les valeurs manuellement, soit en utilisant la souris (avec un système de magnétisme là où le curseur doit se trouver).
 
-On obtient alors un logiciel utilisable même s'il manque des grosses fonctionnalités qui sont nécessaires tel que le Sweep ou le Tuning.
+On obtient alors un logiciel utilisable, même s'il manque encore des fonctionnalités majeures nécessaires telles que le *Sweep* ou le *Tuning*.
 
 == Déploiement
 
-Pour déployer l'application de façon multiplateforme, deux choix s'offre à nous, soit on construit une image `.jar` (un uberJar plus précisément en utilisant l'outil gradle shadowJar) qui permet de lancer l'application n'importe ou la JVM est installée. Soit on construit build une application propre à chaque plateforme pour ensuite que l'utilisateur télécharge la version appropriée du programme. Le point fort de la seconde manière est qu'on n'a pas besoin d'obliger l'utilisateur d'avoir Java d'installé sur son appareil, mais le problème est qu'on perd la portabilité d'un `.jar`.
+Pour déployer l'application de façon multiplateforme, deux choix s'offrent à nous. Soit on construit une image `.jar` (un *UberJar* plus précisément, en utilisant l'outil Gradle ShadowJar) qui permet de lancer l'application n'importe où la JVM est installée. Soit on génère une application propre à chaque plateforme que l'utilisateur télécharge selon son système.
 
-Le choix alors se porte sur un déploiement utilisant les outils de CI/CD pour à la fois proposer la version portable en `.jar`, en indiquant à l'utilisateur qu'il doit avoir java sur sa machine, et à la fois builder l'application pour windows, linux et macOs. 
+Le point fort de la seconde méthode est qu'on n'oblige pas l'utilisateur à avoir Java installé sur son appareil, mais on perd la portabilité du `.jar`.
 
-
+Mon choix se porte alors sur un déploiement utilisant les outils de CI/CD pour proposer les deux solutions, la version portable en `.jar` (en indiquant le prérequis Java), et des exécutables natifs pour Windows, Linux et macOS.

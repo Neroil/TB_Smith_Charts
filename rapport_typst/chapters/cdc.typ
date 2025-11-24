@@ -3,7 +3,7 @@
 
 L'abaque de Smith est un outil très important dans le domaine de la conception et de l'analyse d'antennes. Il permet de visualiser et de manipuler les impédances complexes en les projetant sur le plan du coefficient de réflexion.
 
-Dans un monde parfait, une antenne devrait transférer toute sa puissance vers le milieu de propagation, l'air par exemple, sans aucune perte. Cependant, en réalité, l'impédance des antennes est très rarement adaptée adaptée à celle de la ligne de transmission qui leur fournit le signal. Cette différence d'impédance crée des ondes stationnaires et un phénomène de réflexion.
+Dans un monde parfait, une antenne devrait transférer toute sa puissance vers le milieu de propagation, l'air par exemple, sans aucune perte. Cependant, en réalité, l'impédance des antennes est très rarement adaptée à celle de la ligne de transmission qui leur fournit le signal. Cette différence d'impédance crée des ondes stationnaires et un phénomène de réflexion.
 Cette réflexion, en plus d'être potentiellement dangereuse pour la source de courant (puisqu'une partie de la puissance émise est renvoyée vers celle-ci), diminue également l'efficacité de l'antenne.
 
 Pour pallier ce problème, on peut adapter une impédance à une autre en ajoutant, en série ou en parallèle (shunt), des condensateurs ou des inductances. C'est là que l'abaque de Smith entre en jeu, il aide l'utilisateur à choisir les bons composants afin de réduire le coefficient de réflexion et d'obtenir une adaptation optimale.
@@ -12,7 +12,7 @@ Actuellement, les étudiants en systèmes embarqués utilisent un logiciel déve
 
 
 === Problématique <problématique>
-Comment fournir aux étudiants un logiciel intuitif, simple d'utilisation et agréable à prendre en main pour manipuler digitalement une abaque de Smith ?
+Comment fournir aux étudiants un logiciel intuitif, simple d'utilisation et agréable à prendre en main pour manipuler numériquement une abaque de Smith ?
 
 === Solutions existantes <solutions-existantes>
 Il existe bien entendu d'autres logiciels, natifs ou en ligne, qui permettent de manipuler un abaque de Smith. 

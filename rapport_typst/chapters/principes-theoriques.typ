@@ -20,7 +20,8 @@ Si ce n'est pas le cas, on parle de désadaptation d'impédance. L'énergie qui 
 
 Pour obtenir ce transfert de puissance maximal, l'impédance de la charge doit être le conjugué complexe de l'impédance de la source. Malheureusement, ce cas idéal n'arrive que très rarement en pratique. Il faut alors insérer un circuit d'adaptation entre la source et la charge. Le rôle de ce circuit est de transformer l'impédance de la charge pour qu'elle soit adaptée à sa source.
 
-TODO : FAIRE UN SCHéMA EXPLIQUANT LE CONJUGUE COMPLEXE
+#figure(image("../images/adaptation_max_conjugue.png", width:80%), caption: [On adapte la partie réactive ($+j X$ et $-j X$) et maximise le transfert de puissance])
+
 
 === Quantifier la réflexion
 
@@ -62,7 +63,8 @@ Comme le module de $Gamma$ est toujours compris entre 0 et 1, toutes les valeurs
 
 Tout comme sur le schéma sur un plan cartésien, l'axe des ordonnées est l'axe des nombres imaginaire et l'axe des abscisses est l'axe des nombres réel, la résistance. Du côté gauche complètement réel de l'abaque, on a une résistance nulle, un court circuit. Et du côté droit complètement réel, on a une résistance "infinie", en gros un circuit ouvert. À partir de là, on peut voir que l'abaque est dessiné avec deux types de lignes. D'abord, il y a des cercles qui se touchent tous au point de circuit ouvert. Ce sont les cercles de résistance constante. Chaque point se trouvant sur un même cercle partage exactement la même partie résistive.
 
- TODO SCHéMA des cercles de résistance
+#figure(image("../images/cercle_resistance_constante.png", width:80%), caption: [Représentation des cercles de résistance constante sur l'abaque de Smith])
+
 
 Ensuite, des courbes partent toutes du même point de circuit ouvert et s'étendent vers l'extérieur. Ces courbes représentent les lignes de réactance constante. La moitié supérieure de l'abaque correspond aux réactances inductives ($+j X$), tandis que la moitié inférieure représente les réactances capacitives ($-j X$). Tout comme pour les cercles, chaque point situé sur la même courbe possède la même partie réactive.
 

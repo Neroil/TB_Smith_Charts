@@ -1,15 +1,15 @@
 = Planification <planification>
 == Planification initiale <planification-initiale>
 
-Ce document détaille la planification semaine par semaine pour la réalisation du travail de bachelor. Le projet se déroule à temps plein sur une période de 10 semaines, avec un rendu final fixé au *vendredi 16 janvier 2026 à 15h00*. La planification intègre des phases de développement, de test, de rédaction et une marge de sécurité pour les imprévus.
+Ce document détaille la planification semaine par semaine pour la réalisation du travail de bachelor. Le projet se déroule à temps plein sur une période de 10 semaines, avec un rendu final fixé au *vendredi 16 janvier 2026 à 12h00*. La planification intègre des phases de développement, de test, de rédaction et une marge de sécurité pour les imprévus.
 
 == Planification semaine par semaine
 
-=== Semaine 1 
+=== Semaine 1 du 03.11.2025 au 09.11.2025
 
 Durant la première semaine de travail, l'idée est de se focaliser sur les aspects techniques et théoriques de l'abaque de Smith, comprendre ses enjeux et son utilisation. Un début de rédaction du rapport est aussi nécessaires avec l'aspect historique et une analyse des différents outils possible à utiliser pour la conception du logiciel de l'abaque de Smith. 
 
-Finalement à la fin de la semaine, un framework doit être choisi pour ensuite commencer à mettre en place les différentes étapes du developpement.
+Finalement à la fin de la semaine, un framework doit être choisi pour ensuite commencer à mettre en place les différentes étapes du développement.
 
 === Semaine 2 du 10.11.2025 au 16.11.2025 : Prise en main et bases
 - Gestion et validation de la planification totale.
