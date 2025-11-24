@@ -81,7 +81,7 @@ Maintenant, pour l'utiliser, rien de plus simple, on mesure l'impédance de notr
 #align(center, grid(
     columns:2,
     figure(image("../template/images/smithexe/point_base.png", width:100%), caption: [Impédance de 75 + j50 Ohm]),
-    figure(image("../template/images/smithexe/point_adapte.png", width:100%), caption: [Impédance avec circuit d'adaptation])
+    figure(image("../template/images/smithexe/point_adapte.png", width:100%), caption: [Impédance avec circuit d'adaptation#footnote("Schémas provenant du logiciel Smith.exe")])
 ))
 
 Ensuite, le but du jeu est de ramener ce point le plus proche du centre de l'abaque possible, le point d'adaptation parfaite. Et pour y arriver, on va ajouter des composants, des inductances et des condensateurs, soit en série, soit en parallèle. Ce n'est pas le seul moyen de pouvoir adapter la charge, mais c'est le moyen sur lequel ces explications vont se reposer.
@@ -101,12 +101,6 @@ Selon le composant qu'on ajoute et selon son placement dans le circuit, l'impéd
     ]
 ))
 
-C'est en cela que l'abaque de Smith est extrêmement puissantss.
+C'est en cela que l'abaque de Smith est extrêmement puissants.
 
-
-
-== Sources (à mettre plus tard dans la bibliographie)
-
-https://www.tme.eu/ch/fr/news/library-articles/page/57276/impedance-comment-elle-est-calculee-et-pourquoi-est-elle-importante-/
-https://www.youtube.com/watch?v=EoSJ1M--npg
 

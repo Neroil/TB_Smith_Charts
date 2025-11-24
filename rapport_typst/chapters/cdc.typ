@@ -24,7 +24,7 @@ Par exemple, *SimSmith* (appelé SimNec dans ses versions récentes)#footnote[ht
 Il existait également *Iowa Hills Smith Chart*, mais le développement semble être tombé en désuétude et il n'y a apparemment plus de moyen de télécharger l'application actuellement.
 
 
-Finalement, il existe des solutions purement en ligne telles que https://quicksmith.online/ et https://onlinesmithchart.com/, qui restent à évaluer dans le cadre de ce travail.
+Finalement, il existe des solutions purement en ligne telles que QuickSmith#footnote("Lien du site : https://quicksmith.online/") et Online Smith Chart Tool#footnote("Lien du site : https://onlinesmithchart.com/"). Ces outils fonctionnent mais ne propose pas forcément les possibilités voulues pour l'étendu de ce TB. Aussi avoir une application tournant nativement sur sa machine et hors ligne est un plus.
 
 === Solutions possibles <solutions-possibles>
 On peut alors soit utiliser les solutions énumérée plus haut ou bien faire notre propre application qui répond exactement aux besoin des étudiants et professeurs de l'HEIG. 
@@ -38,7 +38,7 @@ Les objectifs principaux du projet sont :
 
 - Fournir un logiciel multiplateforme (volontée de ne pas forcer l'utilisateur à un système d'exploitation).
 - Avoir un logiciel avec une interface moderne, intuitive, adaptée à l'enseignement à l'HEIG (pas besoin d'être exhaustif dans les fonctionnalité, seulement ce qu'on a besoin).
-- fonctionnalités similaire à Smith.exe.
+- Fonctionnalités similaire à Smith.exe pour ne pas être dépaysé.
 - Avoir un logiciel évolutif dans le code.
 
 === Spécifications fonctionnelles

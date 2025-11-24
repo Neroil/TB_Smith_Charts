@@ -54,7 +54,7 @@
 #include "chapters/architecture.typ"
 
 //TODO UNCOMMENT THOSE TWO FOR THE FINAL REPORT
-//#include "chapters/implementation.typ"
+#include "chapters/implementation.typ"
 
 
 //#include "chapters/conclusion.typ"
