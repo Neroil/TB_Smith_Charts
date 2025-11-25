@@ -40,7 +40,7 @@ Après quelques essais, l'interface graphique de Qt Designer et les modules de d
 
 JavaFX est un framework de développement d'applications multiplateforme, puisqu'il repose sur Java et sa fameuse Machine virtuelle (JVM), fidèle au slogan "Write once, run anywhere".
 
-C'est aussi un framework très complet, enrichi par une communauté active qui propose de nombreux composants graphiques prêts à l'emploi (comme [MaterialFX](https://github.com/palexdev/MaterialFX) ou [AtlantaFX](https://github.com/mkpaz/atlantafx)). C'est un atout majeur pour obtenir facilement une interface moderne et agréable à utiliser.
+C'est aussi un framework très complet, enrichi par une communauté active qui propose de nombreux composants graphiques prêts à l'emploi (comme MaterialFX#footnote("Lien du dépôt GitHub : https://github.com/palexdev/MaterialFX") ou AtlantaFX#footnote("Lien du dépôt GitHub : https://github.com/mkpaz/atlantafx")). C'est un atout majeur pour obtenir facilement une interface moderne et agréable à utiliser.
 
 L'un des plus grands avantages de Java, c'est qu'il est multiplateforme par nature. Pas besoin de s'embêter avec la cross compilation, on produit un seul fichier qui fonctionnera partout où la JVM est installée, et quasiment tout appareil a Java d'installé. \
 Et question performance, les dernières versions de Java sont très efficaces. On a pu le constater en réalisant des simulations de recherche de chemin optimum dans des graphes dans le cadre du cours "Optimisation et Simulation" donné par J.F. Hêches.

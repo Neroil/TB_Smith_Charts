@@ -25,7 +25,7 @@ Pour obtenir ce transfert de puissance maximal, l'impédance de la charge doit �
 
 === Quantifier la réflexion
 
-Cette désadaptation est quantifiable mathématiquement avec le coefficient de réflexion gamma ($Gamma$). Ce coefficient est calculé avec cette formule-ci : 
+Cette désadaptation est quantifiable mathématiquement avec le coefficient de réflexion gamma ($Gamma$). Ce coefficient est calculé avec cette formule : 
 
 #align(center, $Gamma = frac(Z_L - Z_0,Z_L + Z_0)$)
 
@@ -33,7 +33,7 @@ Ou $Z_L$ est l'impédance de la charge et $Z_0$ est l'impédance de la ligne de 
 
 Physiquement, les conséquences de cette réflexion sont l'apparition d'onde stationnaire. Ces ondes sont des pics de courant qui arrivent lorsqu'un milieu câblé reçoit un courant de retour en plus d'un courant aller. Ce qu'il se passe, c'est que les deux fréquences vont se superposer et former des ondes stationnaires. 
 
-#figure(image("../template/images/01-Standing-Wave-t0-1024x448.jpg", width:80%), caption: [Phénomène des ondes stationnaires #footnote[Source #link("https://sciencesanctuary.com/standing-waves")[Science Sanctuary]]])
+#figure(image("../template/images/01-Standing-Wave-t0-1024x448.jpg", width:80%), caption: [Phénomène des ondes stationnaires #footnote("Source : https://sciencesanctuary.com/standing-waves")])
 
 Ce sont ces ondes stationnaires qui sont les causes physiques des problèmes mentionnés plus haut. Et à partir de ces ondes stationnaires, on peut calculer le VSWR (Voltage Standing Wave Ratio) qui est une mesure du rapport entre l'amplitude maximale et l'amplitude minimale que peut atteindre l'onde stationnaire.
 
@@ -57,7 +57,7 @@ C'est là que l'abaque de Smith offre la solution. Au lieu de représenter direc
 
 Comme le module de $Gamma$ est toujours compris entre 0 et 1, toutes les valeurs possibles peuvent être contenues à l'intérieur d'un cercle de rayon 1. Smith a ensuite développé une transformation mathématique qui permet de superposer des lignes de résistance et de réactance constantes sur ce même plan circulaire. On obtient ainsi un diagramme où chaque point correspond à la fois à une valeur d'impédance unique et son coefficient de réflexion associé.
 
-#figure(image("../template/images/Smith_chart_explanation.svg.png", width:80%), caption: [Explication graphique de l'abaque #footnote[Source Sbyrnes321 sur #link("https://en.wikipedia.org/wiki/Smith_chart#/media/File:Smith_chart_explanation.svg")[Wikipedia]]])
+#figure(image("../template/images/Smith_chart_explanation.svg.png", width:80%), caption: [Explication graphique de l'abaque #footnote("Source : https://en.wikipedia.org/wiki/Smith_chart#/media/File:Smith_chart_explanation.svg")])
 
 === Lire l'abaque
 
@@ -83,12 +83,12 @@ Maintenant, pour l'utiliser, rien de plus simple, on mesure l'impédance de notr
 #align(center, grid(
     columns:2,
     figure(image("../template/images/smithexe/point_base.png", width:100%), caption: [Impédance de 75 + j50 Ohm]),
-    figure(image("../template/images/smithexe/point_adapte.png", width:100%), caption: [Impédance avec circuit d'adaptation#footnote("Schémas provenant du logiciel Smith.exe")])
+    figure(image("../template/images/smithexe/point_adapte.png", width:100%), caption: [Impédance avec circuit d'adaptation#footnote("Source : Logiciel Smith.exe")])
 ))
 
 Ensuite, le but du jeu est de ramener ce point le plus proche du centre de l'abaque possible, le point d'adaptation parfaite. Et pour y arriver, on va ajouter des composants, des inductances et des condensateurs, soit en série, soit en parallèle. Ce n'est pas le seul moyen de pouvoir adapter la charge, mais c'est le moyen sur lequel ces explications vont se reposer.
 
-#figure(image("../template/images/incidance_composants_smith.png", width:40%), caption: [Effet d'ajouts d'inductances et de capacités en série et parallèle#footnote[Cours sur l'abaque de Smith de l'IUFM d'Aix Marseille par Denis Rabasté]])
+#figure(image("../template/images/incidance_composants_smith.png", width:40%), caption: [Effet d'ajouts d'inductances et de capacités en série et parallèle#footnote("Source : Cours sur l'abaque de Smith de l'IUFM d'Aix Marseille par Denis Rabasté")])
 
 Selon le composant qu'on ajoute et selon son placement dans le circuit, l'impédance vue depuis la source va changer de position sur l'abaque. En se basant sur l'exemple de notre impédance mesurée, une des possibilités est d'utiliser le circuit ci-dessous pour réaliser l'adaptation:
 

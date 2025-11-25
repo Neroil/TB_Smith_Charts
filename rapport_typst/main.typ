@@ -53,11 +53,8 @@
 
 #include "chapters/architecture.typ"
 
-//TODO UNCOMMENT THOSE TWO FOR THE FINAL REPORT
 #include "chapters/implementation.typ"
-
-
-//#include "chapters/conclusion.typ"
+#include "chapters/conclusion.typ"
 
 // Remove numbering after content
 #set heading(numbering: none)

@@ -8,7 +8,7 @@ L'IDE utilisé est IntelliJ. L'application étant développée en Java, IntelliJ
 
 Un outil intéressant, supporté nativement dans IntelliJ, est JavaFX Scene Builder. À la manière de QtCreator, il permet de s'aider d'une interface visuelle pour créer les vues de l'application.
 
-AtlantaFX#footnote("Repos GitHub de la bibliothèque : https://github.com/mkpaz/atlantafx") est une bibliothèque qui permet d'ajouter un thème moderne à l'application JavaFX. Cela évite de devoir créer des composants personnalisés pour les éléments simples et me permet de me focaliser sur l'écriture du code.
+AtlantaFX#footnote("Lien du dépôt GitHub : https://github.com/mkpaz/atlantafx") est une bibliothèque qui permet d'ajouter un thème moderne à l'application JavaFX. Cela évite de devoir créer des composants personnalisés pour les éléments simples et me permet de me focaliser sur l'écriture du code.
 
 Ensuite, pour compiler l'application, j'utilise Gradle. C'est un concurrent à Maven qui est, d'après mon expérience, plus performant et plus stable.
 
@@ -24,7 +24,7 @@ Le projet est organisé en deux dépôts, un pour l'application (le code source)
 
 == Rapport
 
-L'entièreté du rapport est rédigée sur Typst, à l'aide de l'extension Tinymist Typst#footnote("Lien de l'extension sur VSC : https://marketplace.visualstudio.com/items?itemName=myriad-dreamin.tinymist") sur Visual Studio Code. Ensuite, pour la correction d'éventuelles fautes d'orthographe, le logiciel Antidote#footnote("Lien d'Antidote : https://www.antidote.info/fr/") a été utilisé.
+L'entièreté du rapport est rédigée sur Typst, à l'aide de l'extension Tinymist Typst#footnote("Lien de l'extension : https://marketplace.visualstudio.com/items?itemName=myriad-dreamin.tinymist") sur Visual Studio Code. Ensuite, pour la correction d'éventuelles fautes d'orthographe, le logiciel Antidote#footnote("Lien du site : https://www.antidote.info/fr/") a été utilisé.
 
 == Utilisation de LLMs
 

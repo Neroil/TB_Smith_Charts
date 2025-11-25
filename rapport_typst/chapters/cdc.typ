@@ -17,9 +17,9 @@ Comment fournir aux étudiants un logiciel intuitif, simple d'utilisation et agr
 === Solutions existantes <solutions-existantes>
 Il existe bien entendu d'autres logiciels, natifs ou en ligne, qui permettent de manipuler un abaque de Smith. 
 
-Par exemple, *SimSmith* (appelé SimNec dans ses versions récentes)#footnote[https://www.ae6ty.com/smith_charts/] est un outil multiplateforme développé en Java. L'outil semble très complet, quoique pas très intuitif au premier abord.
+Par exemple, *SimSmith* (un outil très complet développé par AE6TY)#footnote("Lien du site : https://www.ae6ty.com/smith_charts/") est un outil multiplateforme développé en Java. L'outil semble très complet, quoique pas très intuitif au premier abord.
 
-*linSmith*#footnote[https://jcoppens.com/soft/linsmith/index.en.php] est aussi une bonne alternative, avec une interface utilisateur agréable. Son gros point faible est qu'il ne tourne que sous Linux.
+*linSmith*#footnote("Lien du site : https://jcoppens.com/soft/linsmith/index.en.php") est aussi une bonne alternative, avec une interface utilisateur agréable. Son gros point faible est qu'il ne tourne que sous Linux.
 
 Il existait également *Iowa Hills Smith Chart*, mais le développement semble être tombé en désuétude et il n'y a apparemment plus de moyen de télécharger l'application actuellement.
 
@@ -27,7 +27,8 @@ Il existait également *Iowa Hills Smith Chart*, mais le développement semble �
 Finalement, il existe des solutions purement en ligne telles que QuickSmith#footnote("Lien du site : https://quicksmith.online/") et Online Smith Chart Tool#footnote("Lien du site : https://onlinesmithchart.com/"). Ces outils fonctionnent mais ne propose pas forcément les possibilités voulues pour l'étendue de ce TB. Aussi avoir une application tournant nativement sur sa machine et hors ligne est un plus.
 
 === Solutions possibles <solutions-possibles>
-On peut alors soit utiliser les solutions énumérées plus haut ou bien faire notre propre application qui répond exactement aux besoins des étudiants et professeurs de l'HEIG. 
+
+Pour ce TB, la meilleure option semble être de développer une solution dédiée, directement avec les utilisateurs de l'abaque de Smith à l'HEIG. Ça permettra de remplacer les logiciels obsolètes ou qui ne font pas exactement ce qu'on veut. En plus, avoir une solution multiplateforme est un point vraiment important.
 
 == Cahier des charges <cahier-des-charges-1>
 
