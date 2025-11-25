@@ -17,9 +17,9 @@ Comment fournir aux étudiants un logiciel intuitif, simple d'utilisation et agr
 === Solutions existantes <solutions-existantes>
 Il existe bien entendu d'autres logiciels, natifs ou en ligne, qui permettent de manipuler un abaque de Smith. 
 
-Par exemple, *SimSmith* (un outil très complet développé par AE6TY)#footnote("Lien du site : https://www.ae6ty.com/smith_charts/") est un outil multiplateforme développé en Java. L'outil semble très complet, quoique pas très intuitif au premier abord.
+Par exemple, *SimSmith* (un outil très complet développé par AE6TY) @simsmith est un outil multiplateforme développé en Java. L'outil semble très complet, quoique pas très intuitif au premier abord.
 
-*linSmith*#footnote("Lien du site : https://jcoppens.com/soft/linsmith/index.en.php") est aussi une bonne alternative, avec une interface utilisateur agréable. Son gros point faible est qu'il ne tourne que sous Linux.
+*linSmith* @linsmith est aussi une bonne alternative, avec une interface utilisateur agréable. Son gros point faible est qu'il ne tourne que sous Linux.
 
 Il existait également *Iowa Hills Smith Chart*, mais le développement semble être tombé en désuétude et il n'y a apparemment plus de moyen de télécharger l'application actuellement.
 

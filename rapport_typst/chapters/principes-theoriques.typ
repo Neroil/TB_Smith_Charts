@@ -6,7 +6,7 @@ Pour pouvoir développer une solution d'abaque de Smith numérique, il faut tout
 
 L'abaque de Smith existe dans le contexte de l'utilisation et la transmission des fréquences radio (RF). Dans ce domaine, on a souvent affaire à des circuits qui opèrent à hautes fréquences et dont le comportement est décrit par une grandeur complexe, l'impédance.
 
-L'impédance $Z$ est une grandeur complexe qui allie une partie réelle, la résistance $R$ totale d'un circuit, avec une partie imaginaire qui s'appelle la réactance $X$.
+L'impédance $Z$ est une grandeur complexe qui allie une partie réelle, la résistance $R$ totale d'un circuit, avec une partie imaginaire qui s'appelle la réactance $X$. @tme_impedance
 
 #align(center, $Z = R + j X$)
 
@@ -33,7 +33,7 @@ Où $Z_L$ est l'impédance de la charge et $Z_0$ est l'impédance de la ligne de
 
 Physiquement, les conséquences de cette réflexion sont l'apparition d'onde stationnaire. Ces ondes sont des pics de courant qui arrivent lorsqu'un milieu câblé reçoit un courant de retour en plus d'un courant aller. Ce qu'il se passe, c'est que les deux fréquences vont se superposer et former des ondes stationnaires. 
 
-#figure(image("../template/images/01-Standing-Wave-t0-1024x448.jpg", width:80%), caption: [Phénomène des ondes stationnaires #footnote("Source : https://sciencesanctuary.com/standing-waves")])
+#figure(image("../template/images/01-Standing-Wave-t0-1024x448.jpg", width:80%), caption: [Phénomène des ondes stationnaires @science_sanctuary])
 
 Ce sont ces ondes stationnaires qui sont les causes physiques des problèmes mentionnés plus haut. Et à partir de ces ondes stationnaires, on peut calculer le VSWR (Voltage Standing Wave Ratio) qui est une mesure du rapport entre l'amplitude maximale et l'amplitude minimale que peut atteindre l'onde stationnaire.
 
@@ -57,11 +57,11 @@ C'est là que l'abaque de Smith offre la solution. Au lieu de représenter direc
 
 Comme le module de $Gamma$ est toujours compris entre 0 et 1, toutes les valeurs possibles peuvent être contenues à l'intérieur d'un cercle de rayon 1. Smith a ensuite développé une transformation mathématique qui permet de superposer des lignes de résistance et de réactance constantes sur ce même plan circulaire. On obtient ainsi un diagramme où chaque point correspond à la fois à une valeur d'impédance unique et son coefficient de réflexion associé.
 
-#figure(image("../template/images/Smith_chart_explanation.svg.png", width:80%), caption: [Explication graphique de l'abaque #footnote("Source : https://en.wikipedia.org/wiki/Smith_chart#/media/File:Smith_chart_explanation.svg")])
+#figure(image("../template/images/Smith_chart_explanation.svg.png", width:80%), caption: [Explication graphique de l'abaque @wiki_smith])
 
 === Lire l'abaque
 
-Tout comme sur le schéma sur un plan cartésien, l'axe des ordonnées est l'axe des nombres imaginaires et l'axe des abscisses est l'axe des nombres réels, la résistance. Du côté gauche complètement réel de l'abaque, on a une résistance nulle, un court-circuit. Et du côté droit complètement réel, on a une résistance "infinie", en gros un circuit ouvert. À partir de là, on peut voir que l'abaque est dessiné avec deux types de lignes. D'abord, il y a des cercles qui se touchent tous au point de circuit ouvert. Ce sont les cercles de résistance constante. Chaque point se trouvant sur un même cercle partage exactement la même partie résistive.
+Tout comme sur le schéma sur un plan cartésien, l'axe des ordonnées est l'axe des nombres imaginaires et l'axe des abscisses est l'axe des nombres réels, la résistance. Du côté gauche complètement réel de l'abaque, on a une résistance nulle, un court-circuit. Et du côté droit complètement réel, on a une résistance "infinie", en gros un circuit ouvert. À partir de là, on peut voir que l'abaque est dessiné avec deux types de lignes. D'abord, il y a des cercles qui se touchent tous au point de circuit ouvert. Ce sont les cercles de résistance constante. Chaque point se trouvant sur un même cercle partage exactement la même partie résistive. @cours_rabaste
 
 #figure(image("../images/cercle_resistance_constante.png", width:70%), caption: [Représentation des cercles de résistance constante sur l'abaque de Smith])
 
@@ -88,7 +88,7 @@ Maintenant, pour l'utiliser, rien de plus simple, on mesure l'impédance de notr
 
 Ensuite, le but du jeu est de ramener ce point le plus proche du centre de l'abaque possible, le point d'adaptation parfaite. Et pour y arriver, on va ajouter des composants, des inductances et des condensateurs, soit en série, soit en parallèle. Ce n'est pas le seul moyen de pouvoir adapter la charge, mais c'est le moyen sur lequel ces explications vont se reposer.
 
-#figure(image("../template/images/incidance_composants_smith.png", width:40%), caption: [Effet d'ajouts d'inductances et de capacités en série et parallèle#footnote("Source : Cours sur l'abaque de Smith de l'IUFM d'Aix Marseille par Denis Rabasté")])
+#figure(image("../template/images/incidance_composants_smith.png", width:40%), caption: [Effet d'ajouts d'inductances et de capacités en série et parallèle @cours_rabaste])
 
 Selon le composant qu'on ajoute et selon son placement dans le circuit, l'impédance vue depuis la source va changer de position sur l'abaque. En se basant sur l'exemple de notre impédance mesurée, une des possibilités est d'utiliser le circuit ci-dessous pour réaliser l'adaptation:
 

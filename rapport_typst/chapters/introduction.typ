@@ -4,7 +4,7 @@ Avant de parler de la conception d'un logiciel ou quoi que ce soit d'autre, il f
 
 == Origine
 
-L'abaque de Smith tire son nom de son inventeur, l'ingénieur américain Phillip Hagar Smith. Né le 29 avril 1905 à Lexington, dans le Massachusetts, il grandit avec une vraie passion pour la radio. Pendant son cursus universitaire, il a même monté sa propre station amateur (avec l'identifiant 1ANB) en utilisant des composants faits maison.
+L'abaque de Smith tire son nom de son inventeur, l'ingénieur américain Phillip Hagar Smith. Né le 29 avril 1905 à Lexington, dans le Massachusetts, il grandit avec une vraie passion pour la radio. Pendant son cursus universitaire, il a même monté sa propre station amateur (avec l'identifiant 1ANB) en utilisant des composants faits maison.@allaboutcircuits_history
 
 Logiquement, il poursuit des études d'ingénierie électrique et, en 1928, il obtient son diplôme à l'université Tufts, qui aboutit à son premier emploi aux laboratoires téléphoniques Bell dans le département de la recherche radio. L'une de ses missions consistait à adapter des antennes aux lignes de transmission, le problème que l'abaque de Smith cherche justement à résoudre.
 
