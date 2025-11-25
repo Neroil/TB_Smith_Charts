@@ -5,9 +5,9 @@ Ce document détaille la planification semaine par semaine pour la réalisation 
 
 == Planification semaine par semaine
 
-=== Semaine 1 du 03.11.2025 au 09.11.2025
+=== Semaine 1 du 03.11.2025 au 09.11.2025 : Début du travail de bachelor
 
-Durant la première semaine de travail, l'idée est de se focaliser sur les aspects techniques et théoriques de l'abaque de Smith, comprendre ses enjeux et son utilisation. Un début de rédaction du rapport est aussi nécessaires avec l'aspect historique et une analyse des différents outils possible à utiliser pour la conception du logiciel de l'abaque de Smith. 
+Durant la première semaine de travail, l'idée est de se focaliser sur les aspects techniques et théoriques de l'abaque de Smith, comprendre ses enjeux et son utilisation. Un début de rédaction du rapport est aussi nécessaire avec l'aspect historique et une analyse des différents outils possibles à utiliser pour la conception du logiciel de l'abaque de Smith. 
 
 Finalement à la fin de la semaine, un framework doit être choisi pour ensuite commencer à mettre en place les différentes étapes du développement.
 
@@ -21,15 +21,15 @@ Finalement à la fin de la semaine, un framework doit être choisi pour ensuite 
 
 === Semaine 3 du 17.11.2025 au 23.11.2025 : Interaction de base sur l'abaque
 - Dessin du chemin du circuit en fonction des éléments ajoutés (inductance, capacité, série/shunt).
-- Implémentation du curseur magnétisé sur les points calculés.
+- Implémentation du curseur aimanté sur les points calculés.
 - Affichage des informations du curseur dans une fenêtre dédiée (“Cursor”) comme Smith.exe le fait.
-- Amélioration du rapport intermédiaire.
+- Finalisation et relecture du rapport.
 
 === Semaine 4 du 24.11.2025 au 30.11.2025 : Finalisation de l'interface et jalon
 - *Rendu du rapport intermédiaire le 25 novembre.*
 - Affichage schématique du circuit avec ses composants.
 - Implémentation des fonctions de *Zoom* et *Pan* paramétrables pour la navigation.
-- Ajout des composants manquants, resistances, lignes et stubs avec leurs comportements respectifs. 
+- Ajout des composants manquants, résistances, lignes et stubs avec leurs comportements respectifs. 
 - Amélioration générale de l'interface graphique.
 
 === Semaine 5 du 01.12.2025 au 07.12.2025 : Gestion des données (Import)
@@ -45,7 +45,7 @@ Finalement à la fin de la semaine, un framework doit être choisi pour ensuite 
 
 === Semaine 7 du 15.12.2025 au 23.12.2025 : Export data et rédaction du rapport
 - Implémentation de l'export de fichiers S1p issus d'un sweep.
-- Recherche et implémentation des notations utilisant les valeurs normalisée CEI 60063. 
+- Recherche et implémentation des notations utilisant les valeurs normalisées CEI 60063. 
 - Début de la rédaction du rapport final sur la base du rapport intermédiaire, début d'écriture des parties liées à l'implémentation et à l'architecture.
 
 === Semaine 8 du 24.12.2025 au 30.12.2025 : Finalisation des fonctionnalités et tests
@@ -54,7 +54,7 @@ Finalement à la fin de la semaine, un framework doit être choisi pour ensuite 
 - Début d'une phase de tests et de debuggage de l'application générale.
 
 === Semaine 9 du 05.01.2026 au 11.01.2026 : Redaction et correction de problèmes
-- Correction des bugs critiques identifiés et amélioration/finalisation des features si besoins.
+- Correction des bugs critiques identifiés et amélioration/finalisation des features si besoin.
 - Rédaction du corps du rapport (architecture, implémentation, choix techniques).
 
 === Semaine 10 du 12.01.2026 au 16.01.2026 : Finalisation et rendu

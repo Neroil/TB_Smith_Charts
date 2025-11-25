@@ -14,7 +14,7 @@
 #let TByear = "2025"
 #let TBacademicYears = "2024-25"
 
-#let TBdpt = "Département des Technologie de l'information et de la communication (TIC)"
+#let TBdpt = "Département des Technologies de l'information et de la communication (TIC)"
 #let TBfiliere = "Informatique et systèmes de communication"
 #let TBorient = "Informatique logicielle"
 
@@ -31,5 +31,5 @@
   Ce travail de Bachelor a pour but de développer un logiciel pour faciliter l'utilisation de l'abaque de Smith, qui permet d'effectuer graphiquement une adaptation d'impédance. L'objectif est de proposer un outil plus moderne et surtout multiplateforme.
   \
   \
-  Pour le moment, ce projet est à la phase du rendu intermédiaire. Ce rapport présente donc l'analyse du problème, les outils choisis (JavaFX) ainsi que l'architecture logicielle mise en place pour le début du développement.
+  Pour le moment, ce projet est à la phase du rendu intermédiaire. Le prototype actuel permet déjà la visualisation et l'interaction de base avec l'abaque. Ce rapport présente donc l'analyse du problème, les outils choisis (JavaFX) ainsi que l'architecture logicielle mise en place pour le début du développement.
 ]

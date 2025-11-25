@@ -8,7 +8,7 @@ L'IDE utilisé est IntelliJ. L'application étant développée en Java, IntelliJ
 
 Un outil intéressant, supporté nativement dans IntelliJ, est JavaFX Scene Builder. À la manière de QtCreator, il permet de s'aider d'une interface visuelle pour créer les vues de l'application.
 
-AtlantaFX#footnote("Repos GitHub de la bibliothèque : https://github.com/mkpaz/atlantafx") est une bibliothèque qui permet d'ajouter un thème moderne à l'application JavaFX. Cela évite de devoir créer des composants customs pour les éléments simples et me permet de me focaliser sur l'écriture du code.
+AtlantaFX#footnote("Repos GitHub de la bibliothèque : https://github.com/mkpaz/atlantafx") est une bibliothèque qui permet d'ajouter un thème moderne à l'application JavaFX. Cela évite de devoir créer des composants personnalisés pour les éléments simples et me permet de me focaliser sur l'écriture du code.
 
 Ensuite, pour compiler l'application, j'utilise Gradle. C'est un concurrent à Maven qui est, d'après mon expérience, plus performant et plus stable.
 
@@ -16,7 +16,7 @@ Ensuite, pour compiler l'application, j'utilise Gradle. C'est un concurrent à M
 
 Le diagramme UML, réalisé en parallèle de l'écriture du code, est conçu avec l'outil PlantUML. Ce choix permet une approche programmatique de la modélisation, facilitant la mise à jour du diagramme au fur et à mesure de l'avancement du développement.
 
-== Versionning
+== Gestion de versions
 
 Le projet étant individuel, un simple dépôt Git a été mis en place sur GitHub pour jalonner chaque étape. J'ai décidé de ne pas complexifier le processus avec la gestion d'issues pour le moment.
 

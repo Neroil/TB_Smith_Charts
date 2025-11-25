@@ -6,13 +6,13 @@ L'abaque de Smith est un outil très important dans le domaine de la conception 
 Dans un monde parfait, une antenne devrait transférer toute sa puissance vers le milieu de propagation, l'air par exemple, sans aucune perte. Cependant, en réalité, l'impédance des antennes est très rarement adaptée à celle de la ligne de transmission qui leur fournit le signal. Cette différence d'impédance crée des ondes stationnaires et un phénomène de réflexion.
 Cette réflexion, en plus d'être potentiellement dangereuse pour la source de courant (puisqu'une partie de la puissance émise est renvoyée vers celle-ci), diminue également l'efficacité de l'antenne.
 
-Pour pallier ce problème, on peut adapter une impédance à une autre en ajoutant, en série ou en parallèle (shunt), des condensateurs ou des inductances. C'est là que l'abaque de Smith entre en jeu, il aide l'utilisateur à choisir les bons composants afin de réduire le coefficient de réflexion et d'obtenir une adaptation optimale.
+Pour pallier ce problème, on peut adapter une impédance à une autre en ajoutant, en série ou en parallèle (shunt), des condensateurs ou des inductances. C'est là que l'abaque de Smith entre en jeu, il aide l'utilisateur à choisir les bons composants afin de réduire le coefficient de réflexion et d'obtenir une adaptation optimale, c'est à dire maximiser le transfert de puissance de la source à la charge.
 
-Actuellement, les étudiants en systèmes embarqués utilisent un logiciel développé par Fritz Dellsperger, un professeur de la Haute école spécialisée bernoise (BFH) aujourd'hui à la retraite, pour leurs laboratoires sur les antennes. Ce logiciel, exclusif à Windows et appelé *Smith V4.1*, n'est que très peu mis à jour (dernière version en 2018) et présente plusieurs problèmes d'affichage et de dimensionnement, rendant son interface peu ergonomique et difficile à utiliser.
+Actuellement, les étudiants en systèmes embarqués utilisent un logiciel développé par Fritz Dellsperger, un professeur de la Haute école spécialisée bernoise (BFH) aujourd'hui à la retraite, pour leurs laboratoires sur les antennes. Ce logiciel, exclusif à Windows et appelé *Smith V4.1*, n'est plus maintenu depuis 2018 et présente plusieurs problèmes d'affichage et de dimensionnement, rendant son interface peu ergonomique et difficile à utiliser.
 
 
 === Problématique <problématique>
-Comment fournir aux étudiants un logiciel intuitif, simple d'utilisation et agréable à prendre en main pour manipuler numériquement une abaque de Smith ?
+Comment fournir aux étudiants un logiciel intuitif, simple d'utilisation et agréable à prendre en main pour manipuler numériquement un abaque de Smith ?
 
 === Solutions existantes <solutions-existantes>
 Il existe bien entendu d'autres logiciels, natifs ou en ligne, qui permettent de manipuler un abaque de Smith. 
@@ -24,10 +24,10 @@ Par exemple, *SimSmith* (appelé SimNec dans ses versions récentes)#footnote[ht
 Il existait également *Iowa Hills Smith Chart*, mais le développement semble être tombé en désuétude et il n'y a apparemment plus de moyen de télécharger l'application actuellement.
 
 
-Finalement, il existe des solutions purement en ligne telles que QuickSmith#footnote("Lien du site : https://quicksmith.online/") et Online Smith Chart Tool#footnote("Lien du site : https://onlinesmithchart.com/"). Ces outils fonctionnent mais ne propose pas forcément les possibilités voulues pour l'étendu de ce TB. Aussi avoir une application tournant nativement sur sa machine et hors ligne est un plus.
+Finalement, il existe des solutions purement en ligne telles que QuickSmith#footnote("Lien du site : https://quicksmith.online/") et Online Smith Chart Tool#footnote("Lien du site : https://onlinesmithchart.com/"). Ces outils fonctionnent mais ne propose pas forcément les possibilités voulues pour l'étendue de ce TB. Aussi avoir une application tournant nativement sur sa machine et hors ligne est un plus.
 
 === Solutions possibles <solutions-possibles>
-On peut alors soit utiliser les solutions énumérée plus haut ou bien faire notre propre application qui répond exactement aux besoin des étudiants et professeurs de l'HEIG. 
+On peut alors soit utiliser les solutions énumérées plus haut ou bien faire notre propre application qui répond exactement aux besoins des étudiants et professeurs de l'HEIG. 
 
 == Cahier des charges <cahier-des-charges-1>
 
@@ -36,9 +36,9 @@ On peut alors soit utiliser les solutions énumérée plus haut ou bien faire no
 
 Les objectifs principaux du projet sont : 
 
-- Fournir un logiciel multiplateforme (volontée de ne pas forcer l'utilisateur à un système d'exploitation).
-- Avoir un logiciel avec une interface moderne, intuitive, adaptée à l'enseignement à l'HEIG (pas besoin d'être exhaustif dans les fonctionnalité, seulement ce qu'on a besoin).
-- Fonctionnalités similaire à Smith.exe pour ne pas être dépaysé.
+- Fournir un logiciel multiplateforme (volonté de ne pas forcer l'utilisateur à un système d'exploitation).
+- Avoir un logiciel avec une interface moderne, intuitive, adaptée à l'enseignement à l'HEIG (pas besoin d'être exhaustif dans les fonctionnalités, seulement ce qu'on a besoin).
+- Fonctionnalités similaires à Smith.exe pour ne pas être dépaysé.
 - Avoir un logiciel évolutif dans le code.
 
 === Spécifications fonctionnelles
