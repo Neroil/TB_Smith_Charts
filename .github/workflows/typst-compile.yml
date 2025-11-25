@@ -1,0 +1,34 @@
+name: Build and Commit Typst Document
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'rapport_typst/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build_typst:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up Typst
+        uses: typst-community/setup-typst@v4.0.2
+
+      - name: Compile Typst Document
+        run: typst compile rapport_typst/main.typ report.pdf
+
+      - name: Commit and Push PDF
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add report.pdf
+          git commit -m 'Add compiled Typst document'
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
