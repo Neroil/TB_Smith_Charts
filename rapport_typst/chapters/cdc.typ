@@ -24,11 +24,11 @@ Par exemple, *SimSmith* (un outil très complet développé par AE6TY)#footnote(
 Il existait également *Iowa Hills Smith Chart*, mais le développement semble être tombé en désuétude et il n'y a apparemment plus de moyen de télécharger l'application actuellement.
 
 
-Finalement, il existe des solutions purement en ligne telles que QuickSmith#footnote("Lien du site : https://quicksmith.online/") et Online Smith Chart Tool#footnote("Lien du site : https://onlinesmithchart.com/"). Ces outils fonctionnent mais ne propose pas forcément les possibilités voulues pour l'étendue de ce TB. Aussi avoir une application tournant nativement sur sa machine et hors ligne est un plus.
+Finalement, il existe des solutions purement en ligne telles que QuickSmith#footnote("Lien du site : https://quicksmith.online/") et Online Smith Chart Tool#footnote("Lien du site : https://onlinesmithchart.com/"). Ces outils fonctionnent mais ne propose pas forcément les fonctionnalités voulues pour l'étendue de ce TB. Aussi avoir une application tournant nativement sur sa machine et hors ligne est un plus.
 
 === Solutions possibles <solutions-possibles>
 
-Pour ce TB, la meilleure option semble être de développer une solution dédiée, directement avec les utilisateurs de l'abaque de Smith à l'HEIG. Ça permettra de remplacer les logiciels obsolètes ou qui ne font pas exactement ce qu'on veut. En plus, avoir une solution multiplateforme est un point vraiment important.
+Pour ce travail de bachelor, la meilleure option semble être de développer une solution dédiée, directement avec les utilisateurs de l'abaque de Smith à l'HEIG. Ça permettra de remplacer les logiciels obsolètes ou qui ne font pas exactement ce qu'on veut. En plus, avoir une solution multiplateforme est un point vraiment important.
 
 == Cahier des charges <cahier-des-charges-1>
 
@@ -38,14 +38,14 @@ Pour ce TB, la meilleure option semble être de développer une solution dédié
 Les objectifs principaux du projet sont : 
 
 - Fournir un logiciel multiplateforme (volonté de ne pas forcer l'utilisateur à un système d'exploitation).
-- Avoir un logiciel avec une interface moderne, intuitive, adaptée à l'enseignement à l'HEIG (pas besoin d'être exhaustif dans les fonctionnalités, seulement ce qu'on a besoin).
+- Avoir un logiciel avec une interface moderne, intuitive, adaptée à l'enseignement à l'HEIG (pas besoin d'être exhaustif dans les fonctionnalités, seulement ce dont on a besoin).
 - Fonctionnalités similaires à Smith.exe pour ne pas être dépaysé.
 - Avoir un logiciel évolutif dans le code.
 
 === Spécifications fonctionnelles
 
 Fonctionnalités minimales :
-- Affichage d'une abaque de Smith interactive.
+- Affichage d'un abaque de Smith interactive.
 - Placement d'impédances et/ou d'admittances.
 - Placement de composants passifs en série ou en parallèle (R, L, C, ligne, stub).
 - Chargement de fichiers S1p.

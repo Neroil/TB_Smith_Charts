@@ -29,7 +29,7 @@ Cette désadaptation est quantifiable mathématiquement avec le coefficient de r
 
 #align(center, $Gamma = frac(Z_L - Z_0,Z_L + Z_0)$)
 
-Ou $Z_L$ est l'impédance de la charge et $Z_0$ est l'impédance de la ligne de transmission (50 Ohm dans les cas les plus courants). Avec cette formule, on peut voir que, si l'impédance de la source et de la charge sont les mêmes, on obtient alors 0, une adaptation parfaite. Alors qu'inversement, plus la différence entre $Z_0$ et $Z_L$ est grande, plus le module du coefficient se rapprochera du 1, une réflexion alors totale de l'énergie.
+Où $Z_L$ est l'impédance de la charge et $Z_0$ est l'impédance de la ligne de transmission (50 Ohm dans les cas les plus courants). Avec cette formule, on peut voir que, si l'impédance de la source et de la charge sont les mêmes, on obtient alors 0, une adaptation parfaite. Alors qu'inversement, plus la différence entre $Z_0$ et $Z_L$ est grande, plus le module du coefficient se rapprochera du 1, une réflexion alors totale de l'énergie.
 
 Physiquement, les conséquences de cette réflexion sont l'apparition d'onde stationnaire. Ces ondes sont des pics de courant qui arrivent lorsqu'un milieu câblé reçoit un courant de retour en plus d'un courant aller. Ce qu'il se passe, c'est que les deux fréquences vont se superposer et former des ondes stationnaires. 
 
@@ -47,11 +47,11 @@ Finalement, à partir de cette mesure, on peut aussi calculer le montant de puis
 
 === Représentation graphique
 
-Sans entrer dans des détails peu importants pour le projet, les calculs pour trouver les bons composants étaient longs et fastidieux, et on a vite commencé à utiliser des représentations graphiques pour trouver ces composants. 
+Sans entrer dans des détails trop exhaustifs pour le projet, les calculs pour trouver les bons composants étaient longs et fastidieux, et on a vite commencé à utiliser des représentations graphiques pour trouver ces composants. 
 
 La représentation graphique est une représentation du point d'impédance de la charge $Z_L$ par rapport à l'impédance de référence de la ligne $Z_O$. On pose alors sur l'axe des ordonnées la relation imaginaire, la réactance $X$. Et sur l'axe des abscisses, la partie réelle, la résistance.
 
- Il est complexe de représenter cette relation sur le plan cartésien, car on utilise d'une part seulement le côté droit du plan, étant donné que la résistance ne peut être négative, mais surtout qu'autant les valeurs de réactance comme celles de résistance peuvent pointer vers l'infini, rendant impossible la visualisation de toutes les impédances sur une seule feuille.
+ Il est complexe de représenter cette relation sur le plan cartésien, car on utilise d'une part seulement le côté droit du plan, étant donné que la résistance ne peut être négative, mais surtout qu'autant les valeurs de réactance comme celles de résistance peuvent pointer vers l'infini, rendant impossible la visualisation de toutes les impédances sur une seule feuille. @youtube_rohdeschwarz_smith
 
 C'est là que l'abaque de Smith offre la solution. Au lieu de représenter directement le plan des impédances, l'abaque de Smith est une représentation graphique du plan du coefficient de réflexion complexe $Gamma$.
 

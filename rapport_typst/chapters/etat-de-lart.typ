@@ -60,7 +60,7 @@ Flutter est un framework créé par Google pour faire des applications multiplat
 
 Le principal frein est que le langage utilisé est le Dart. L'apprentissage d'un nouveau langage représenterait une charge non négligeable au travail. En plus, Flutter a été pensé d'abord pour le mobile, le support desktop étant quelque chose de plus récent, même si apparemment bien supporté.
 
-De plus, une considération par rapport au projet est la maintenabilité future. Lorsque mon projet sera terminé, sûrement d'autres étudiants ou même ingénieurs voudront rajouter des features sur celui-ci. Sachant que le logiciel est destiné aux ingénieurs en électrique, il vaudrait mieux se focaliser sur une solution utilisant des langages avec lesquels ils sont déjà à l'aise, le C, le C++ et possiblement le Java. 
+De plus, une considération par rapport au projet est la maintenabilité future. Lorsque mon projet sera terminé, sûrement d'autres étudiants ou même ingénieurs seront susceptibles d'ajouter de nouvelles fonctionnalités. Sachant que le logiciel est destiné aux ingénieurs en électrique, il vaudrait mieux se focaliser sur une solution utilisant des langages avec lesquels ils sont déjà à l'aise, le C, le C++ et possiblement le Java. 
 
 === Tauri (Rust)
 
@@ -72,11 +72,11 @@ Après avoir fait quelques recherches, on peut voir que, si l'on veut faire quel
 
 == Choix et justification
 
-Finalement, après avoir passé en revue ces différents frameworks, ce qui semble le plus adapté pour le scope de ce travail de bachelor reste JavaFX. 
+Finalement, après avoir passé en revue ces différents frameworks, ce qui semble le plus adapté pour l'envergure de ce travail de bachelor reste JavaFX. 
 
 Qt était un bon concurrent, de par sa performance et sa maturité. Mais le problème de déploiement, de compilation multiplateforme représente un obstacle trop important pour un projet solo mené dans un temps limité. Trop de temps serait potentiellement perdu lorsqu'une compilation devrait être fait.
 
-C'est pour ça que l'utilisation de Java est logique ici, pas besoin de se focaliser sur la compilation, juste besoin de produire un seul exécutable compatible avec toutes les machines, tant qu'elles ont Java d'installé. 
+C'est la raison pour laquelle l'utilisation de Java est logique ici, pas besoin de se focaliser sur la compilation, juste besoin de produire un seul exécutable compatible avec toutes les machines, tant qu'elles ont Java d'installé. 
 
 Les autres solutions ont été écartées, car soit le langage n'était pas adapté aux besoins qui dépassent l'étendue de ce TB, notamment si le travail est repris par d'autres étudiants de la filière électrique. 
 

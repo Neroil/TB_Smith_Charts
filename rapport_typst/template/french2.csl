@@ -85,7 +85,7 @@
       </if>
       <else-if variable="URL">
         <text value="Disponible sur : " prefix=" "/>
-        <group prefix="&lt; " suffix=" &gt;">
+        <group prefix="" suffix="">
           <text variable="URL"/>
         </group>
       </else-if>
