@@ -32,3 +32,5 @@ Le ViewModel est la partie qui contient l'état de l'application, c'est la mémo
 JavaFX met à disposition des classes spéciales, les *JavaFX Properties*. Elles sont intrinsèquement observables, ce qui veut dire qu'on peut réagir dès qu'elles sont modifiées. C'est un fonctionnement vital pour ce type d'application dynamique.
 
 Imaginons que l'utilisateur change la fréquence ou l'impédance de charge, l'entièreté des points sur l'abaque doit bouger. Le ViewModel surveille ces valeurs et effectue un recalcul complet des informations dès qu'elles changent, mettant à jour la vue automatiquement.
+
+À ce stade du développement, il n'y a pas encore de tests unitaires automatisés pour valider les calculs. Cependant, pour garantir la justesse des résultats, j'ai effectué une vérification manuelle systématique en comparant mes valeurs avec celles du logiciel de référence *Smith V4.1* @smith_v4. Cela m'a permis de m'assurer que le comportement de mon application est rigoureusement identique à l'existant.

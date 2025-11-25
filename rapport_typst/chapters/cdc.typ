@@ -24,7 +24,7 @@ Par exemple, *SimSmith* (un outil très complet développé par AE6TY) @simsmith
 Il existait également *Iowa Hills Smith Chart*, mais le développement semble être tombé en désuétude et il n'y a apparemment plus de moyen de télécharger l'application actuellement.
 
 
-Finalement, il existe des solutions purement en ligne telles que QuickSmith#footnote("Lien du site : https://quicksmith.online/") et Online Smith Chart Tool#footnote("Lien du site : https://onlinesmithchart.com/"). Ces outils fonctionnent mais ne propose pas forcément les fonctionnalités voulues pour l'étendue de ce TB. Aussi avoir une application tournant nativement sur sa machine et hors ligne est un plus.
+Finalement, il existe des solutions purement en ligne telles que QuickSmith#footnote("Lien du site : https://quicksmith.online/") et Online Smith Chart Tool#footnote("Lien du site : https://onlinesmithchart.com/"). Ces outils fonctionnent mais ne proposent pas forcément les fonctionnalités voulues pour l'étendue de ce TB. Aussi avoir une application tournant nativement sur sa machine et hors ligne est un plus.
 
 === Solutions possibles <solutions-possibles>
 
