@@ -74,10 +74,18 @@ Après avoir fait quelques recherches, on peut voir que, si l'on veut faire quel
 
 Finalement, après avoir passé en revue ces différents frameworks, ce qui semble le plus adapté pour l'envergure de ce travail de bachelor reste JavaFX. 
 
-Qt était un bon concurrent, de par sa performance et sa maturité. Mais le problème de déploiement, de compilation multiplateforme représente un obstacle trop important pour un projet solo mené dans un temps limité. Trop de temps serait potentiellement perdu lorsqu'une compilation devrait être fait.
+Qt était un bon concurrent, de par sa performance et sa maturité. Mais le problème de déploiement, de compilation multi-plateforme représente un obstacle trop important pour un projet solo mené dans un temps limité. Trop de temps serait potentiellement perdu lorsqu'une compilation devrait être fait.
 
 C'est la raison pour laquelle l'utilisation de Java est logique ici, pas besoin de se focaliser sur la compilation, juste besoin de produire un seul exécutable compatible avec toutes les machines, tant qu'elles ont Java d'installé. 
 
 Les autres solutions ont été écartées, car soit le langage n'était pas adapté aux besoins qui dépassent l'étendue de ce TB, notamment si le travail est repris par d'autres étudiants de la filière électrique. 
 
 Donc, en conclusion, le projet d'abaque de Smith sera codé en utilisant du Java et en utilisant le framework JavaFX, qui est plus que suffisant pour l'étendue de ce travail.
+
+== Bibliothèque de sérialisation
+
+Lors de la conception, un choix a dû être fait concernant la bibliothèque de sérialisation pour permettre de sauvegarder et charger les projets (les composants du circuit, la fréquence, etc.).
+
+Mon choix s'est rapidement porté sur Jackson. C'est une bibliothèque que j'avais déjà utilisée sur d'autres projets, ce qui m'a permis d'être efficace sans avoir à réaliser un comparatif exhaustif avec d'autres solutions. Elle est simple d'utilisation, toujours activement maintenue, et la vitesse de sérialisation n'était pas un critère critique pour ce projet donc pas besoin de faire des tests par rapport à cela.
+
+De plus, Jackson s'est révélé particulièrement adapté grâce à sa gestion facile du polymorphisme, pas besoin de grandement changer le code pour que cela fonctionne. Cela m'a permis de sauvegarder ma liste de composants variés (Résistances, Lignes, Condensateurs, ...) très simplement, sans avoir à écrire de code complexe pour différencier chaque type d'objet dans le fichier de sauvegarde.

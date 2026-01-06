@@ -27,9 +27,16 @@
   1400 Yverdon-les-Bains
 ]
 
+    
 #let TBresumePubliable = [
-  Ce travail de Bachelor a pour but de développer un logiciel pour faciliter l'utilisation de l'abaque de Smith, qui permet d'effectuer graphiquement une adaptation d'impédance. L'objectif est de proposer un outil plus moderne et surtout multiplateforme.
+  Ce travail de Bachelor a pour but de développer un logiciel pour faciliter l'utilisation de l'abaque de Smith, qui permet d'effectuer graphiquement une adaptation d'impédance. L'objectif est de proposer un outil plus moderne et surtout multi-plateforme.
   \
   \
-  Pour le moment, ce projet est à la phase du rendu intermédiaire. Le prototype actuel permet déjà la visualisation et l'interaction de base avec l'abaque. Ce rapport présente donc l'analyse du problème, les outils choisis (JavaFX) ainsi que l'architecture logicielle mise en place pour le début du développement.
+  Au terme de ce travail, l'application est pleinement fonctionnelle. Toutes les fonctionnalités demandées dans le cahier des charges ont pu être mises en place. L'application permet d'effectuer manuellement et intuitivement le mécanisme d'adaptation d'impédance, tout en permettant à l'utilisateur de comprendre concrètement l'effet de chaque composant.
+  \
+  \
+  L'utilisateur peut aussi importer et exporter des fichiers S1P, ce qui permet de visualiser et d'adapter le comportement du circuit selon différentes fréquences mesurées ou simulées en temps réel.
+  \
+  \
+  Finalement, à partir des résultats obtenus lors de la simulation, il est possible d'exporter les données vers un fichier pour sauvegarder le travail effectué.
 ]
