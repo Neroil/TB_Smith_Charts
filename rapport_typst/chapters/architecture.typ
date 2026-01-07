@@ -170,12 +170,46 @@ Maintenant qu'on peut savoir sur quel cercle, on peut utiliser la fonction `getE
 Finalement il y a la fonction `calculateComponentValue(gamma, ...)` qui converti une position ... TODO demain
 
 
+=== Gestion des "undo/redo"
+
+Comme tout bon programme informatique, il est très utile de revenir sur ce qu'on a pu faire. Pour cela, deux systèmes ont été mis en place. 
+
+Un système générique `HistoryManager` qui permet d'avoir une gestion de deux piles génériques. Une pile de redo et une pile de undo. Lorsqu'on consomme une action undo, l'état actuel est sauvegardé dans la pile de redo, puis l'état précédent est restauré depuis la pile d'undo. Inversement, lorsqu'on fait un redo, l'état actuel est remis dans la pile d'undo et l'état suivant est récupéré depuis la pile de redo.
+
+Ensuite pour pouvoir utiliser ce gestionnaire, un record `UndoRedoEntry` a été mis en place qui garde comme information l'opération effectuée (ADD, REMOVE, MODIFY), l'index du circuit modifié ainsi qu'une paire d'élément qui lie l'élément du circuit subissant l'opération et son index dans le circuit choisi. Ensuite selon ce que l'utilisateur fait, chaque action est gardée dans le manager et l'utilisateur peut a choix revenir sur ce qu'il a fait ! Le viewModel lui s'occupe de reconstruire le circuit à chaque undo/redo. 
+
+
 == Partie ViewModel
 
-Le ViewModel est la partie qui contient l'état de l'application, c'est la mémoire, mais aussi le cerveau. C'est lui qui s'occupe de mettre à jour les valeurs et de recalculer la chaîne d'impédance lorsqu'on modifie le circuit.
+Le ViewModel est la partie qui contient l'état de l'application, c'est la mémoire, mais aussi le cerveau. C'est lui qui s'occupe de mettre à jour les valeurs et de recalculer la chaîne d'impédance lorsqu'on modifie le circuit. La classe `SmithChartViewModel` agit comme l'unique source de vérité pour l'état de l'application et quasiment toutes les autres classes dépendent d'elle pour le comportement de l'abaque.
 
-JavaFX met à disposition des classes spéciales, les *JavaFX Properties*. Elles sont intrinsèquement observables, ce qui veut dire qu'on peut réagir dès qu'elles sont modifiées. C'est un fonctionnement vital pour ce type d'application dynamique.
+=== Les JavaFX Properties
 
-Imaginons que l'utilisateur change la fréquence ou l'impédance de charge, l'entièreté des points sur l'abaque doit bouger. Le ViewModel surveille ces valeurs et effectue un recalcul complet des informations dès qu'elles changent, mettant à jour la vue automatiquement.
+JavaFX met à disposition des classes spéciales, les *JavaFX Properties*. Elles sont intrinsèquement observables, ce qui veut dire qu'on peut réagir dès qu'elles sont modifiées. Les différentes classes mettent en place des "listeners" qui déclenchent une interaction des qu'une valeur change. Ou bien on peut aussi mettre en place des méthodes qui lient des éléments d'interfaces à des valeurs dans le viewModel.
 
-À ce stade du développement, il n'y a pas encore de tests unitaires automatisés pour valider les calculs. Cependant, pour garantir la justesse des résultats, j'ai effectué une vérification manuelle systématique en comparant mes valeurs avec celles du logiciel de référence *Smith V4.1* @smith_v4. Cela m'a permis de m'assurer que le comportement de mon application est rigoureusement identique à l'existant.
+Le ViewModel est constitué de plusieurs catégories de propriétés :
+
+*Les propriétés physiques du système* : Ce sont les paramètres "principaux" de l'abaque de Smith. On trouve l'impédance caractéristique du système (`zo`, généralement 50Ω), l'impédance de charge au départ de la chaîne (`loadImpedance`) et la fréquence du système (`frequency`). Chacune de ces propriétés est observée, et toute modification déclenche automatiquement un recalcul complet de la chaîne d'impédance.
+
+*Les collections de données* : Le ViewModel gère plusieurs listes observables (`ObservableList`) qui stockent les différents types de points affichés sur l'abaque. Les `dataPoints` contiennent les points du circuit principal (l'impédance cumulée à chaque étape). Les `s1pDataPoints` stockent les données importées depuis un fichier S1P, et les `transformedS1PPoints` représentent ces mêmes points après transformation par les composants du circuit. Les `sweepDataPoints` contiennent les résultats d'un balayage en fréquence. Finalement, une liste `combinedDataPoints` agrège tous ces points pour faciliter le rendu graphique.
+
+*Les propriétés d'interaction utilisateur* : Pour afficher les informations en temps réel lors du survol de l'abaque avec la souris, le ViewModel maintient des propriétés comme `mouseGamma`, `mouseImpedanceZ`, `mouseAdmittanceY`, `mouseVSWR`, `mouseReturnLoss` et `mouseQualityFactor`. Ces valeurs sont calculées instantanément lorsque la souris se déplace sur l'abaque et sont affichées dans l'interface via un binding.
+
+*Les propriétés d'état de l'application* : Le ViewModel garde également la trace de l'état global, tel que le nom du projet (`projectName`), si le projet a été sauvegardé (`hasBeenSaved`), s'il a été modifié (`isModified`), ou encore si l'utilisateur est en train de modifier un composant (`isModifyingComponent`). Un flag `isRedrawing` permet d'éviter les redessins redondants via le mécanisme de debouncing expliqué précédemment.
+
+=== Le recalcul des éléments de l'abaque
+
+Dès que l'utilisateur modifie un paramètre du système (fréquence, impédance de charge, impédance caractéristique) ou ajoute, retire ou encore modifie un composant du circuit, un recalcul complet de la chaîne d'impédance est nécessaire. La méthode `recalculateImpedanceChain()` est alors appelée sur le ViewModel. Cette méthode délègue le calcul au service `CircuitSimulator`, qui se charge de la simulation proprement dite. J'ai essayé de développer une fonction qui recalcule la chaîne d'impédance de façon intelligente, mais ce calcul est si rapide qu'il n'est pas très utile d'essayer d'optimiser cela et de rajouter de la complexité programmatique.
+Le `CircuitSimulator` parcourt séquentiellement tous les éléments du circuit en partant de l'impédance de charge. Pour chaque élément, il calcule la transformation d'impédance via la méthode `propagateOne()`. Cette méthode prend la dernière impédance calculée et, selon le type de composant ajouté, calcule l'impédance qui suit en la rajoutant à l'impédance actuelle.
+
+À chaque étape de la propagation, un nouveau `DataPoint` est créé et rajouté à la liste qui sera retournée au ViewModel à la fin de l'exécution de la fonction. 
+
+Ce même service `CircuitSimulator` est également utilisé pour la transformation des points S1P à travers le circuit d'adaptation (via `calculateTransformedS1P()`) et les balayages en fréquence (via `performSweep()`). La logique de propagation reste la même, seules les données d'entrée et la manière de les itérer diffèrent.
+
+=== Gestion de plusieurs circuits
+
+L'application permet de gérer plusieurs circuits pour le même système de base, c'est une fonctionnalité qui a été rajoutée sur la fin du projet. La manière dont elle a été conçue fait en sorte que le système en lui-même ne soit pas au courant qu'il travaille sur plusieurs circuits. Lorsque l'utilisateur le choisit, le ViewModel change simplement de circuit principal.
+
+Le ViewModel gère une liste observable `allCircuits` qui contient plusieurs `ObservableList<CircuitElement>`, chaque liste représentant un circuit distinct. Une propriété `circuitElementIndex` indique quel circuit est actuellement actif. La propriété `circuitElements` est alors liée dynamiquement au circuit actif via un binding JavaFX `circuitElements.bind(Bindings.valueAt(allCircuits, circuitElementIndex))`.
+
+Ce binding va alors changer dynamiquement la référence sur le circuit actif et, vu que le circuit change, le viewModel va lancer un calcul complet de tous les éléments. On sépare complètement la notion de plusieurs circuits du calcul et de l'affichage de l'abaque. La vue et tous les éléments liés aux calculs ne voient que le circuit actif. 

@@ -12,7 +12,7 @@ Actuellement, les étudiants en systèmes embarqués utilisent un logiciel déve
 
 
 === Problématique <problématique>
-Comment fournir aux étudiants un logiciel intuitif, simple d'utilisation et agréable à prendre en main pour manipuler numériquement un abaque de Smith ?
+Comment fournir aux étudiants un logiciel intuitif, simple d'utilisation et agréable à prendre en main pour manipuler numériquement un abaque de Smith ? 
 
 === Solutions existantes <solutions-existantes>
 Il existe bien entendu d'autres logiciels, natifs ou en ligne, qui permettent de manipuler un abaque de Smith. 
