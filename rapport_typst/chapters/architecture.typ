@@ -7,7 +7,7 @@ Comme annoncé dans l'état de l'art, la bibliothèque JavaFX permet de concevoi
 #figure(image("../images/schemaUMLSimple.png", width:100%),
 caption: [Schéma simplifié de l'architecture du projet])
 
-== Partie View
+== Partie Vue
 
 La vue de l'application est, comme son nom l'indique, ce que l'utilisateur peut voir. C'est la partie émergée de l'iceberg. Dans une application JavaFX, elle se manifeste principalement par un fichier *.fxml*. C'est ce fichier qui est édité via l'outil Scene Builder pour modifier graphiquement l'interface utilisateur.
 
@@ -57,13 +57,7 @@ L'opération de dessin est ensuite déléguée au thread d'interface via la fonc
 
 C'est aussi ce contrôleur qui gère la fonctionnalité extrêmement importante d'ajout à la souris (`handleMouseMagnetization`). Lorsqu'un utilisateur ajoute un composant visuellement, le curseur ne se déplace pas librement, il doit se magnétiser au comportement souhaité du composant qu'on ajoute. Par exemple, un condensateur en parallèle va suivre un cercle de conductance constante et afficher en temps réel l'effet qu'a le composant sur le circuit d'adaptation. Le contrôleur calcule en temps réel la projection de la souris sur ces cercles mathématiques pour garantir que les valeurs affichées restent physiquement cohérentes.
 
-Cette fonction complexe utilise de nombreuses fonctions de la classe `SmithCalculator` pour effectuer les calculs :
-
-- `getArcParameters()` : Détermine le centre et le rayon du cercle ou de l'arc que le composant va suivre sur l'abaque en fonction de son type et de sa position (série ou parallèle).
-
-- `getExpectedDirection()` : Calcule la direction dans laquelle l'arc doit être tracé (horaire ou anti-horaire) selon la nature du composant et son effet sur l'impédance.
-
-- `calculateComponentValue()` : Convertit la position angulaire de la souris sur le cercle en une valeur de composant réelle (capacité, inductance, longueur de ligne, etc.).
+Cette fonction complexe utilise de nombreuses fonctions de la classe `SmithCalculator` pour effectuer les calculs qui seront expliqué plus bas dans le rapport. 
 
 Le système projette le mouvement de la souris sur le vecteur tangent au cercle, convertit ce déplacement linéaire en changement d'angle, puis recalcule la valeur du composant à chaque mouvement. Pour les lignes de transmission, le système permet une rotation infinie autour du cercle, tandis que pour les autres composants, l'angle est borné entre le point de départ et les limites physiques (circuit ouvert ou court-circuit).
 
@@ -75,11 +69,106 @@ Lors de l'ajout d'un composant à la souris, un curseur virtuel est affiché sur
 
 Le `cursorCanvas` est également utilisé pour afficher les informations lorsque l'utilisateur survole un point de l'abaque. Le système de détection (`ChartPoint`) vérifie si la souris se trouve assez près d'un point et déclenche l'affichage d'une petite fenêtre avec les informations du point (impédance, VSWR, facteur de qualité, etc.).
 
-== Partie Model
+== Partie Modèle
 
-Le modèle est le squelette des données de l'application. Il contient les différents composants (`CircuitElement`), les unités, et la gestion des nombres complexes. C'est ici qu'on définit comment se comportent les éléments dans le plan physique.
+Le modèle est le squelette des données de l'application, c'est la logique métier de l'application. Il contient les différents composants (`CircuitElement`), les unités, et la gestion des nombres complexes. C'est ici qu'on définit comment se comportent les éléments dans le plan physique.
 
-En plus des éléments des différents composants
+=== Données et éléments du circuit
+
+Le but de l'abaque de Smith est d'élaborer un circuit d'adaptation. Modéliser les différents composants est donc très important. Le logiciel permet d'ajouter quatre types de composants différents : 
+
+*Les composants classiques (Résistance, Condensateur et Inducteur)* : Ces composants se comportent de façon similaire, on peut facilement calculer leur impédance complexe à partir de la fréquence du circuit que l'on construit. Ensuite on choisit si on ajoute cette impédance en série (une simple addition) ou bien en parallèle (et on utilise la fonction de `SmithCalculator` appelée `addParallelImpedance` qui effectue ce calcul $"Z Total" = 1 / ( (1/"Z Start") + (1/"Z Comp") )$, Z Comp étant l'impédance du composant qu'on ajoute). 
+
+En plus de ça, un facteur de qualité (Q) a été mis en place pour les condensateurs et les inducteurs qui permet d'avoir des simulations de circuit d'adaptation plus réalistes. Ce facteur induit une résistance parasite :
+
+- En série, on calcule une résistance de perte $"Rs" = abs(X)/Q$.
+
+- En parallèle, on calcule une résistance de perte $"Rp" = abs(X) dot Q$.
+
+Puisque la réactance (X) d'un condensateur est négative, nous utilisons sa valeur absolue pour garantir une résistance toujours positive. Selon la configuration choisie, cette résistance est combinée à la réactance pure pour former l'impédance réelle du composant.
+
+*Les lignes de transmission* : Ces lignes se comportent très différemment des autres composants. Leur effet change drastiquement selon l'impédance d'entrée de la ligne, c'est pour cela que la manière de calculer l'impédance ne peut pas se faire de façon isolée. La classe `Line` implémente donc une méthode `calculateImpedance(currentImpedance, frequency)` qui prend en compte l'impédance actuelle du circuit, l'impédance au départ de la ligne.
+
+Pour une ligne série (sans stub), on utilise la formule de transformation d'impédance @cours_milieu_cablés :
+
+$ Z_"in" = Z_0 (Z_L + Z_0 tanh(gamma l))/(Z_0 + Z_L tanh(gamma l)) $
+
+où $gamma = alpha + j beta$ est la constante de propagation complexe (qui prend en compte les pertes via le facteur de qualité réutilisé comme perte en dB/m), et $beta = (2 pi f)/c sqrt(epsilon_r)$ est la constante de phase.
+
+Pour les stubs (court-circuit ou circuit ouvert), on travaille sur l'abaque des admittances. Un stub court-circuité donne $Y_"in" = Y_0 / tanh(gamma l)$ tandis qu'un stub ouvert donne $Y_"in" = Y_0 tanh(gamma l)$. Cette admittance est ensuite ajoutée en parallèle au circuit.
+
+Tous ces composants héritent de la classe abstraite `CircuitElement` qui définie les propriétés communes tel que la valeur réelle du composant, la position (série ou parallèle). Cette position permet aussi de savoir si une ligne va être un stub ou non. Le facteur de qualité est aussi mis dans cette classe abstraite.
+
+=== Les unités
+
+Chaque composant utilise des unités différentes. Pour faciliter la rédaction du code et pour avoir un code plus "propre", un système de gestion des unités a été mis en place. Toutes les unités implémentent une interface `ElectronicUnit` qui présente la fonction `getFactor()` permettant d'obtenir le facteur de conversion de l'unité choisie vers son unité de base (ex : les picofarads ont comme facteur 1E-12). Ensuite, différents énumérations implémentent cette interface :
+
+- `CapacitanceUnit` : pF, nF, μF, mF (conversion vers les farads)
+- `InductanceUnit` : H, mH, μH, nH (conversion vers les henrys)
+- `ResistanceUnit` : Ω, kΩ, MΩ (conversion vers les ohms)
+- `DistanceUnit` : mm, m, km (conversion vers les mètres, utilisé pour les lignes de transmission)
+- `FrequencyUnit` : Hz, kHz, MHz, GHz (conversion vers les hertz)
+
+=== Les points de données
+
+Lorsqu'on ajoute un composant sur l'abaque, on affiche aussi ses informations dans une partie de l'interface nommées "DataPoint". C'est une feature pour avoir accès directement aux informations de chaque point du circuit. La classe `DataPoint` encapsule toutes les informations nécessaire, tel que la fréquence du point, son nom (le label affiché), son impédance complexe, son coefficient de réflexion, le VSWR (Voltage Standing Wave Ratio), la perte de retour (Return Loss) en dB et finalement le facteur de qualité de chaque point. 
+
+Ces datapoints sont aussi utilisés pour stocker les informations qui ne font pas partie du circuit, comme par exemple les informations liés aux sweeps ou bien aux fichiers S1P.
+
+=== Gestion des fichiers S1P
+
+La classe `TouchstoneS1P` est un parser développé pour cette application qui est capable de lire et d'exporter les fichiers .s1p selon le standard Touchstone. Ces fichiers commencent par une ligne d'options (précédée de \#) qui spécifie :
+- L'unité de fréquence (Hz, kHz, MHz, GHz)
+- Le type de paramètre (S, Y, Z, H, G - par défaut S pour les paramètres de répartition)
+- Le format des données (DB pour dB/angle, MA pour magnitude/angle, RI pour réel/imaginaire - par défaut MA)
+- La résistance de référence (R suivi de la valeur, par défaut 50Ω)
+
+La méthode statique `parse(file)` lit le fichier ligne par ligne. Elle commence par parser les options via `parseOptionLine()`, puis convertit chaque ligne de données en un `DataPoint`. Elle gère les différents formats de données (DB, MA, RI) via la méthode `calculateComplexValue()`, convertit ensuite les paramètres S en impédance grâce à `calculateImpedance()`, et finalement calcule le vrai gamma avec `calculateGammaFromZ()`.
+
+Cette classe permet aussi d'exporter les SWEEPS de fréquence du circuit créer sur l'application en fichier S1P. Les points du sweep sont alors exporté selon de format S MA R (qui sont les paramètres par défaut de ces fichiers).
+
+=== Les calculs mathématiques
+
+Vu que l'abaque de Smith est une projection du plan complexe, il a fallu mettre en place une classe qui gère ces nombres. La classe `Complex` est un record java qui représente un nombre complexe avec sa partie réelle et imaginaire. En plus de cette représentation, elle implémente toutes les opérations nécessaires pour le projet.
+
+Ensuite, une grande partie des calculs mathématiques utilisés pour l'abaque de Smith se trouvent dans la classe `SmithCalculator`. On y trouve les fonctions de conversions d'impédance au coefficient de réflexion et inversement : `gammaToImpedance(gamma, z0)` qui calcule $Z = Z_0 (1 + Gamma)/(1 - Gamma)$ et `impedanceToGamma(z, z0)` qui calcule $Gamma = (Z - Z_0)/(Z + Z_0)$. La classe fournit aussi des méthodes pour calculer le VSWR (Voltage Standing Wave Ratio) via la formule $(1 + |Gamma|)/(1 - |Gamma|)$ et le Return Loss en dB via $-20 log_10(|Gamma|)$ à partir du gamma.
+
+Pour permettre à la vue de dessiner les trajectoires des composants lors de l'ajout à la souris, la méthode `getArcParameters()` détermine le centre et le rayon du cercle que doit suivre le composant sur l'abaque. Le comportement est très différent selon que le composant ajouté est une ligne de transmission ou un composant classique RLC.
+
+*Pour les lignes de transmission en série*, on a deux cas de figure :
+
+Si l'impédance caractéristique de la ligne ajoutée ($Z_L$) est la même que celle du système ($Z_0$), on obtient un centre situé à l'origine de l'abaque $(0, 0)$ et le rayon correspond simplement à la magnitude du coefficient de réflexion du point de départ (cercle de VSWR constant).
+
+Si les impédances caractéristiques diffèrent, il faut trouver le centre décalé du cercle. Pour cela, on calcule d'abord le coefficient de réflexion de l'impédance actuelle par rapport à l'impédance de la Ligne $Z_L$ (et non par rapport à $Z_0$) : $Gamma_"rel" = (Z_"actuelle" - Z_L)/(Z_"actuelle" + Z_L)$. On récupère sa magnitude $rho_L = |Gamma_"rel"|$ qui reste constante lors de la rotation autour de ce cercle.
+
+Ensuite, on détermine les deux points extrêmes du cercle sur l'axe réel (les points de réactance nulle). Ces valeurs sont obtenues via la formule de conversion générale $Z = Z_L frac(1 + Gamma,1 - Gamma)$, simplifiée ici car on se situe sur l'axe réel :
+
+-  Pour l'impédance maximale ($r_max$), le coefficient de réflexion est positif ($Gamma = +rho_L$), ce qui donne la formule : $r_max = Z_L frac(1 + rho_L,1 - rho_L)$.
+
+- Pour l'impédance minimale ($r_min$), le coefficient de réflexion est négatif ($Gamma = -rho_L$), ce qui inverse les signes de l'équation : $r_min = Z_L frac(1 + (-rho_L),1 - (-rho_L)) = Z_L frac(1 - rho_L,1 + rho_L)$.
+
+Ces deux impédances réelles doivent ensuite être converties dans le plan gamma du système $Z_0$ en utilisant la formule du coefficient de réflexion, cette fois ci avec $Z_0$ : $Gamma_"sys min" = (r_"min" - Z_0)/(r_"min" + Z_0)$ et $Gamma_"sys max" = (r_"max" - Z_0)/(r_"max" + Z_0)$.
+
+Le centre du cercle se trouve exactement au milieu de ces deux points : $"centre"_x = (Gamma_"sys min" + Gamma_"sys max")/2$ et le rayon vaut $r = abs(Gamma_"sys max" - Gamma_"sys min") /2$. Ce centre est décalé horizontalement par rapport à l'origine, créant un cercle qui n'est plus centré sur l'abaque mais qui représente correctement la transformation d'impédance par la ligne.
+
+*Pour les lignes en parallèle* c'est bien plus simple. Le cercle est simplement tangent au point $-1, 0$ (qui correspond au court circuit dans le plan des admittance) et au point de départ. Il faut alors trouver le cercle passant par ces deux points. On trouve le centre du cercle en trouvant le point qui est équidistant au court circuit de l'abaque et au $Gamma$ actuel  
+
+#align(center,$"centre"_x = (abs(Gamma)^2 - 1)/(2(1 + Gamma_"réel"))$)
+
+où $Gamma$ est le coefficient de réflexion du point de départ. Le rayon est simplement la distance entre ce centre et le point $(-1, 0)$ : $r = abs("centre"_x - (-1))$.
+
+*Pour les composants RLC classiques*, le comportement est différent selon le type et la position :
+
+- *Résistances* : Elles suivent des cercles de réactance constante (en série) ou de susceptance constante (en parallèle). Le centre en série est $(1, 1/x)$ avec rayon $|1/x|$, où $x$ est la réactance normalisée. En parallèle, le centre est $(-1, -1/b)$ avec rayon $|1/b|$, où $b$ est la susceptance normalisée.
+
+- *Condensateurs et inductances* : Ils suivent des cercles de résistance constante (en série) ou de conductance constante (en parallèle). Le centre en série est $(r/(r+1), 0)$ avec rayon $1/(r+1)$, où $r$ est la résistance normalisée. En parallèle, le centre est $(-g/(g+1), 0)$ avec rayon $1/(g+1)$, où $g$ est la conductance normalisée.
+
+Ces équations sont les équations de base de l'abaque de smith.
+
+Maintenant qu'on peut savoir sur quel cercle, on peut utiliser la fonction `getExpectedDirection(element, previousGamma)` qui calcule la direction (horaire ou anti-horaire) dans laquelle le composant doit se déplacer. C'est très important car par exemple,un condensateur en série tourne dans le sens horaire (réactance négative), une inductance en série dans le sens anti-horaire (réactance positive). Le cercle sur lequel le composant bouge est le même mais la direction change selon le composant.
+
+Finalement il y a la fonction `calculateComponentValue(gamma, ...)` qui converti une position ... TODO demain
+
 
 == Partie ViewModel
 
