@@ -57,6 +57,22 @@ Pour résoudre ce problème, il a fallu mettre en place un système de curseur v
 
 Lors de l'ajout d'un composant à la souris, un curseur virtuel est affiché sur le `cursorCanvas` à la position magnétisée correcte. L'utilisateur voit ainsi où le composant sera placé sans que la souris système ne bouge. Sur les machines Windows, la souris est tout de même déplacée mais est rendue invisible pour que le curseur personnalisé soit mis en évidence.
 
+=== Schéma du circuit
+
+Pour construire le schéma du circuit, la fonction `render()` du `CircuitRenderer` boucle sur tous les éléments du circuit actif contenu dans le viewModel. Ensuite pour chaque élément, dépendamment du type, la fonction les dessine de la façon la plus simple possible en suivant le style de la norme IEC.
+
+En parallèle du dessin, le renderer construit deux systèmes de hitbox pour permettre l'interaction avec l'utilisateur. Les hitboxes sont des zones rectangulaires invisibles qui détectent si la souris se trouve dedans, ce sont des zones cliquables.
+
+Pour chaque composant dessiné, la méthode `registerHitBox()` crée une zone de détection et la stocke dans une `Map<CircuitElement, Rectangle2D>`. Cette map associe chaque élément du circuit à sa zone cliquable. Quand l'utilisateur clique quelque part, la méthode `getElementAt(x, y)` parcourt toutes ces hitboxes et retourne l'élément qui a été cliqué (ou `null` si on a cliqué dans le vide). Le système est exactement le même avec les points d'insertion, sauf qu'on utilise la méthode `getInsertionIndexAt(x,y)` qui retourne l'index d'insertion (ou `-1` si on a cliqué dans le vide).
+
+Ces méthodes sont ensuite appelées dans le `MainController` qui, à chaque clic sur le schéma électrique du circuit (avec la fonction de JavaFX `circuitCanvas.setOnMouseClicked`), recherche si ce clic était oui ou non sur un élément cliquable ou sur un point d'insertion.
+
+==== Modification des composants
+
+Lorsqu'on clique sur un composant, on le sélectionne grâce à la fonction `selectElement()` et on affiche le panneau de fine tuning, permettant d'ajuster sa valeur en temps réel via des sliders. Ce clic change aussi la fenêtre d'ajout de composant en une fenêtre de modification du composant actuel.
+
+Lorsqu'un composant est sélectionné via `selectElement()`, une copie de son état est immédiatement sauvegardée dans `originalElement`. Les modifications sont alors appliquées directement sur le composant actif, permettant une prévisualisation en temps réel sur l'abaque sans devoir grandement changer le code. Si l'utilisateur valide les changements, la copie est supprimée et le composant modifié est conservé. Si l'utilisateur annule l'opération via `cancelTuningAdjustments()`, le composant modifié est restauré à son état d'origine grâce à la copie sauvegardée.
+
 == Calculs Mathématiques et Physique
 
 Vu que l'abaque de Smith est une projection du plan complexe, il a fallu mettre en place une classe qui gère ces nombres. La classe `Complex` est un record java qui représente un nombre complexe avec sa partie réelle et imaginaire. En plus de cette représentation, elle implémente toutes les opérations nécessaires pour le projet.
@@ -72,6 +88,8 @@ Un facteur de qualité (Q) a été mis en place pour les condensateurs et les in
 - En parallèle, on calcule une résistance de perte $"Rp" = abs(X) dot Q$.
 
 Puisque la réactance (X) d'un condensateur est négative, on utilise sa valeur absolue pour garantir une résistance toujours positive. Selon la configuration choisie, cette résistance est combinée à la réactance pure pour former l'impédance réelle du composant.
+
+Ce même champ "facteur de qualité" est réutilisé pour les lignes de transmission, mais avec une signification différente, il modélise les pertes exprimées en dB/m. Plus d'explication sur son utilisation plus bas dans la section "Calcul de la valeur des composants".
 
 === Calcul des arcs graphiques
 
@@ -109,6 +127,14 @@ Ces équations sont les équations de base de l'abaque de smith.
 
 Maintenant qu'on peut savoir sur quel cercle le composant va agir, on peut utiliser la fonction `getExpectedDirection(element, previousGamma)` qui calcule la direction (horaire ou anti-horaire) dans laquelle le composant doit se déplacer. C'est très important car par exemple,un condensateur en série tourne dans le sens horaire (réactance négative), une inductance en série dans le sens anti-horaire (réactance positive). Le cercle sur lequel le composant bouge est le même mais la direction change selon le composant.
 
+=== Dessins des arcs des composants non parfaits
+
+Le problème avec les composants imparfaits (ceux qui possèdent un facteur de qualité) est qu'ils ne suivent pas un cercle constant sur l'abaque de Smith. La présence de pertes modifie progressivement l'impédance le long du trajet, créant une spirale se rapprochant du centre de l'abaque plutôt qu'un arc de cercle parfait.
+
+Pour résoudre ce problème, la méthode `getLossyComponentPath` de la classe `SmithCalculator` génère 200 points qui représentent le chemin progressif de l'impédance transformée par le composant avec pertes. Ce nombre s'est avéré suffisant lors des tests, bien qu'un problème de résolution apparaisse avec des composants s'approchant de valeurs extrêmes (près des extrémités -1,0 et 1,0 de l'abaque).
+
+Ensuite le principe est simple, on subdivise le composant en 200 sous composants, on calcule le coefficient de réflexion pour chacun d'eux, puis on relie ces points avec la fonction `strokePolyline` de JavaFX pour obtenir la trajectoire complète.
+
 === Calcul de la valeur des composants
 
 Finalement il y a la fonction `calculateComponentValue(gamma, ...)` qui convertit une position obtenue de façon graphique (en ajoutant le composant à la souris) en valeur de composant. C'est extrêmement utile car c'est cette valeur qui va ensuite être utilisée pour ajouter le composant au circuit lorsque l'utilisateur va ajouter son composant.
@@ -129,6 +155,8 @@ Cette fonction prend en entrée le gamma final (là où la souris est positionn�
 
 La fonction renvoie `null` si le calcul est impossible (division par zéro, valeur négative ou non-finie), garantissant ainsi que seules des valeurs physiquement réalistes sont retournées. Et si une telle valeur est retournée, l'opération d'ajout de composant est ignorée.
 
+Dans la vue, cette valeur est mise à jour en temps réel à chaque mouvement de la souris lors de l'ajout d'un composant. Pour les lignes de transmission, un binding bidirectionnel a été mis en place entre la longueur physique de la ligne et sa longueur électrique (exprimée en $lambda$, la longueur d'onde). 
+
 === La chaîne de calcul d'impédance
 
 C'est le cœur de l'application. La méthode `recalculateImpedanceChain()`, comme son nom l'indique, calcule l'état du circuit actuel pour que la vue puisse ensuite afficher les éléments sur l'abaque de façon correcte.
@@ -139,11 +167,11 @@ On fait cela jusqu'à ce que tous les éléments soient traités. Pour pouvoir a
 
 === Lignes de transmission (formules générales)
 
-Pour une ligne série (sans stub), on utilise la formule de transformation d'impédance @cours_milieu_cablés :
+Pour une ligne série (sans stub), on utilise la formule de transformation d'impédance @cours_milieu_cablés @ligne_transmission_wikipedia :
 
 $ Z_"in" = Z_0 (Z_L + Z_0 tanh(gamma l))/(Z_0 + Z_L tanh(gamma l)) $
 
-où $gamma = alpha + j beta$ est la constante de propagation complexe (qui prend en compte les pertes via le facteur de qualité réutilisé comme perte en dB/m), et $beta = (2 pi f)/c sqrt(epsilon_r)$ est la constante de phase.
+où $gamma = alpha + j beta$ est l'exposant de propagation (qui prend en compte les pertes via le facteur de qualité réutilisé comme perte en dB/m, ici $alpha$), et $beta = (2 pi f)/c sqrt(epsilon_r)$ est la constante de phase.
 
 Pour les stubs (court-circuit ou circuit ouvert), on travaille sur l'abaque des admittances. Un stub court-circuité donne $Y_"in" = Y_0 / tanh(gamma l)$ tandis qu'un stub ouvert donne $Y_"in" = Y_0 tanh(gamma l)$. Cette admittance est ensuite ajoutée en parallèle au circuit.
 

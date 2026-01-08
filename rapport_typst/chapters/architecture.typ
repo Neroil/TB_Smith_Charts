@@ -29,6 +29,14 @@ En plus de ce fichier qui gère les éléments simples, il a fallu mettre en pla
 
 Enfin, une classe utilitaire `StageController` a été ajoutée pour gérer le titre de la fenêtre principale, notamment pour indiquer visuellement à l'utilisateur si le projet contient des modifications non sauvegardées (ajout d'un astérisque \* dans le titre).
 
+=== Ajouts et modification d'éléments dans le circuit
+
+Pour offrir à l'utilisateur une flexibilité totale sur l'ajout d'élément dans le circuit, la partie visuelle du circuit permet à l'utilisateur de choisir où il rajoute son composant. Ce qui n'est pas possible sur le logiciel Smith.exe par exemple.
+
+Cette fonctionnalité est gérée par le `CircuitRenderer` qui affiche des petits boutons d'ajout entre chaque composant du schéma électrique. Lorsque l'utilisateur clique sur l'un de ces boutons, il sélectionne le point d'insertion. Ensuite le prochain composant ajouté sera mis juste après ce point. La prévisualisation se fait de façon logique selon l'endroit ou le composant est inséré.
+
+En plus de la fonction d'insertion, il est possible de cliquer sur chaque élément du schéma électrique du circuit pour pouvoir effectuer le fine tuning et de complètement modifier le composant sélectionné. Le circuit est alors complètement modifiable. 
+
 === MainController
 
 La logique de l'interface est gérée par les contrôleurs. JavaFX fournit une possibilité de faire le lien entre les différents boutons et interactions avec le contrôleur principal de l'application, le `MainController`, qui fait le lien entre les boutons de l'interface et les fonctions du programme grâce à l'annotation `@FXML`. C'est cette classe que JavaFX consulte pour effectuer les actions lorsqu'on appuie sur des boutons.

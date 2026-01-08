@@ -1,4 +1,4 @@
-= Conclusion intermédiaire <conclusion>
+= Conclusion <conclusion>
 
 Arrivé à ce stade, je considère que le projet a bien démarré. Les bases de l'application sont posées et l'architecture actuelle semble solide pour supporter la suite du développement. L'objectif principal de cette première phase, qui était d'avoir un prototype capable d'afficher l'abaque et de gérer les interactions de base, est atteint.
 
