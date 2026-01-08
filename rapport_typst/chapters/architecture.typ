@@ -69,6 +69,16 @@ Lors de l'ajout d'un composant à la souris, un curseur virtuel est affiché sur
 
 Le `cursorCanvas` est également utilisé pour afficher les informations lorsque l'utilisateur survole un point de l'abaque. Le système de détection (`ChartPoint`) vérifie si la souris se trouve assez près d'un point et déclenche l'affichage d'une petite fenêtre avec les informations du point (impédance, VSWR, facteur de qualité, etc.).
 
+=== Filtrage des fichiers S1P
+
+Le logiciel permet de simplement mettre en évidence des parties du fichier S1P importé sur l'interface. Après des discussions sur l'utilité de ces mises en évidence, le système a été mis en place de façon à avoir trois plages de mise en évidence au maximum. Essayer de créer un circuit d'adaptation qui permet de satisfaire trois plages est déjà très complexe, donc il était inutile d'en choisir plus.
+
+Ces plages de fréquences sont définies par l'utilisateur via des contrôles de type `RangeSlider` dans l'interface. Chaque filtre peut être activé ou désactivé indépendamment via des propriétés booléennes (`filter1Enabled`, `filter2Enabled`, `filter3Enabled`) stockées dans le ViewModel. Pour chaque filtre actif, on définit une fréquence minimale et maximale (`freqRangeMinF1`/`freqRangeMaxF1`, etc.).
+
+Lors du dessin de l'abaque, le `SmithChartRenderer` parcourt tous les points S1P transformés et appelle la méthode `whichFrequencyRange(frequency)` du ViewModel pour déterminer dans quelle plage se trouve chaque point. Cette méthode retourne 1, 2 ou 3 si le point appartient à l'un des trois filtres actifs, ou -1 si aucun filtre ne correspond.
+
+Selon le résultat, le point est dessiné avec une couleur et un style différent, si le point ne se trouve dans aucune de ces plages, il est alors mis en retrait avec une opacité moindre pour éviter d'avoir trop de points sur l'abaque, l'utilisateur peut se focaliser sur les fréquences sur lesquelles il travail.
+
 == Partie Modèle
 
 Le modèle est le squelette des données de l'application, c'est la logique métier de l'application. Il contient les différents composants (`CircuitElement`), les unités, et la gestion des nombres complexes. C'est ici qu'on définit comment se comportent les éléments dans le plan physique.
@@ -167,7 +177,23 @@ Ces équations sont les équations de base de l'abaque de smith.
 
 Maintenant qu'on peut savoir sur quel cercle, on peut utiliser la fonction `getExpectedDirection(element, previousGamma)` qui calcule la direction (horaire ou anti-horaire) dans laquelle le composant doit se déplacer. C'est très important car par exemple,un condensateur en série tourne dans le sens horaire (réactance négative), une inductance en série dans le sens anti-horaire (réactance positive). Le cercle sur lequel le composant bouge est le même mais la direction change selon le composant.
 
-Finalement il y a la fonction `calculateComponentValue(gamma, ...)` qui converti une position ... TODO demain
+Finalement il y a la fonction `calculateComponentValue(gamma, ...)` qui convertit une position obtenue de façon graphique (en ajoutant le composant à la souris) en valeur de composant. C'est extrêmement utile car c'est cette valeur qui va ensuite être utilisée pour ajouter le composant au circuit lorsque l'utilisateur va ajouter son composant.
+
+Cette fonction prend en entrée le gamma final (là où la souris est positionnée), l'impédance de départ, le type de composant, sa position (série/parallèle), et d'autres paramètres selon le type d'élément. Elle calcule d'abord l'impédance finale à partir du gamma grâce à la formule $Z = Z_0 (1 + Gamma)/(1 - Gamma)$, puis détermine la valeur du composant selon sa nature.
+
+*Pour les composants RLC classiques*, le calcul diffère selon la position :
+
+- En série, on calcule l'impédance ajoutée $Delta Z = Z_"finale" - Z_"départ"$. Pour une inductance, on utilise $L = "Im"(Delta Z) / omega$. Pour un condensateur, $C = -1/("Im"(Delta Z) dot omega)$ (le signe négatif vient du fait que la réactance capacitive est négative). Pour une résistance, simplement $R = "Re"(Delta Z)$.
+
+- En parallèle, on travaille avec les admittances $Y = 1/Z$. On calcule l'admittance ajoutée $Delta Y = Y_"finale" - Y_"départ"$. Pour une inductance, $L = -1/("Im"(Delta Y) dot omega)$. Pour un condensateur, $C = "Im"(Delta Y)/omega$. Pour une résistance, $R = 1/"Re"(Delta Y)$.
+
+*Pour les lignes de transmission*, c'est plus complexe vu qu'il faut calculer la longueur physique de la ligne :
+
+- Pour une ligne série (sans stub), on doit pouvoir savoir combien de fois on a fait le tour du cercle déterminé par `getArcParameters()` sur l'abaque. Initialement on calculait la formule de propagation de la réflexion ($Gamma(L) = Gamma(0) dot e^(-j 2 beta L)$) pour pouvoir trouver l'angle de rotation et ensuite trouver la longueur de la ligne. Mais finalement, la partie graphique de l'application est au courant de l'angle de rotation vu qu'on utilise cette valeur pour pouvoir borner le mouvement de l'utilisateur. Il suffit alors de donner cette valeur à la fonction et de calculer la longueur de la ligne comme $L = frac("angle",2 dot beta)$. Si cette information n'est pas disponible (par exemple lors d'une modification manuelle), on recalcule l'angle à partir des gammas de départ et d'arrivée transformés dans le référentiel de la ligne ($Z_L$), puis on applique la même formule.
+
+- Pour les stubs (court-circuit ou circuit ouvert), on travaille avec l'abaque d'admittance. Un stub court-circuité donne $Y_"in" = -j Y_0 / tan(beta L)$, donc on résout $tan(beta L) = -Y_0 / B$ où $B$ est la susceptance cible, ce qui donne $L = arctan(-Y_0 / B) / beta$. Pour un stub ouvert, $Y_"in" = j Y_0 tan(beta L)$, donc $tan(beta L) = B / Y_0$ et $L = arctan(B / Y_0) / beta$. On s'assure ensuite que la longueur est positive en ajoutant des multiples de $pi/beta$ si nécessaire.
+
+La fonction renvoie `null` si le calcul est impossible (division par zéro, valeur négative ou non-finie), garantissant ainsi que seules des valeurs physiquement réalistes sont retournées. Et si une telle valeur est retournée, l'opération d'ajout de composant est ignorée.
 
 
 === Gestion des "undo/redo"
@@ -176,8 +202,32 @@ Comme tout bon programme informatique, il est très utile de revenir sur ce qu'o
 
 Un système générique `HistoryManager` qui permet d'avoir une gestion de deux piles génériques. Une pile de redo et une pile de undo. Lorsqu'on consomme une action undo, l'état actuel est sauvegardé dans la pile de redo, puis l'état précédent est restauré depuis la pile d'undo. Inversement, lorsqu'on fait un redo, l'état actuel est remis dans la pile d'undo et l'état suivant est récupéré depuis la pile de redo.
 
-Ensuite pour pouvoir utiliser ce gestionnaire, un record `UndoRedoEntry` a été mis en place qui garde comme information l'opération effectuée (ADD, REMOVE, MODIFY), l'index du circuit modifié ainsi qu'une paire d'élément qui lie l'élément du circuit subissant l'opération et son index dans le circuit choisi. Ensuite selon ce que l'utilisateur fait, chaque action est gardée dans le manager et l'utilisateur peut a choix revenir sur ce qu'il a fait ! Le viewModel lui s'occupe de reconstruire le circuit à chaque undo/redo. 
+Ensuite pour pouvoir utiliser ce gestionnaire, un record `UndoRedoEntry` a été mis en place qui garde comme information l'opération effectuée (ADD, REMOVE, MODIFY), l'index du circuit modifié ainsi qu'une paire d'élément qui lie l'élément du circuit subissant l'opération et son index dans le circuit choisi. Ensuite selon ce que l'utilisateur fait, chaque action est gardée dans le manager et l'utilisateur peut a choix revenir sur ce qu'il a fait! Le viewModel lui s'occupe de reconstruire le circuit à chaque undo/redo.
 
+
+=== Les composants discrets
+
+Dans le monde réel, les composants ne peuvent pas prendre n'importe quelle valeur. Ils existent en séries normalisées (séries E12, E24, E96, etc.) et il est pratique de pouvoir visualiser directement les valeurs des composants qu'on a sous la main, plutôt que des valeurs théoriques idéales.
+
+L'utilisateur peut créer sa propre bibliothèque de composants disponibles via une fenêtre de dialogue (`DiscreteComponentConfigDialog`). Cette fenêtre permet d'ajouter des composants avec leur valeur exacte et leurs caractéristiques parasites, soit en utilisant le facteur de qualité, soit sous forme d'ESR. Dépendamment du constructeur du composant et de son type, les datasheets mettent à disposition soit l'un, soit l'autre (ou les deux).
+
+Une nouvelle classe `ComponentEntry` a été mise en place pour encapsuler ces informations et pour pouvoir facilement les utiliser et aussi les exporter. L'utilisateur peut alors exporter ou importer des fichiers CSV contenant les informations nécessaires à cette bibliothèque de composants.
+
+Ensuite, lorsque le mode "composants discrets" est activé par l'utilisateur, le comportement de l'ajout à la souris change. L'utilisateur peut toujours bouger sa souris comme il le souhaite, mais la valeur du composant calculé et son affichage se bloquent sur les valeurs des composants discrets en utilisant la méthode `getClosestComponentEntry()`. Cette méthode parcourt tous les composants du type sélectionné et trouve celui dont la valeur est la plus proche de la valeur calculée à la position actuelle de la souris. De plus, l'affichage de l'abaque rajoute des points directement sur l'abaque pour que l'utilisateur puisse voir où sont positionnés ces composants discrets.
+
+=== Le management du projet
+
+Pour pouvoir sauvegarder l'état du projet sur lequel on travaille, il fallait mettre en place un moyen de sérialiser les informations et de les exporter dans un fichier. Le choix a été fait de ne pas garder en mémoire les fichiers S1P importés lors de la sauvegarde, ni les sweeps effectués, ni la configuration des composants discrets. Chacun peut être exporté de son côté.
+
+Les éléments sauvegardés, stockés dans un record agissant comme DTO (Data Transfer Object), sont le nom du projet, la fréquence de travail, l'impédance caractéristique du système ($Z_0$), l'impédance de charge, et surtout tous les circuits créés par l'utilisateur (stockés sous forme de liste de listes de `CircuitElement`).
+
+La classe `ProjectManager` s'occupe de la sérialisation et désérialisation des projets. Elle utilise la bibliothèque Jackson pour convertir les données en format JSON avec le module `Jdk8Module` pour gérer correctement les types Java modernes (comme `Optional`). 
+
+Lors de la sauvegarde du projet via la méthode `saveProject()`, le logiciel vérifie si le projet est déjà associé à un fichier. Si non, un dialogue de sélection demande à l'utilisateur de choisir un emplacement où stocker le fichier (avec l'extension `.jsmfx`). Ensuite, le chemin du fichier est sauvegardé dans la classe et toutes les sauvegardes ultérieures se feront automatiquement sur ce même fichier. Une option "Save As" existe aussi pour pouvoir sauvegarder dans un nouveau fichier même si le projet est déjà lié à un fichier existant.
+
+Lors du chargement via `loadProject()`, le fichier JSON est désérialisé et toutes les propriétés du ViewModel sont restaurées. Une fois le chargement terminé, les flags `hasBeenSaved` et `isModified` sont mis à jour pour refléter l'état du projet. Ces flags sont mis à jour à chaque interaction que l'utilisateur a avec l'abaque pour indiquer si le projet a eu des changements depuis la dernière sauvegarde. 
+
+Finalement, si des changements ont eu lieu mais qu'aucune sauvegarde n'a été effectué lorsque l'utilisateur souhaite quitter l'application, on demande à l'utilisateur s'il est sûr de vouloir quitter. Un comportement classique de ce genre d'application.
 
 == Partie ViewModel
 
@@ -213,3 +263,12 @@ L'application permet de gérer plusieurs circuits pour le même système de base
 Le ViewModel gère une liste observable `allCircuits` qui contient plusieurs `ObservableList<CircuitElement>`, chaque liste représentant un circuit distinct. Une propriété `circuitElementIndex` indique quel circuit est actuellement actif. La propriété `circuitElements` est alors liée dynamiquement au circuit actif via un binding JavaFX `circuitElements.bind(Bindings.valueAt(allCircuits, circuitElementIndex))`.
 
 Ce binding va alors changer dynamiquement la référence sur le circuit actif et, vu que le circuit change, le viewModel va lancer un calcul complet de tous les éléments. On sépare complètement la notion de plusieurs circuits du calcul et de l'affichage de l'abaque. La vue et tous les éléments liés aux calculs ne voient que le circuit actif. 
+
+
+=== Utilisation du pattern Singleton
+
+Dans la logique de l'application, il ne doit y avoir qu'un seul ViewModel vu que c'est, comme dit plus tôt, l'unique source de vérité. Pour imposer cet aspect, l'utilisation d'un pattern Singleton était nécessaire. Il était aussi utile, dans certaines classes, de pouvoir simplement accéder à l'état de l'application avec un simple `SmithChartViewModel.getInstance()`, cela évite de devoir passer l'objet en référence directement.
+
+On utilise aussi ce pattern pour la fenêtre du graphe MagLog pour les fichiers S1P. 
+
+
