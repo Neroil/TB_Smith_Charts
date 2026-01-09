@@ -73,7 +73,7 @@
 
   // LaTeX look and feel :)
   set text(font: "New Computer Modern")
-  show raw: set text(font: "New Computer Modern Mono")
+  show raw: set text(font: "DejaVu Sans Mono")
   show heading: set block(above: 1.4em, below: 1em)
   
   show heading.where(level:1): set text(size: 25pt)
@@ -86,6 +86,13 @@
     fill: luma(240),
     inset: 10pt,
     radius: 4pt,
+  )
+
+  show raw.where(block: false): box.with(
+    fill: luma(240),
+    inset: (x: 3pt, y: 0pt),
+    outset: (y: 3pt),
+    radius: 2pt,
   )
 
   body

@@ -27,7 +27,7 @@ L'interface a été pensée pour être moderne (basée sur le thème Nord Dark d
 On obtient alors un logiciel complet et utilisable pour effectuer des adaptation d'impédance.
 
 == Déploiement
-Pour déployer l'application de façon multi-plateforme, deux choix s'offrent à nous. Soit on construit une image `.jar` (un *UberJar* plus précisément, en utilisant l'outil Gradle ShadowJar, qui est tout simplement un jar qui contient toutes les dépendances nécessaires par le programme, obligatoire ici vu l'utilisation de JavaFX) qui permet de lancer l'application n'importe où, là où la JVM est installée. Soit on génère une application propre à chaque plateforme que l'utilisateur télécharge selon son système.
+Pour déployer l'application de façon multi-plateforme, deux choix s'offrent à nous. Soit on construit une image `.jar` (un *UberJar* plus précisément, en utilisant l'outil Gradle `ShadowJar`, qui est tout simplement un jar qui contient toutes les dépendances nécessaires par le programme, obligatoire ici vu l'utilisation de JavaFX) qui permet de lancer l'application n'importe où, là où la JVM est installée. Soit on génère une application propre à chaque plateforme que l'utilisateur télécharge selon son système.
 
 Le point fort de la seconde méthode est qu'on n'oblige pas l'utilisateur à avoir Java installé sur son appareil, mais on perd la portabilité du `.jar`.
 
@@ -39,9 +39,9 @@ Mon choix se porte alors sur un déploiement utilisant les outils de CI/CD pour 
 
 Dès qu'une action touchant à l'abaque est réalisée, le `SmithChartInteractionController` appelle la fonction `redrawSmithCanvas`. Dans la version 1.0 de ce projet, cette fonction est sollicitée à de très nombreux endroits (plus de 30 fois). Elle demande ensuite au `SmithChartRenderer` de redessiner l'abaque entièrement.
 
-Pour éviter de surcharger le processeur avec des calculs inutiles (par exemple lors d'un redimensionnement rapide de la fenêtre ou d'un mouvement de souris), un mécanisme de *debouncing* a été mis en place. L'opération active un flag sur le ViewModel, nommé `isRedrawing`.
+Pour éviter de surcharger le processeur avec des calculs inutiles (par exemple lors d'un redimensionnement rapide de la fenêtre ou d'un mouvement de souris), un mécanisme d'anti-rebond a été mis en place. L'opération active un flag sur le ViewModel, nommé `isRedrawing`.
 
-L'opération de dessin est ensuite déléguée au thread d'application via la fonction JavaFX `Platform.runLater`. Si une nouvelle demande de dessin arrive alors que le flag est encore à `true`, elle est ignorée. Une fois le dessin terminé, le drapeau repasse à `false`. Cette optimisation permet d'éliminer énormément de demandes de dessin superflues et d'éviter des freezes de l'interface utilisateur.
+L'opération de dessin est ensuite déléguée au thread d'application via la fonction JavaFX `Platform.runLater`. Si une nouvelle demande de dessin arrive alors que le flag est encore à `true`, elle est ignorée. Une fois le dessin terminé, le drapeau repasse à `false`. Cette optimisation permet d'éliminer énormément de demandes de dessin superflues et d'éviter des ralentissement de l'interface utilisateur.
 
 === Magnétisation de la souris
 
@@ -51,7 +51,7 @@ Le système projette le mouvement de la souris sur le vecteur tangent au cercle,
 
 === Curseur Virtuel et Wayland
 
-Au début du projet, le mécanisme de magnétisation de la souris déplaçait directement le curseur de l'utilisateur à l'aide de la classe `Robot` de JavaFX. Cependant, lors de tests sur une machine Linux, un problème est apparu. Pour des raisons de sécurité de la plateforme Wayland (source : https://bugs.openjdk.org/browse/JDK-8307779), le système d'exploitation empêchait le déplacement programmatique de la souris. Cette fonctionnalité était donc inutilisable sur certaines plateformes.
+Au début du projet, le mécanisme de magnétisation de la souris déplaçait directement le curseur de l'utilisateur à l'aide de la classe `Robot` de JavaFX. Cependant, lors de tests sur une machine Linux, un problème est apparu. Pour des raisons de sécurité de la plateforme Wayland#footnote("Documentation du \"bug\" https://bugs.openjdk.org/browse/JDK-8307779)"), le système d'exploitation empêchait le déplacement programmatique de la souris. Cette fonctionnalité était donc inutilisable sur certaines plateformes.
 
 Pour résoudre ce problème, il a fallu mettre en place un système de curseur virtuel basé sur deux Canvas superposés. L'un est le `smithCanvas`, le canvas principal qui contient l'abaque de Smith, les tracés d'impédance et les points de données. Ensuite la nouveauté, le `cursorCanvas`, un canvas transparent superposé au premier, dédié aux éléments interactifs temporaires (curseur virtuel, tooltips).
 
@@ -59,7 +59,7 @@ Lors de l'ajout d'un composant à la souris, un curseur virtuel est affiché sur
 
 === Schéma du circuit
 
-Pour construire le schéma du circuit, la fonction `render()` du `CircuitRenderer` boucle sur tous les éléments du circuit actif contenu dans le viewModel. Ensuite pour chaque élément, dépendamment du type, la fonction les dessine de la façon la plus simple possible en suivant le style de la norme IEC.
+Pour construire le schéma du circuit, la méthode `render()` du `CircuitRenderer` boucle sur tous les éléments du circuit actif contenu dans le viewModel. Ensuite pour chaque élément, dépendamment du type, la méthode les dessine de la façon la plus simple possible en suivant le style de la norme IEC.
 
 En parallèle du dessin, le renderer construit deux systèmes de hitbox pour permettre l'interaction avec l'utilisateur. Les hitboxes sont des zones rectangulaires invisibles qui détectent si la souris se trouve dedans, ce sont des zones cliquables.
 
@@ -69,9 +69,9 @@ Ces méthodes sont ensuite appelées dans le `MainController` qui, à chaque cli
 
 ==== Modification des composants
 
-Lorsqu'on clique sur un composant, on le sélectionne grâce à la fonction `selectElement()` et on affiche le panneau de fine tuning, permettant d'ajuster sa valeur en temps réel via des sliders. Ce clic change aussi la fenêtre d'ajout de composant en une fenêtre de modification du composant actuel.
+Lorsqu'on clique sur un composant, on le sélectionne grâce à la fonction `selectElement()` et on affiche le panneau de fine tuning, permettant d'ajuster sa valeur en temps réel et si disponible, son facteur de qualité via des sliders. Ce clic change aussi la fenêtre d'ajout de composant en une fenêtre de modification du composant sélectionné.
 
-Lorsqu'un composant est sélectionné via `selectElement()`, une copie de son état est immédiatement sauvegardée dans `originalElement`. Les modifications sont alors appliquées directement sur le composant actif, permettant une prévisualisation en temps réel sur l'abaque sans devoir grandement changer le code. Si l'utilisateur valide les changements, la copie est supprimée et le composant modifié est conservé. Si l'utilisateur annule l'opération via `cancelTuningAdjustments()`, le composant modifié est restauré à son état d'origine grâce à la copie sauvegardée.
+Lorsqu'un composant est sélectionné via `selectElement()`, une copie de son état est immédiatement sauvegardée dans une variable nommée `originalElement` se trouvant dans le viewModel. Les modifications sont alors appliquées directement sur le composant actif, permettant une prévisualisation en temps réel sur l'abaque sans devoir grandement changer le code. Si l'utilisateur valide les changements, la copie est supprimée et le composant modifié est conservé. Si l'utilisateur annule l'opération en cliquant sur le bouton ESC, le `MainController` appelle la méthode `cancelTuningAdjustments()`, le composant modifié est alors restauré à son état d'origine grâce à la copie sauvegardée.
 
 == Calculs Mathématiques et Physique
 
@@ -81,7 +81,7 @@ Ensuite, une grande partie des calculs mathématiques utilisés pour l'abaque de
 
 === Facteur de qualité
 
-Un facteur de qualité (Q) a été mis en place pour les condensateurs et les inducteurs qui permet d'avoir des simulations de circuit d'adaptation plus réalistes. Ce facteur induit une résistance parasite :
+Un facteur de qualité (Q) a été mis en place pour les condensateurs et les inducteurs qui permet d'avoir des simulations de circuit d'adaptation plus réalistes. Ce facteur induit une résistance parasite @cours_circuits_resonants:
 
 - En série, on calcule une résistance de perte $"Rs" = abs(X)/Q$.
 
@@ -111,7 +111,7 @@ Ces deux impédances réelles doivent ensuite être converties dans le plan gamm
 
 Le centre du cercle se trouve exactement au milieu de ces deux points : $"centre"_x = (Gamma_"sys min" + Gamma_"sys max")/2$ et le rayon vaut $r = abs(Gamma_"sys max" - Gamma_"sys min") /2$. Ce centre est décalé horizontalement par rapport à l'origine, créant un cercle qui n'est plus centré sur l'abaque mais qui représente correctement la transformation d'impédance par la ligne.
 
-*Pour les lignes en parallèle* c'est bien plus simple. Le cercle est simplement tangent au point $-1, 0$ (qui correspond au court circuit dans le plan des admittance) et au point de départ. Il faut alors trouver le cercle passant par ces deux points. On trouve le centre du cercle en trouvant le point qui est équidistant au court circuit de l'abaque et au $Gamma$ actuel
+*Pour les lignes en parallèle* c'est bien plus simple. Le cercle est simplement tangent au point $-1, 0$ (qui correspond au court circuit dans le plan des admittance) et au point de départ. Il faut alors trouver le cercle passant par ces deux points. On trouve le centre du cercle en trouvant le point qui est équidistant au court circuit de l'abaque, au $Gamma$ actuel et qui se trouve sur l'axe $Y = 0$ de l'abaque
 
 #align(center,$"centre"_x = (abs(Gamma)^2 - 1)/(2(1 + Gamma_"réel"))$)
 
@@ -133,7 +133,7 @@ Le problème avec les composants imparfaits (ceux qui possèdent un facteur de q
 
 Pour résoudre ce problème, la méthode `getLossyComponentPath` de la classe `SmithCalculator` génère 200 points qui représentent le chemin progressif de l'impédance transformée par le composant avec pertes. Ce nombre s'est avéré suffisant lors des tests, bien qu'un problème de résolution apparaisse avec des composants s'approchant de valeurs extrêmes (près des extrémités -1,0 et 1,0 de l'abaque).
 
-Ensuite le principe est simple, on subdivise le composant en 200 sous composants, on calcule le coefficient de réflexion pour chacun d'eux, puis on relie ces points avec la fonction `strokePolyline` de JavaFX pour obtenir la trajectoire complète.
+Ensuite le principe est simple, on subdivise le composant en 200 sous-composants, on calcule le coefficient de réflexion pour chacun d'eux, puis on relie ces points avec la fonction `strokePolyline` de JavaFX pour obtenir la trajectoire complète.
 
 === Calcul de la valeur des composants
 
@@ -151,7 +151,9 @@ Cette fonction prend en entrée le gamma final (là où la souris est positionn�
 
 - Pour une ligne série (sans stub), on doit pouvoir savoir combien de fois on a fait le tour du cercle déterminé par `getArcParameters()` sur l'abaque. Initialement on calculait la formule de propagation de la réflexion ($Gamma(L) = Gamma(0) dot e^(-j 2 beta L)$) pour pouvoir trouver l'angle de rotation et ensuite trouver la longueur de la ligne. Mais finalement, la partie graphique de l'application est au courant de l'angle de rotation vu qu'on utilise cette valeur pour pouvoir borner le mouvement de l'utilisateur. Il suffit alors de donner cette valeur à la fonction et de calculer la longueur de la ligne comme $L = frac("angle",2 dot beta)$. Si cette information n'est pas disponible (par exemple lors d'une modification manuelle), on recalcule l'angle à partir des gammas de départ et d'arrivée transformés dans le référentiel de la ligne ($Z_L$), puis on applique la même formule.
 
-- Pour les stubs (court-circuit ou circuit ouvert), on travaille avec l'abaque d'admittance. Un stub court-circuité donne $Y_"in" = -j Y_0 / tan(beta L)$, donc on résout $tan(beta L) = -Y_0 / B$ où $B$ est la susceptance cible, ce qui donne $L = arctan(-Y_0 / B) / beta$. Pour un stub ouvert, $Y_"in" = j Y_0 tan(beta L)$, donc $tan(beta L) = B / Y_0$ et $L = arctan(B / Y_0) / beta$. On s'assure ensuite que la longueur est positive en ajoutant des multiples de $pi/beta$ si nécessaire.
+- Pour les stubs (court-circuit ou circuit ouvert), on travaille avec l'abaque d'admittance. Un stub court-circuité donne $Y_"in" = -j Y_0 / tan(beta L)$, donc on résout $tan(beta L) = -Y_0 / B$ où $B$ est la susceptance cible.
+
+    Ce qui donne $L = arctan(-Y_0 / B) / beta$. Pour un stub ouvert, $Y_"in" = j Y_0 tan(beta L)$, donc $tan(beta L) = B / Y_0$ et $L = arctan(B / Y_0) / beta$. On s'assure ensuite que la longueur est positive en ajoutant des multiples de $pi/beta$ si nécessaire.
 
 La fonction renvoie `null` si le calcul est impossible (division par zéro, valeur négative ou non-finie), garantissant ainsi que seules des valeurs physiquement réalistes sont retournées. Et si une telle valeur est retournée, l'opération d'ajout de composant est ignorée.
 
@@ -167,13 +169,21 @@ On fait cela jusqu'à ce que tous les éléments soient traités. Pour pouvoir a
 
 === Lignes de transmission (formules générales)
 
-Pour une ligne série (sans stub), on utilise la formule de transformation d'impédance @cours_milieu_cablés @ligne_transmission_wikipedia :
+*Pour une ligne série* (sans stub), on utilise la formule de transformation d'impédance @cours_milieu_cablés @ligne_transmission_wikipedia :
 
 $ Z_"in" = Z_0 (Z_L + Z_0 tanh(gamma l))/(Z_0 + Z_L tanh(gamma l)) $
 
 où $gamma = alpha + j beta$ est l'exposant de propagation (qui prend en compte les pertes via le facteur de qualité réutilisé comme perte en dB/m, ici $alpha$), et $beta = (2 pi f)/c sqrt(epsilon_r)$ est la constante de phase.
 
-Pour les stubs (court-circuit ou circuit ouvert), on travaille sur l'abaque des admittances. Un stub court-circuité donne $Y_"in" = Y_0 / tanh(gamma l)$ tandis qu'un stub ouvert donne $Y_"in" = Y_0 tanh(gamma l)$. Cette admittance est ensuite ajoutée en parallèle au circuit.
+*Pour les stubs* (court-circuit ou circuit ouvert), on part de la même formule générale avec pertes, mais avec des charges particulières. Pour un stub court-circuité ($Z_L = 0$), on obtient :
+
+$ Z_"in" = Z_0 (0 + Z_0 tanh(gamma L))/(Z_0 + 0) = Z_0 tanh(gamma L) $
+
+qu'on convertit en admittance : $Y_"in" = Y_0 / tanh(gamma L)$. Pour un stub ouvert ($Z_L -> infinity$), on divise numérateur et dénominateur par $Z_L$ et on effectue le calcul de limite, ce qui donne :
+
+$ Z_"in" = Z_0 / tanh(gamma L) $
+
+soit en admittance : $Y_"in" = Y_0 tanh(gamma L)$. Ces admittances sont ensuite ajoutées en parallèle au circuit. Finalement, pour déterminer la longueur du stub à partir de la susceptance cible $B$, on résout $tan(beta L) = -Y_0 / B$ pour un stub court-circuité, et $tan(beta L) = B / Y_0$ pour un stub ouvert.
 
 == Dessin de l'abaque
 

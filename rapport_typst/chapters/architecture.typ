@@ -19,7 +19,7 @@ En plus de ce fichier qui gère les éléments simples, il a fallu mettre en pla
 
 - `SmithChartLayout` : Une classe utilitaire qui gère les conversions entre coordonnées gamma (complexe) et coordonnées pixel à l'écran. Elle centralise les calculs de positionnement sur le canvas.
 
-- `CircuitRenderer` : De la même manière, cette classe dessine le schéma électrique du circuit en fonction des composants ajoutés (résistances, lignes, etc.).
+- `CircuitRenderer` : Cette classe dessine le schéma électrique du circuit en fonction des composants ajoutés (résistances, lignes, etc.).
 
 - `S1PPlotterWindow` : Une fenêtre dédiée pour afficher les données d'un fichier S1P sous forme de diagramme cartésien (Log Magnitude / Fréquence).
 
@@ -31,7 +31,7 @@ Enfin, une classe utilitaire `StageController` a été ajoutée pour gérer le t
 
 === Ajouts et modification d'éléments dans le circuit
 
-Pour offrir à l'utilisateur une flexibilité totale sur l'ajout d'élément dans le circuit, la partie visuelle du circuit permet à l'utilisateur de choisir où il rajoute son composant. Ce qui n'est pas possible sur le logiciel Smith.exe par exemple.
+Pour offrir à l'utilisateur une flexibilité totale sur l'ajout d'élément dans le circuit, la partie schématique du circuit permet à l'utilisateur de choisir où il rajoute son composant. Ce qui n'est pas possible sur le logiciel Smith.exe par exemple.
 
 Cette fonctionnalité est gérée par le `CircuitRenderer` qui affiche des petits boutons d'ajout entre chaque composant du schéma électrique. Lorsque l'utilisateur clique sur l'un de ces boutons, il sélectionne le point d'insertion. Ensuite le prochain composant ajouté sera mis juste après ce point. La prévisualisation se fait de façon logique selon l'endroit ou le composant est inséré.
 
@@ -53,7 +53,7 @@ Le `MainController` s'occupe principalement de :
 
 - *Coordination avec CircuitRenderer* : Redessiner le schéma électrique à chaque modification du circuit.
 
-Cependant, vu la richesse des interactions possibles sur l'abaque (zoom, pan, ajout à la souris), le `MainController` devenait trop chargé. Une classe `SmithChartInteractionController` a donc été introduite pour déléguer toute la logique spécifique aux interactions avec l'abaque de Smith. Le `MainController` reste ainsi focalisé sur l'orchestration globale de la fenêtre et des menus.
+Cependant, vu la richesse des interactions possibles sur l'abaque (zoom, pan, ajout à la souris), le `MainController` devenait trop chargé. Une classe `SmithChartInteractionController` a donc été introduite pour déléguer toute la logique spécifique aux interactions avec le graphique de l'abaque de Smith. Le `MainController` reste ainsi focalisé sur l'orchestration globale de la fenêtre et des menus.
 
 == Partie Modèle
 
@@ -67,7 +67,7 @@ Le but de l'abaque de Smith est d'élaborer un circuit d'adaptation. Modéliser 
 
 En plus de ça, un facteur de qualité (Q) a été mis en place pour les condensateurs et les inducteurs qui permet d'avoir des simulations de circuit d'adaptation plus réalistes.
 
-*Les lignes de transmission* : Ces lignes se comportent très différemment des autres composants. Leur effet change drastiquement selon l'impédance d'entrée de la ligne, c'est pour cela que la manière de calculer l'impédance ne peut pas se faire de façon isolée. La classe `Line` implémente donc une méthode `calculateImpedance(currentImpedance, frequency)` qui prend en compte l'impédance actuelle du circuit, l'impédance au départ de la ligne.
+*Les lignes de transmission* : Ces lignes se comportent très différemment des autres composants. Leur effet change drastiquement selon l'impédance d'entrée de la ligne, c'est pour cela que la manière de calculer l'impédance ne peut pas se faire de façon isolée. La classe `Line` implémente donc une méthode `calculateImpedance(currentImpedance, frequency)` qui prend en compte l'impédance actuelle du circuit, c'est à dire l'impédance au départ de la ligne.
 
 Tous ces composants héritent de la classe abstraite `CircuitElement` qui définie les propriétés communes tel que la valeur réelle du composant, la position (série ou parallèle). Cette position permet aussi de savoir si une ligne va être un stub ou non. Le facteur de qualité est aussi mis dans cette classe abstraite.
 
@@ -75,11 +75,11 @@ Tous ces composants héritent de la classe abstraite `CircuitElement` qui défin
 
 Chaque composant utilise des unités différentes. Pour faciliter la rédaction du code et pour avoir un code plus "propre", un système de gestion des unités a été mis en place. Toutes les unités implémentent une interface `ElectronicUnit` qui présente la fonction `getFactor()` permettant d'obtenir le facteur de conversion de l'unité choisie vers son unité de base (ex : les picofarads ont comme facteur 1E-12). Ensuite, différents énumérations implémentent cette interface :
 
-- `CapacitanceUnit` : pF, nF, μF, mF (conversion vers les farads)
-- `InductanceUnit` : H, mH, μH, nH (conversion vers les henrys)
-- `ResistanceUnit` : Ω, kΩ, MΩ (conversion vers les ohms)
-- `DistanceUnit` : mm, m, km (conversion vers les mètres, utilisé pour les lignes de transmission)
-- `FrequencyUnit` : Hz, kHz, MHz, GHz (conversion vers les hertz)
+- `CapacitanceUnit` : pF, nF, μF, mF
+- `InductanceUnit` : H, mH, μH, nH
+- `ResistanceUnit` : Ω, kΩ, MΩ 
+- `DistanceUnit` : mm, m, km 
+- `FrequencyUnit` : Hz, kHz, MHz, GHz
 
 === Les points de données
 
