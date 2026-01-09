@@ -14,7 +14,7 @@ Ensuite cette réactance peut soit être capacitive $X_C$ (comme un condensateur
 
 #align(center, $X_C = -frac(1,2 pi f C) wide X_L = 2 pi f L$)
 
-En radiofréquence, l'objectif est de transférer un signal le plus efficacement possible entre une source émettrice et une charge (une antenne, par exemple). Pour ce faire, il faut assurer que le transfert de puissance soit maximal. Si l'on envoie 100W de puissance RF, on veut que notre antenne rayonne l'entièreté de ces 100W.
+En radiofréquence, l'objectif est de transférer un signal le plus efficacement possible entre une source émettrice et une charge (une antenne, par exemple). Pour ce faire, il faut assurer que le transfert de puissance soit maximal. Si l'on envoie 100W de puissance RF, on veut maximiser la puissance rayonnée par l'antenne en minimisant les pertes par réflexion, potentiellement 100W de rayonnement (quasi impossible).
 
 Si ce n'est pas le cas, on parle de désadaptation d'impédance. L'énergie qui n'est pas transmise à la charge est alors réfléchie vers la source, ce qui induit deux problèmes majeurs: une perte d'efficacité, car une partie de la puissance transmise n'est tout simplement pas rayonnée et un danger pour la source qui peut être endommagée par cette réflexion.
 

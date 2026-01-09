@@ -30,8 +30,7 @@ Le parser de fichiers Touchstone (.s1p) nécessitait des tests pour garantir la 
 - Test d'un cycle complet d'export vers fichier S1P puis réimport pour vérifier la cohérence des données.
 - La robustesse du parser avec la gestion des commentaires, lignes vides et fichiers vides. 
 
-Ces tests ne sont pas exhaustifs mais devraient être nécessaire pour le scope de l'application.
-
+Ces tests couvrent les cas d'usage principaux et les cas limites identifiés même s'il ne sont sûrement pas exhaustifs, c'est assez pour le cadre de ce travail de bachelor.
 
 == Tests de validation de circuits complets
 

@@ -1,7 +1,7 @@
 = Planification <planification>
 == Planification initiale <planification-initiale>
 
-Ce document détaille la planification semaine par semaine pour la réalisation du travail de bachelor. Le projet se déroule à temps plein sur une période de 10 semaines, avec un rendu final fixé au *vendredi 16 janvier 2026 à 12h00*. La planification intègre des phases de développement, de test, de rédaction et une marge de sécurité pour les imprévus.
+Ce document détaille la planification semaine par semaine pour la réalisation du travail de bachelor. Le projet se déroule à temps plein sur une période de 10 semaines, avec un rendu final fixé au *vendredi 16 janvier 2026 à 18h00*. La planification intègre des phases de développement, de test, de rédaction et une marge de sécurité pour les imprévus.
 
 == Planification semaine par semaine
 

@@ -10,6 +10,6 @@ Côté technique, les challenges les plus intéressants étaient le calcul des t
 
 Par rapport à la planification, elle a été plus ou moins suivie, avec un peu d'avance au début du projet, avance que j'ai perdue sur la fin, mais toutes les fonctionnalités ont pu être mises en place.
 
-Ensuite, pour des améliorations futures, je pense que ce projet pourrait avoir des fonctionnalités supplémentaires, comme une meilleure gestion des facteurs de qualité selon la fréquence, l'utilisation de fichiers S2P (paramètres S à deux ports) ou encore peut-être un ajout d'algorithme de résolution automatique de circuits d'adaptation. 
+Ensuite, pour des améliorations futures, je pense que ce projet pourrait avoir des fonctionnalités supplémentaires, comme une meilleure gestion des facteurs de qualité selon la fréquence, l'utilisation de fichiers S2P (paramètres S à deux ports), un meilleur système de dessin pour les éléments avec perte où il existe sûrement une meilleure façon de dessiner ces telles courbes, ou encore peut-être un ajout d'algorithme de résolution automatique de circuits d'adaptation. 
 
 Au final, JSmithFX remplit totalement son objectif qui est de fournir un outil moderne, multi-plateforme et intuitif pour l'adaptation d'impédance. Le fait qu'il ait déjà été utilisé pour un vrai projet montre que ça répond à un vrai besoin. 

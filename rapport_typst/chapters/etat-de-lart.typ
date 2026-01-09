@@ -68,7 +68,7 @@ Tauri est un framework qui utilise une architecture du type web pour le frontend
 
 Un grand plus de ce framework est aussi la performance et sa moindre empreinte mémoire.
 
-Après avoir fait quelques recherches, on peut voir que, si l'on veut faire quelque chose de graphique avec Tauri comme dessiner l'abaque de Smith, l'utilisation d'une bibliothèque JavaScript est obligatoire pour le faire, ce qui pose un grand frein pour l'adaptation de ce framework. De plus, le backend ne sera pas très complexe dans ce projet or, avec Tauri, toute la partie graphique doit être réalisée en JavaScript via une technologie web (React, Vue, etc.), ce qui ajoute une couche supplémentaire et ne semble pas pertinent ici. Une solution où le dessin et l'interactivité sont gérés directement dans le langage principal du framework et qui n'utilise si possible pas de JavaScript est préférable. 
+Après avoir fait quelques recherches, on peut voir que, si l'on veut faire quelque chose de graphique avec Tauri comme dessiner l'abaque de Smith, l'utilisation d'une bibliothèque JavaScript est obligatoire pour le faire, ce qui pose un grand frein pour l'adaptation de ce framework. De plus, Tauri nécessite l'apprentissage de Rust pour le backend, ce qui représente une charge importante pour un projet à durée limitée. JavaFX permet de rester dans l'écosystème Java, plus familier aux étudiants de la filière qui risquent de reprendre le projet si jamais une modification est nécessaire. Une solution où le dessin et l'interactivité sont gérés directement dans le langage principal du framework et qui n'utilise si possible pas de JavaScript est préférable. 
 
 == Choix et justification
 
