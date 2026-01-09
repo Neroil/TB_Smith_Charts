@@ -49,11 +49,12 @@
 
 #include "chapters/planification.typ"
 
-//#include "chapters/ch_exemple.typ"
-
 #include "chapters/architecture.typ"
 
 #include "chapters/implementation.typ"
+
+#include "chapters/tests.typ"
+
 #include "chapters/conclusion.typ"
 
 // Remove numbering after content

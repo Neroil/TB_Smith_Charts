@@ -11,7 +11,7 @@ L'idée initiale de ce travail de bachelor est de moderniser l'outil existant d�
 
 === Smith (Smith.exe)
 
-Smith, ou plus couramment *Smith.exe* @smith_v4, est un logiciel dont la dernière mise à jour date de 2018. Il fonctionne uniquement sous Windows.
+Smith, qui sera appelé *Smith.exe* @smith_v4 dans le reste de ce rapport, est un logiciel dont la dernière mise à jour date de 2018. Il fonctionne uniquement sous Windows.
 
 #figure(image("../template/images/smithexe/apercu.png", width:70%), caption: [Aperçu de Smith.exe])
 
