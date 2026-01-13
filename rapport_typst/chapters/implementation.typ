@@ -7,9 +7,9 @@ L'implémentation du projet est totale, toutes les demandes du cahier des charge
 L'interface a été pensée pour être moderne (basée sur le thème Nord Dark d'AtlantaFX) et réactive. Voici une énumération des fonctionnalités implémentées dans cette version finale :
 
 - *Modélisation complète des composants* : Ajout de composants RLC (avec gestion du facteur de qualité Q et des pertes) en série et en parallèle, ainsi que des lignes de transmission et des stubs (ouverts et court-circuités).
-- *Affichage Abaque-Circuit* : Affichage simultané et synchronisé de l'abaque de Smith et du schéma électrique du circuit générer par l'ajout de composants par l'utilisateur. 
+- *Affichage Abaque-Circuit* : Affichage simultané et synchronisé de l'abaque de Smith et du schéma électrique du circuit généré par l'ajout de composants par l'utilisateur. 
 - *Interactions* :
-    - Ajout de composants à la souris avec magnétisation de celle-ci sur les trajectoires physique des composants.
+    - Ajout de composants à la souris avec magnétisation de celle-ci sur les trajectoires physiques des composants.
     - Système d'Undo/Redo (CTRL+Z / CTRL+Y).
     - Navigation fluide sur l'abaque (zoom, pan).
 - *Analyse et Simulation* :
@@ -24,7 +24,7 @@ L'interface a été pensée pour être moderne (basée sur le thème Nord Dark d
 - *Composants Discrets* : Système de bibliothèque permettant de forcer l'utilisation de valeurs normalisées (séries E12, E24, etc.) lors de la conception.
 - *Gestion de projet* : Sauvegarde et chargement de l'état complet de l'application via des fichiers `.jsmfx` (JSON), et gestion de plusieurs circuits au sein d'un même projet.
 
-On obtient alors un logiciel complet et utilisable pour effectuer des adaptation d'impédance.
+On obtient alors un logiciel complet et utilisable pour effectuer des adaptations d'impédance.
 
 == Déploiement
 Pour déployer l'application de façon multi-plateforme, deux choix s'offrent à nous. Soit on construit une image `.jar` (un *UberJar* plus précisément, en utilisant l'outil Gradle `ShadowJar`, qui est tout simplement un jar qui contient toutes les dépendances nécessaires par le programme, obligatoire ici vu l'utilisation de JavaFX) qui permet de lancer l'application n'importe où, là où la JVM est installée. Soit on génère une application propre à chaque plateforme que l'utilisateur télécharge selon son système.
@@ -41,25 +41,27 @@ Dès qu'une action touchant à l'abaque est réalisée, le `SmithChartInteractio
 
 Pour éviter de surcharger le processeur avec des calculs inutiles (par exemple lors d'un redimensionnement rapide de la fenêtre ou d'un mouvement de souris), un mécanisme d'anti-rebond a été mis en place. L'opération active un flag sur le ViewModel, nommé `isRedrawing`.
 
-L'opération de dessin est ensuite déléguée au thread d'application via la fonction JavaFX `Platform.runLater`. Si une nouvelle demande de dessin arrive alors que le flag est encore à `true`, elle est ignorée. Une fois le dessin terminé, le drapeau repasse à `false`. Cette optimisation permet d'éliminer énormément de demandes de dessin superflues et d'éviter des ralentissement de l'interface utilisateur.
+L'opération de dessin est ensuite déléguée au thread d'application via la fonction JavaFX `Platform.runLater`. Si une nouvelle demande de dessin arrive alors que le flag est encore à `true`, elle est ignorée. Une fois le dessin terminé, le drapeau repasse à `false`. Cette optimisation permet d'éliminer énormément de demandes de dessin superflues et d'éviter des ralentissements de l'interface utilisateur.
 
 === Magnétisation de la souris
 
 Le contrôleur gère la fonctionnalité extrêmement importante d'ajout à la souris (`handleMouseMagnetization`). Lorsqu'un utilisateur ajoute un composant visuellement, le curseur ne se déplace pas librement, il doit se magnétiser au comportement souhaité du composant qu'on ajoute. Par exemple, un condensateur en parallèle va suivre un cercle de conductance constante et afficher en temps réel l'effet qu'a le composant sur le circuit d'adaptation.
 
-Le système projette le mouvement de la souris sur le vecteur tangent au cercle, convertit ce déplacement linéaire en changement d'angle, puis recalcule la valeur du composant à chaque mouvement. Pour les lignes de transmission, le système permet une rotation infinie autour du cercle, tandis que pour les autres composants, l'angle est borné entre le point de départ et les limites physiques (circuit ouvert ou court-circuit).
+Le système projette le mouvement de la souris sur le vecteur tangent au cercle, convertit ce déplacement linéaire en changement d'angle, puis recalcule la valeur du composant à chaque mouvement. Pour les lignes de transmission, le système permet une rotation infinie autour du cercle, tandis que, pour les autres composants, l'angle est borné entre le point de départ et les limites physiques (circuit ouvert ou court-circuit).
 
 === Curseur Virtuel et Wayland
 
 Au début du projet, le mécanisme de magnétisation de la souris déplaçait directement le curseur de l'utilisateur à l'aide de la classe `Robot` de JavaFX. Cependant, lors de tests sur une machine Linux, un problème est apparu. Pour des raisons de sécurité de la plateforme Wayland#footnote("Documentation du \"bug\" https://bugs.openjdk.org/browse/JDK-8307779)"), le système d'exploitation empêchait le déplacement programmatique de la souris. Cette fonctionnalité était donc inutilisable sur certaines plateformes.
 
-Pour résoudre ce problème, il a fallu mettre en place un système de curseur virtuel basé sur deux Canvas superposés. L'un est le `smithCanvas`, le canvas principal qui contient l'abaque de Smith, les tracés d'impédance et les points de données. Ensuite la nouveauté, le `cursorCanvas`, un canvas transparent superposé au premier, dédié aux éléments interactifs temporaires (curseur virtuel, tooltips).
+Pour résoudre ce problème, il a fallu mettre en place un système de curseur virtuel basé sur deux Canvas superposés. L'un est le `smithCanvas`, le canvas principal qui contient l'abaque de Smith, les tracés d'impédance et les points de données. Ensuite, la nouveauté, le `cursorCanvas`, un canvas transparent superposé au premier, dédié aux éléments interactifs temporaires (curseur virtuel, tooltips).
 
-Lors de l'ajout d'un composant à la souris, un curseur virtuel est affiché sur le `cursorCanvas` à la position magnétisée correcte. L'utilisateur voit ainsi où le composant sera placé sans que la souris système ne bouge. Sur les machines Windows, la souris est tout de même déplacée mais est rendue invisible pour que le curseur personnalisé soit mis en évidence.
+Lors de l'ajout d'un composant à la souris, un curseur virtuel est affiché sur le `cursorCanvas` à la position magnétisée correcte. L'utilisateur voit ainsi où le composant sera placé sans que la souris système ne bouge. Sur les machines Windows, la souris est tout de même déplacée, mais est rendue invisible pour que le curseur personnalisé soit mis en évidence.
+
+Cette solution, basée sur deux Canvas, reste valide même si ce problème lié à Wayland est corrigé dans une version future de JavaFX. Elle fonctionne de manière uniforme, peu importe la plateforme sur laquelle l'application tourne.
 
 === Schéma du circuit
 
-Pour construire le schéma du circuit, la méthode `render()` du `CircuitRenderer` boucle sur tous les éléments du circuit actif contenu dans le viewModel. Ensuite pour chaque élément, dépendamment du type, la méthode les dessine de la façon la plus simple possible en suivant le style de la norme IEC.
+Pour construire le schéma du circuit, la méthode `render()` du `CircuitRenderer` boucle sur tous les éléments du circuit actif contenu dans le viewModel. Ensuite, pour chaque élément, dépendamment du type, la méthode les dessine de la façon la plus simple possible en suivant le style de la norme IEC.
 
 En parallèle du dessin, le renderer construit deux systèmes de hitbox pour permettre l'interaction avec l'utilisateur. Les hitboxes sont des zones rectangulaires invisibles qui détectent si la souris se trouve dedans, ce sont des zones cliquables.
 
@@ -69,7 +71,7 @@ Ces méthodes sont ensuite appelées dans le `MainController` qui, à chaque cli
 
 ==== Modification des composants
 
-Lorsqu'on clique sur un composant, on le sélectionne grâce à la fonction `selectElement()` et on affiche le panneau de fine tuning, permettant d'ajuster sa valeur en temps réel et si disponible, son facteur de qualité via des sliders. Ce clic change aussi la fenêtre d'ajout de composant en une fenêtre de modification du composant sélectionné.
+Lorsqu'on clique sur un composant, on le sélectionne grâce à la fonction `selectElement()` et on affiche le panneau de fine-tuning, permettant d'ajuster sa valeur en temps réel et si disponible, son facteur de qualité via des sliders. Ce clic change aussi la fenêtre d'ajout de composant en une fenêtre de modification du composant sélectionné.
 
 Lorsqu'un composant est sélectionné via `selectElement()`, une copie de son état est immédiatement sauvegardée dans une variable nommée `originalElement` se trouvant dans le viewModel. Les modifications sont alors appliquées directement sur le composant actif, permettant une prévisualisation en temps réel sur l'abaque sans devoir grandement changer le code. Si l'utilisateur valide les changements, la copie est supprimée et le composant modifié est conservé. Si l'utilisateur annule l'opération en cliquant sur le bouton ESC, le `MainController` appelle la méthode `cancelTuningAdjustments()`, le composant modifié est alors restauré à son état d'origine grâce à la copie sauvegardée.
 
@@ -81,7 +83,7 @@ Ensuite, une grande partie des calculs mathématiques utilisés pour l'abaque de
 
 === Facteur de qualité
 
-Un facteur de qualité (Q) a été mis en place pour les condensateurs et les inducteurs qui permet d'avoir des simulations de circuit d'adaptation plus réalistes. Ce facteur induit une résistance parasite @cours_circuits_resonants:
+Un facteur de qualité (Q) a été mis en place pour les condensateurs et les inducteurs qui permet d'avoir des simulations de circuit d'adaptation plus réalistes. Ce facteur induit une résistance parasite aussi appelée ESR (Equivalent Serie Resistance) @cours_circuits_resonants:
 
 - En série, on calcule une résistance de perte $"Rs" = abs(X)/Q$.
 
@@ -101,7 +103,7 @@ Si l'impédance caractéristique de la ligne ajoutée ($Z_L$) est la même que c
 
 Si les impédances caractéristiques diffèrent, il faut trouver le centre décalé du cercle. Pour cela, on calcule d'abord le coefficient de réflexion de l'impédance actuelle par rapport à l'impédance de la Ligne $Z_L$ (et non par rapport à $Z_0$) : $Gamma_"rel" = (Z_"actuelle" - Z_L)/(Z_"actuelle" + Z_L)$. On récupère sa magnitude $rho_L = |Gamma_"rel"|$ qui reste constante lors de la rotation autour de ce cercle.
 
-Ensuite, on détermine les deux points extrêmes du cercle sur l'axe réel (les points de réactance nulle). Ces valeurs sont obtenues via la formule de conversion générale $Z = Z_L frac(1 + Gamma,1 - Gamma)$, simplifiée ici car on se situe sur l'axe réel :
+Ensuite, on détermine les deux points extrêmes du cercle sur l'axe réel (les points de réactance nulle). Ces valeurs sont obtenues via la formule de conversion générale $Z = Z_L frac(1 + Gamma,1 - Gamma)$, simplifiée ici, car on se situe sur l'axe réel :
 
 -  Pour l'impédance maximale ($r_max$), le coefficient de réflexion est positif ($Gamma = +rho_L$), ce qui donne la formule : $r_max = Z_L frac(1 + rho_L,1 - rho_L)$.
 
@@ -109,9 +111,9 @@ Ensuite, on détermine les deux points extrêmes du cercle sur l'axe réel (les 
 
 Ces deux impédances réelles doivent ensuite être converties dans le plan gamma du système $Z_0$ en utilisant la formule du coefficient de réflexion, cette fois ci avec $Z_0$ : $Gamma_"sys min" = (r_"min" - Z_0)/(r_"min" + Z_0)$ et $Gamma_"sys max" = (r_"max" - Z_0)/(r_"max" + Z_0)$.
 
-Le centre du cercle se trouve exactement au milieu de ces deux points : $"centre"_x = (Gamma_"sys min" + Gamma_"sys max")/2$ et le rayon vaut $r = abs(Gamma_"sys max" - Gamma_"sys min") /2$. Ce centre est décalé horizontalement par rapport à l'origine, créant un cercle qui n'est plus centré sur l'abaque mais qui représente correctement la transformation d'impédance par la ligne.
+Le centre du cercle se trouve exactement au milieu de ces deux points : $"centre"_x = (Gamma_"sys min" + Gamma_"sys max")/2$ et le rayon vaut $r = abs(Gamma_"sys max" - Gamma_"sys min") /2$. Ce centre est décalé horizontalement par rapport à l'origine, créant un cercle qui n'est plus centré sur l'abaque, mais qui représente correctement la transformation d'impédance par la ligne.
 
-*Pour les lignes en parallèle* c'est bien plus simple. Le cercle est simplement tangent au point $-1, 0$ (qui correspond au court circuit dans le plan des admittance) et au point de départ. Il faut alors trouver le cercle passant par ces deux points. On trouve le centre du cercle en trouvant le point qui est équidistant au court circuit de l'abaque, au $Gamma$ actuel et qui se trouve sur l'axe $Y = 0$ de l'abaque
+*Pour les stubs* (lignes en configuration shunt) c'est bien plus simple. Le cercle est simplement tangent au point $-1, 0$ (qui correspond au court-circuit dans le plan des admittances) et au point de départ. Il faut alors trouver le cercle passant par ces deux points. On trouve le centre du cercle en trouvant le point qui est équidistant au court-circuit de l'abaque, au $Gamma$ actuel et qui se trouve sur l'axe $Y = 0$ de l'abaque
 
 #align(center,$"centre"_x = (abs(Gamma)^2 - 1)/(2(1 + Gamma_"réel"))$)
 
@@ -125,11 +127,11 @@ où $Gamma$ est le coefficient de réflexion du point de départ. Le rayon est s
 
 Ces équations sont les équations de base de l'abaque de smith.
 
-Maintenant qu'on peut savoir sur quel cercle le composant va agir, on peut utiliser la fonction `getExpectedDirection(element, previousGamma)` qui calcule la direction (horaire ou anti-horaire) dans laquelle le composant doit se déplacer. C'est très important car par exemple,un condensateur en série tourne dans le sens horaire (réactance négative), une inductance en série dans le sens anti-horaire (réactance positive). Le cercle sur lequel le composant bouge est le même mais la direction change selon le composant.
+Maintenant qu'on peut savoir sur quel cercle le composant va agir, on peut utiliser la fonction `getExpectedDirection(element, previousGamma)` qui calcule la direction (horaire ou antihoraire) dans laquelle le composant doit se déplacer. C'est très important, car, par exemple, un condensateur en série tourne dans le sens horaire (réactance négative), une inductance en série dans le sens antihoraire (réactance positive). Le cercle sur lequel le composant bouge est le même, mais la direction change selon le composant.
 
 === Dessins des arcs des composants non parfaits
 
-Le problème avec les composants imparfaits (ceux qui possèdent un facteur de qualité) est qu'ils ne suivent pas un cercle constant sur l'abaque de Smith. La présence de pertes modifie progressivement l'impédance le long du trajet, créant une spirale se rapprochant du centre de l'abaque plutôt qu'un arc de cercle parfait.
+Le problème avec les composants imparfaits (ceux qui possèdent un facteur de qualité non infini) est qu'ils ne suivent pas un cercle constant sur l'abaque de Smith. La présence de pertes modifie progressivement l'impédance le long du trajet, créant une spirale se rapprochant du centre de l'abaque plutôt qu'un arc de cercle parfait.
 
 Pour résoudre ce problème, la méthode `getLossyComponentPath` de la classe `SmithCalculator` génère 200 points qui représentent le chemin progressif de l'impédance transformée par le composant avec pertes. Ce nombre s'est avéré suffisant lors des tests, bien qu'un problème de résolution apparaisse avec des composants s'approchant de valeurs extrêmes (près des extrémités -1,0 et 1,0 de l'abaque).
 
@@ -137,7 +139,7 @@ Ensuite le principe est simple, on subdivise le composant en 200 sous-composants
 
 === Calcul de la valeur des composants
 
-Finalement il y a la fonction `calculateComponentValue(gamma, ...)` qui convertit une position obtenue de façon graphique (en ajoutant le composant à la souris) en valeur de composant. C'est extrêmement utile car c'est cette valeur qui va ensuite être utilisée pour ajouter le composant au circuit lorsque l'utilisateur va ajouter son composant.
+Finalement il y a la fonction `calculateComponentValue(gamma, ...)` qui convertit une position obtenue de façon graphique (en ajoutant le composant à la souris) en valeur de composant. C'est extrêmement utile, car c'est cette valeur qui va ensuite être utilisée pour ajouter le composant au circuit lorsque l'utilisateur va ajouter son composant.
 
 Cette fonction prend en entrée le gamma final (là où la souris est positionnée), l'impédance de départ, le type de composant, sa position (série/parallèle), et d'autres paramètres selon le type d'élément. Elle calcule d'abord l'impédance finale à partir du gamma grâce à la formule $Z = Z_0 (1 + Gamma)/(1 - Gamma)$, puis détermine la valeur du composant selon sa nature.
 
@@ -205,15 +207,15 @@ Après avoir dessiné les points d'impédance de chaque élément constituant le
 
 Contrairement à un graphique classique, on ne relie pas les points par des lignes droites. Le déplacement d'un point à un autre, suite à l'ajout d'un composant, suit toujours une trajectoire courbe spécifique (cercle de résistance constante pour une réactance série par exemple).
 
-Pour dessiner cela, l'algorithme calcule d'abord le centre et le rayon du cercle de mouvement. Ensuite, il détermine l'angle de départ et l'angle d'arrivée. Enfin, il vérifie dans quelle direction tracer l'arc (horaire ou anti-horaire) selon la nature du composant (resistance, condensateur, etc.) et sa position dans le circuit. Finalement on réutilise le même système que pour la magnétisation de la souris.
+Pour dessiner cela, l'algorithme calcule d'abord le centre et le rayon du cercle de mouvement. Ensuite, il détermine l'angle de départ et l'angle d'arrivée. Enfin, il vérifie dans quelle direction tracer l'arc (horaire ou antihoraire) selon la nature du composant (resistance, condensateur, etc.) et sa position dans le circuit. Finalement on réutilise le même système que pour la magnétisation de la souris.
 
-== Gestion des fichiers S1P
+== Gestion des fichiers S1P (format Touchstone)
 
 La classe `TouchstoneS1P` est un parser développé pour cette application qui est capable de lire et d'exporter les fichiers .s1p selon le standard Touchstone. Ces fichiers commencent par une ligne d'options (précédée de \#) qui spécifie :
 - L'unité de fréquence (Hz, kHz, MHz, GHz)
-- Le type de paramètre (S, Y, Z, H, G - par défaut S pour les paramètres de répartition)
+- Le type de paramètre (S, Y, Z, H, G - par défaut S pour les paramètres de scattering)
 - Le format des données (DB pour dB/angle, MA pour magnitude/angle, RI pour réel/imaginaire - par défaut MA)
-- La résistance de référence (R suivi de la valeur, par défaut 50Ω)
+- La résistance de référence (R suivi de la valeur, par défaut 50$Omega$)
 
 La méthode statique `parse(file)` lit le fichier ligne par ligne. Elle commence par parser les options via `parseOptionLine()`, puis convertit chaque ligne de données en un `DataPoint`. Elle gère les différents formats de données (DB, MA, RI) via la méthode `calculateComplexValue()`, convertit ensuite les paramètres S en impédance grâce à `calculateImpedance()`, et finalement calcule le vrai gamma avec `calculateGammaFromZ()`.
 
@@ -259,4 +261,4 @@ Lors de la sauvegarde du projet via la méthode `saveProject()`, le logiciel vé
 
 Lors du chargement via `loadProject()`, le fichier JSON est désérialisé et toutes les propriétés du ViewModel sont restaurées. Une fois le chargement terminé, les flags `hasBeenSaved` et `isModified` sont mis à jour pour refléter l'état du projet. Ces flags sont mis à jour à chaque interaction que l'utilisateur a avec l'abaque pour indiquer si le projet a eu des changements depuis la dernière sauvegarde.
 
-Finalement, si des changements ont eu lieu mais qu'aucune sauvegarde n'a été effectué lorsque l'utilisateur souhaite quitter l'application, on demande à l'utilisateur s'il est sûr de vouloir quitter. Un comportement classique de ce genre d'application.
+Finalement, si des changements ont eu lieu, mais qu'aucune sauvegarde n'a été effectué lorsque l'utilisateur souhaite quitter l'application, on demande à l'utilisateur s'il est sûr de vouloir quitter. Un comportement classique de ce genre d'application.

@@ -15,9 +15,9 @@ Ce fichier fxml est complété par une bibliothèque d'éléments d'interface ut
 
 En plus de ce fichier qui gère les éléments simples, il a fallu mettre en place plusieurs classes spécifiques pour chaque élément, visibles sur le diagramme :
 
-- `SmithChartRenderer` : Cette classe s'occupe de dessiner l'abaque de Smith sur un Canvas. Elle redessine la grille, les cercles VSWR et les tracés d'impédance à chaque changement de données.
+- `SmithChartRenderer` : Cette classe s'occupe de dessiner l'abaque de Smith sur un objet `Canvas` JavaFX. Elle redessine la grille, les cercles VSWR et les tracés d'impédance à chaque changement de données.
 
-- `SmithChartLayout` : Une classe utilitaire qui gère les conversions entre coordonnées gamma (complexe) et coordonnées pixel à l'écran. Elle centralise les calculs de positionnement sur le canvas.
+- `SmithChartLayout` : Une classe utilitaire qui gère les conversions entre coordonnées du coefficient de réflexion gamma (plan complexe) et coordonnées pixel à l'écran. Elle centralise les calculs de positionnement sur le `Canvas`.
 
 - `CircuitRenderer` : Cette classe dessine le schéma électrique du circuit en fonction des composants ajoutés (résistances, lignes, etc.).
 
@@ -33,9 +33,9 @@ Enfin, une classe utilitaire `StageController` a été ajoutée pour gérer le t
 
 Pour offrir à l'utilisateur une flexibilité totale sur l'ajout d'élément dans le circuit, la partie schématique du circuit permet à l'utilisateur de choisir où il rajoute son composant. Ce qui n'est pas possible sur le logiciel Smith.exe par exemple.
 
-Cette fonctionnalité est gérée par le `CircuitRenderer` qui affiche des petits boutons d'ajout entre chaque composant du schéma électrique. Lorsque l'utilisateur clique sur l'un de ces boutons, il sélectionne le point d'insertion. Ensuite le prochain composant ajouté sera mis juste après ce point. La prévisualisation se fait de façon logique selon l'endroit ou le composant est inséré.
+Cette fonctionnalité est gérée par le `CircuitRenderer` qui affiche des petits boutons d'ajout entre chaque composant du schéma électrique. Lorsque l'utilisateur clique sur l'un de ces boutons, il sélectionne le point d'insertion. Ensuite, le prochain composant ajouté sera mis juste après ce point. La prévisualisation se fait de façon logique selon l'endroit ou le composant est inséré.
 
-En plus de la fonction d'insertion, il est possible de cliquer sur chaque élément du schéma électrique du circuit pour pouvoir effectuer le fine tuning et de complètement modifier le composant sélectionné. Le circuit est alors complètement modifiable. 
+En plus de la fonction d'insertion, il est possible de cliquer sur chaque élément du schéma électrique du circuit pour pouvoir effectuer le fine-tuning et de complètement modifier le composant sélectionné. Le circuit est alors complètement modifiable. 
 
 === MainController
 
@@ -67,13 +67,13 @@ Le but de l'abaque de Smith est d'élaborer un circuit d'adaptation. Modéliser 
 
 En plus de ça, un facteur de qualité (Q) a été mis en place pour les condensateurs et les inducteurs qui permet d'avoir des simulations de circuit d'adaptation plus réalistes.
 
-*Les lignes de transmission* : Ces lignes se comportent très différemment des autres composants. Leur effet change drastiquement selon l'impédance d'entrée de la ligne, c'est pour cela que la manière de calculer l'impédance ne peut pas se faire de façon isolée. La classe `Line` implémente donc une méthode `calculateImpedance(currentImpedance, frequency)` qui prend en compte l'impédance actuelle du circuit, c'est à dire l'impédance au départ de la ligne.
+*Les lignes de transmission* : Ces lignes se comportent très différemment des autres composants. Leur effet change drastiquement selon l'impédance d'entrée de la ligne, c'est pour cela que la manière de calculer l'impédance ne peut pas se faire de façon isolée. La classe `Line` implémente donc une méthode `calculateImpedance(currentImpedance, frequency)` qui prend en compte l'impédance actuelle du circuit, c'est-à-dire l'impédance au départ de la ligne.
 
-Tous ces composants héritent de la classe abstraite `CircuitElement` qui définie les propriétés communes tel que la valeur réelle du composant, la position (série ou parallèle). Cette position permet aussi de savoir si une ligne va être un stub ou non. Le facteur de qualité est aussi mis dans cette classe abstraite.
+Tous ces composants héritent de la classe abstraite `CircuitElement` qui définit les propriétés communes, tels que la valeur réelle du composant, la position (série ou parallèle). Cette position permet aussi de savoir si une ligne va être un stub ou non. Le facteur de qualité est aussi mis dans cette classe abstraite.
 
 === Les unités
 
-Chaque composant utilise des unités différentes. Pour faciliter la rédaction du code et pour avoir un code plus "propre", un système de gestion des unités a été mis en place. Toutes les unités implémentent une interface `ElectronicUnit` qui présente la fonction `getFactor()` permettant d'obtenir le facteur de conversion de l'unité choisie vers son unité de base (ex : les picofarads ont comme facteur 1E-12). Ensuite, différents énumérations implémentent cette interface :
+Chaque composant utilise des unités différentes. Pour faciliter la rédaction du code et pour avoir un code plus "propre", un système de gestion des unités a été mis en place. Toutes les unités implémentent une interface `ElectronicUnit` qui présente la fonction `getFactor()` permettant d'obtenir le facteur de conversion de l'unité choisie vers son unité de base (ex : les picofarads ont comme facteur 1E-12). Ensuite, différentes énumérations implémentent cette interface :
 
 - `CapacitanceUnit` : pF, nF, μF, mF
 - `InductanceUnit` : H, mH, μH, nH
@@ -83,9 +83,9 @@ Chaque composant utilise des unités différentes. Pour faciliter la rédaction 
 
 === Les points de données
 
-Lorsqu'on ajoute un composant sur l'abaque, on affiche aussi ses informations dans une partie de l'interface nommées "DataPoint". C'est une feature pour avoir accès directement aux informations de chaque point du circuit. La classe `DataPoint` encapsule toutes les informations nécessaire, tel que la fréquence du point, son nom (le label affiché), son impédance complexe, son coefficient de réflexion, le VSWR (Voltage Standing Wave Ratio), la perte de retour (Return Loss) en dB et finalement le facteur de qualité de chaque point.
+Lorsqu'on ajoute un composant sur l'abaque, on affiche aussi ses informations dans une partie de l'interface nommées "DataPoint". Ce format de donnée permet d'avoir accès directement aux informations de chaque point du circuit. La classe `DataPoint` encapsule toutes les informations nécessaires, telles que la fréquence du point, son nom (le label affiché), son impédance complexe, son coefficient de réflexion, le VSWR (Voltage Standing Wave Ratio), la perte de retour (Return Loss) en dB et finalement le facteur de qualité de chaque point.
 
-Ces datapoints sont aussi utilisés pour stocker les informations qui ne font pas partie du circuit, comme par exemple les informations liés aux sweeps ou bien aux fichiers S1P.
+Ces datapoints sont aussi utilisés pour stocker les informations qui ne font pas partie du circuit, comme par exemple, les informations liées aux sweeps ou bien aux fichiers S1P.
 
 == Partie ViewModel
 
@@ -93,7 +93,7 @@ Le ViewModel est la partie qui contient l'état de l'application, c'est la mémo
 
 === Les JavaFX Properties
 
-JavaFX met à disposition des classes spéciales, les *JavaFX Properties*. Elles sont intrinsèquement observables, ce qui veut dire qu'on peut réagir dès qu'elles sont modifiées. Les différentes classes mettent en place des "listeners" qui déclenchent une interaction des qu'une valeur change. Ou bien on peut aussi mettre en place des méthodes qui lient des éléments d'interfaces à des valeurs dans le viewModel.
+JavaFX met à disposition des classes spéciales, les *JavaFX Properties*. Elles sont intrinsèquement observables, ce qui veut dire qu'on peut réagir dès qu'elles sont modifiées. Les différentes classes mettent en place des "listeners" qui déclenchent une interaction dès qu'une valeur change. Ou bien on peut aussi mettre en place des méthodes qui lient des éléments d'interfaces à des valeurs dans le viewModel.
 
 Le ViewModel est constitué de plusieurs catégories de propriétés :
 

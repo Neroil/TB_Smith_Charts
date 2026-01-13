@@ -90,7 +90,7 @@ Ensuite, le but du jeu est de ramener ce point le plus proche du centre de l'aba
 
 #figure(image("../template/images/incidance_composants_smith.png", width:40%), caption: [Effet d'ajouts d'inductances et de capacités en série et parallèle @cours_rabaste])
 
-Selon le composant qu'on ajoute et selon son placement dans le circuit, l'impédance vue depuis la source va changer de position sur l'abaque. En se basant sur l'exemple de notre impédance mesurée, une des possibilités est d'utiliser le circuit ci-dessous pour réaliser l'adaptation:
+Selon le composant qu'on ajoute et selon son placement dans le circuit, l'impédance vue depuis la source va changer de position sur l'abaque. En se basant sur l'exemple de notre impédance mesurée (de 75 + j50 Ohms à 500MHz), une des possibilités est d'utiliser le circuit ci-dessous pour réaliser l'adaptation:
 
 #align(grid(
     columns:(1fr,0.3fr,2fr),

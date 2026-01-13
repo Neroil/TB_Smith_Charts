@@ -6,7 +6,7 @@ L'abaque de Smith est un outil très important dans le domaine de la conception 
 Dans un monde parfait, une antenne devrait transférer toute sa puissance vers le milieu de propagation, l'air par exemple, sans aucune perte. Cependant, en réalité, l'impédance des antennes est très rarement adaptée à celle de la ligne de transmission qui leur fournit le signal. Cette différence d'impédance crée des ondes stationnaires et un phénomène de réflexion.
 Cette réflexion, en plus d'être potentiellement dangereuse pour la source de courant (puisqu'une partie de la puissance émise est renvoyée vers celle-ci), diminue également l'efficacité de l'antenne.
 
-Pour pallier ce problème, on peut adapter une impédance à une autre en ajoutant, en série ou en parallèle (shunt), des condensateurs ou des inductances. C'est là que l'abaque de Smith entre en jeu, il aide l'utilisateur à choisir les bons composants afin de réduire le coefficient de réflexion et d'obtenir une adaptation optimale, c'est à dire maximiser le transfert de puissance de la source à la charge.
+Pour pallier ce problème, on peut adapter une impédance à une autre en ajoutant, en série ou en parallèle (shunt), des condensateurs ou des inductances. C'est là que l'abaque de Smith entre en jeu, il aide l'utilisateur à choisir les bons composants afin de réduire le coefficient de réflexion et d'obtenir une adaptation optimale, c'est-à-dire maximiser le transfert de puissance de la source à la charge.
 
 Actuellement, les étudiants en systèmes embarqués utilisent un logiciel développé par Fritz Dellsperger, un professeur de la Haute école spécialisée bernoise (BFH) aujourd'hui à la retraite, pour leurs laboratoires sur les antennes. Ce logiciel, exclusif à Windows et appelé *Smith V4.1*, n'est plus maintenu depuis 2018 et présente plusieurs problèmes d'affichage et de dimensionnement, rendant son interface peu ergonomique et difficile à utiliser.
 
@@ -48,7 +48,7 @@ Fonctionnalités minimales :
 - Affichage d'un abaque de Smith interactive.
 - Placement d'impédances et/ou d'admittances.
 - Placement de composants passifs en série ou en parallèle (R, L, C, ligne, stub).
-- Chargement de fichiers S1p.
+- Chargement de fichiers S1p au format Touchstone.
 - Fonction Sweep et tuning.
 
 Fonctionnalités avancées :
@@ -63,4 +63,4 @@ Fonctionnalités avancées :
 === Déroulement <déroulement>
 Le travail commence le 3 novembre 2025 et se termine le 16 janvier 2026. L'entièreté de ce travail sera réalisé à plein temps.
 
-Un rendu intermédiaire noté est demandé le 25 novembre 2025 à 15 heures et le rendu final est prévu pour le 16 janvier 2026 à 12 heures.
+Un rendu intermédiaire noté est demandé le 25 novembre 2025 à 15 heures et le rendu final est prévu pour le 16 janvier 2026 à 18 heures.

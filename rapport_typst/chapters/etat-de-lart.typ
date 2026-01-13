@@ -43,7 +43,7 @@ JavaFX est un framework de développement d'applications multiplateforme, puisqu
 C'est aussi un framework très complet, enrichi par une communauté active qui propose de nombreux composants graphiques prêts à l'emploi (comme MaterialFX @materialfx ou AtlantaFX @atlantafx ). C'est un atout majeur pour obtenir facilement une interface moderne et agréable à utiliser.
 
 L'un des plus grands avantages de Java, c'est qu'il est multiplateforme par nature. Pas besoin de s'embêter avec la cross compilation, on produit un seul fichier qui fonctionnera partout où la JVM est installée, et quasiment tout appareil a Java d'installé. \
-Et question performance, les dernières versions de Java sont très efficaces. On a pu le constater en réalisant des simulations de recherche de chemin optimum dans des graphes dans le cadre du cours "Optimisation et Simulation" donné par J.F. Hêches.
+Et question performance, les dernières versions de Java sont très efficaces. On a pu le constater en réalisant des simulations de recherche de chemin optimum dans des graphes dans le cadre du cours "Optimisation et Simulation" donné par J.F. Hêche.
 
 Finalement, après un premier test, la prise en main de JavaFX s'est révélée intuitive et bien adaptée aux besoins du projet.
 
