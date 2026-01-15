@@ -70,6 +70,10 @@
 /*
  Annexes
 */
-#include "chapters/outils.typ"
+#pagebreak()
+#heading(level: 1, numbering: none)[Annexes]
+#set heading(numbering: "A.1")
+#counter(heading).update(0)
 
-//#include "chapters/journal-de-travail.typ"
+#include "chapters/outils.typ"
+#include "chapters/utilisation.typ"

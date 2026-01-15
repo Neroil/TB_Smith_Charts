@@ -4,7 +4,7 @@ L'application est un logiciel qui doit afficher des éléments graphiques comple
 
 Comme annoncé dans l'état de l'art, la bibliothèque JavaFX permet de concevoir ce type d'application en utilisant le pattern "MVVM" (Model-View-ViewModel).
 
-#figure(image("../images/schemaUMLSimple.png", width:100%),
+#figure(image("../images/schemaUMLFinal.png", width:122%),
 caption: [Schéma simplifié de l'architecture du projet])
 
 == Partie Vue
@@ -75,7 +75,7 @@ Tous ces composants héritent de la classe abstraite `CircuitElement` qui défin
 
 Chaque composant utilise des unités différentes. Pour faciliter la rédaction du code et pour avoir un code plus "propre", un système de gestion des unités a été mis en place. Toutes les unités implémentent une interface `ElectronicUnit` qui présente la fonction `getFactor()` permettant d'obtenir le facteur de conversion de l'unité choisie vers son unité de base (ex : les picofarads ont comme facteur 1E-12). Ensuite, différentes énumérations implémentent cette interface :
 
-- `CapacitanceUnit` : pF, nF, μF, mF
+- `CapacitanceUnit` : fF, pF, nF, μF, mF
 - `InductanceUnit` : H, mH, μH, nH
 - `ResistanceUnit` : Ω, kΩ, MΩ 
 - `DistanceUnit` : mm, m, km 

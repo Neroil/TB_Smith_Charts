@@ -30,4 +30,4 @@ Ensuite le template Typst utilisé est un projet GitHub#footnote("Lien du repos 
 
 == Utilisation de LLMs
 
-Différents LLMs (Gemini et GPT majoritairement) ont été utilisés pour aider à la reformulation de certaines parties du rapport. L'outil GitHub Copilot a également été utilisé comme aide à la conception du code.
+Différents LLMs (Gemini et GPT majoritairement) ont été utilisés pour aider à la reformulation de certaines parties du rapport. L'outil GitHub Copilot a également été utilisé comme aide à la conception du code et à la documentation de celui-ci (surtout la JavaDoc).

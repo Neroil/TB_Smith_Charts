@@ -2,7 +2,7 @@
 
 L'implémentation du projet est totale, toutes les demandes du cahier des charges ont pu être mises en place. JSmithFX permet de correctement afficher un abaque de Smith et d'interagir avec pour créer des circuits d'adaptation d'impédance.
 
-#figure(image("../images/JSmithFX_overview.png",width:100%), caption : "Vue d'ensemble de l'application finale")
+#figure(image("../images/overview_general_JSmithFX.png",width:100%), caption : "Vue d'ensemble de l'application finale")
 
 L'interface a été pensée pour être moderne (basée sur le thème Nord Dark d'AtlantaFX) et réactive. Voici une énumération des fonctionnalités implémentées dans cette version finale :
 
@@ -31,7 +31,7 @@ Pour déployer l'application de façon multi-plateforme, deux choix s'offrent à
 
 Le point fort de la seconde méthode est qu'on n'oblige pas l'utilisateur à avoir Java installé sur son appareil, mais on perd la portabilité du `.jar`.
 
-Mon choix se porte alors sur un déploiement utilisant les outils de CI/CD pour proposer les deux solutions, la version portable en `.jar` (en indiquant le prérequis Java), et des exécutables natifs pour Windows, Linux et macOS.
+Mon choix se porte alors sur un déploiement utilisant les outils de CI/CD de GitHub pour proposer la solution portable avec l'utilisation du `ShadowJar`.
 
 == Logique du contrôleur d'interaction
 
