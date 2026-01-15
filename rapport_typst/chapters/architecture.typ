@@ -19,13 +19,15 @@ En plus de ce fichier qui gère les éléments simples, il a fallu mettre en pla
 
 - `SmithChartLayout` : Une classe utilitaire qui gère les conversions entre coordonnées du coefficient de réflexion gamma (plan complexe) et coordonnées pixel à l'écran. Elle centralise les calculs de positionnement sur le `Canvas`.
 
+- `SmithChartColorScheme` : Une classe pour la gestion des thèmes Sombre/Clair de l'application. Elle centralise toute la logique de couleur utilisée par le `SmithChartRenderer`. Cette séparation permet un changement de thème fluide sans mélanger la logique de dessin et la logique de couleur. Ensuite, dans les classes nécessitant une couleur, on appelle simplement la couleur voulue et la couleur retournée change dynamiquement selon si l'utilisateur utilise l'application avec le thème clair ou sombre.
+
 - `CircuitRenderer` : Cette classe dessine le schéma électrique du circuit en fonction des composants ajoutés (résistances, lignes, etc.).
 
 - `S1PPlotterWindow` : Une fenêtre dédiée pour afficher les données d'un fichier S1P sous forme de diagramme cartésien (Log Magnitude / Fréquence).
 
 - `ChartPoint` : Une classe utilitaire qui sert à gérer la détection de la souris sur les points du graphique ("hit detection") pour afficher les infobulles (tooltips).
 
-- `Les Dialogues personnalisés` : Plusieurs classes (comme `SweepDialog` ou `ComplexInputDialog`) ont été créées pour demander des informations complexes à l'utilisateur. Vu leur complexité, il était nécessaire de créer des classes supplémentaires pour les organiser.
+- `Classes de dialogue` : Plusieurs classes (comme `SweepDialog` ou `ComplexInputDialog`) ont été créées pour demander des informations complexes à l'utilisateur. Vu leur complexité, il était nécessaire de créer des classes supplémentaires pour les organiser.
 
 Enfin, une classe utilitaire `StageController` a été ajoutée pour gérer le titre de la fenêtre principale, notamment pour indiquer visuellement à l'utilisateur si le projet contient des modifications non sauvegardées (ajout d'un astérisque \* dans le titre).
 
@@ -115,6 +117,6 @@ Ce binding va alors changer dynamiquement la référence sur le circuit actif et
 
 === Utilisation du pattern Singleton
 
-Dans la logique de l'application, il ne doit y avoir qu'un seul ViewModel vu que c'est, comme dit plus tôt, l'unique source de vérité. Pour imposer cet aspect, l'utilisation d'un pattern Singleton était nécessaire. Il était aussi utile, dans certaines classes, de pouvoir simplement accéder à l'état de l'application avec un simple `SmithChartViewModel.getInstance()`, cela évite de devoir passer l'objet en référence directement.
+Dans la logique de l'application, il ne doit y avoir qu'un seul ViewModel vu que c'est, comme dit plus tôt, l'unique source de vérité. Pour imposer cet aspect, l'utilisation d'un pattern Singleton a été choisi pour sa simplicité de mise en place. Il était aussi utile, dans certaines classes, de pouvoir simplement accéder à l'état de l'application avec un simple `SmithChartViewModel.getInstance()`, cela évite de devoir passer l'objet en référence directement.
 
 On utilise aussi ce pattern pour la fenêtre du graphe MagLog pour les fichiers S1P.

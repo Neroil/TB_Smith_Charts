@@ -94,7 +94,7 @@ Selon le composant qu'on ajoute et selon son placement dans le circuit, l'impéd
 
 #align(grid(
     columns:(1fr,0.3fr,2fr),
-    image("image.png",width: 100%),
+    image("../images/schema_electrique_smith_exe.png",width: 100%),
     "",
     text()[
     1. Ajout d'un condensateur en série de 1.9pF pour rejoindre le cercle de conductance qui à l'échelle de 50 Ohms indique une conductance de 4 millisiemens constante.

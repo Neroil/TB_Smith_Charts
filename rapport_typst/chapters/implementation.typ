@@ -55,8 +55,7 @@ Au début du projet, le mécanisme de magnétisation de la souris déplaçait di
 
 Pour résoudre ce problème, il a fallu mettre en place un système de curseur virtuel basé sur deux Canvas superposés. L'un est le `smithCanvas`, le canvas principal qui contient l'abaque de Smith, les tracés d'impédance et les points de données. Ensuite, la nouveauté, le `cursorCanvas`, un canvas transparent superposé au premier, dédié aux éléments interactifs temporaires (curseur virtuel, tooltips).
 
-Lors de l'ajout d'un composant à la souris, un curseur virtuel est affiché sur le `cursorCanvas` à la position magnétisée correcte. L'utilisateur voit ainsi où le composant sera placé sans que la souris système ne bouge. Sur les machines Windows, la souris est tout de même déplacée, mais est rendue invisible pour que le curseur personnalisé soit mis en évidence.
-
+Lors de l'ajout d'un composant à la souris, un curseur virtuel est affiché sur le `cursorCanvas` à la position magnétisée correcte. La classe `Robot` est tout de même instanciée et tente de déplacer le curseur système pour garder la souris synchronisée avec le mouvement magnétisé. Mais si le système d'exploitation bloque cette opération, le curseur virtuel agit comme mécanisme de repli pour garantir que l'utilisateur voit toujours la position correcte. 
 Cette solution, basée sur deux Canvas, reste valide même si ce problème lié à Wayland est corrigé dans une version future de JavaFX. Elle fonctionne de manière uniforme, peu importe la plateforme sur laquelle l'application tourne.
 
 === Schéma du circuit
@@ -77,7 +76,7 @@ Lorsqu'un composant est sélectionné via `selectElement()`, une copie de son é
 
 == Calculs Mathématiques et Physique
 
-Vu que l'abaque de Smith est une projection du plan complexe, il a fallu mettre en place une classe qui gère ces nombres. La classe `Complex` est un record java qui représente un nombre complexe avec sa partie réelle et imaginaire. En plus de cette représentation, elle implémente toutes les opérations nécessaires pour le projet.
+Vu que l'abaque de Smith est une projection du plan complexe, il a fallu mettre en place une classe qui gère ces nombres. La classe `Complex` est un record java qui représente un nombre complexe avec sa partie réelle et imaginaire. En plus de cette représentation, elle implémente toutes les opérations nécessaires pour le projet. Un point important de cette classe est la gestion des cas limites mathématiques. Tout ce qui est division par zéro, valeurs infinies, et opérations avec des nombres non-finis sont gérés.
 
 Ensuite, une grande partie des calculs mathématiques utilisés pour l'abaque de Smith se trouvent dans la classe `SmithCalculator`. On y trouve les fonctions de conversions d'impédance au coefficient de réflexion et inversement : `gammaToImpedance(gamma, z0)` qui calcule $Z = Z_0 (1 + Gamma)/(1 - Gamma)$ et `impedanceToGamma(z, z0)` qui calcule $Gamma = (Z - Z_0)/(Z + Z_0)$. La classe fournit aussi des méthodes pour calculer le VSWR (Voltage Standing Wave Ratio) via la formule $(1 + |Gamma|)/(1 - |Gamma|)$ et le Return Loss en dB via $-20 log_10(|Gamma|)$ à partir du gamma.
 
@@ -91,7 +90,7 @@ Un facteur de qualité (Q) a été mis en place pour les condensateurs et les in
 
 Puisque la réactance (X) d'un condensateur est négative, on utilise sa valeur absolue pour garantir une résistance toujours positive. Selon la configuration choisie, cette résistance est combinée à la réactance pure pour former l'impédance réelle du composant.
 
-Ce même champ "facteur de qualité" est réutilisé pour les lignes de transmission, mais avec une signification différente, il modélise les pertes exprimées en dB/m. Plus d'explication sur son utilisation plus bas dans la section "Calcul de la valeur des composants".
+Ce même champ "facteur de qualité" est réutilisé pour les lignes de transmission, mais avec une signification différente, il modélise les pertes exprimées en dB/m. Ce choix peut sembler un peu bizarre (réutiliser une variable pour une unité physique différente), mais il a été fait par souci de simplicité dans le modèle de données. Il était aussi voulu d'essayer de garder la logique des interactions dans le code, ces intéractions étant les même entre le facteur de qualité des composants classiques et les pertes des lignes de transmission. Plus d'explication sur son utilisation plus bas dans la section "Calcul de la valeur des composants".
 
 === Calcul des arcs graphiques
 
@@ -220,6 +219,10 @@ La classe `TouchstoneS1P` est un parser développé pour cette application qui e
 La méthode statique `parse(file)` lit le fichier ligne par ligne. Elle commence par parser les options via `parseOptionLine()`, puis convertit chaque ligne de données en un `DataPoint`. Elle gère les différents formats de données (DB, MA, RI) via la méthode `calculateComplexValue()`, convertit ensuite les paramètres S en impédance grâce à `calculateImpedance()`, et finalement calcule le vrai gamma avec `calculateGammaFromZ()`.
 
 Cette classe permet aussi d'exporter les SWEEPS de fréquence du circuit créer sur l'application en fichier S1P. Les points du sweep sont alors exporté selon de format S MA R (qui sont les paramètres par défaut de ces fichiers).
+
+=== Optimisation et Downsampling
+
+Les fichiers S1P peuvent contenir énormément de points. Afficher tout ça ralentit l'interface. Pour éviter ce problème, un mécanisme de downsampling a été mis en place dans `S1PPlotterWindow`. Si le fichier dépasse 1500 points (`MAX_RENDER_POINTS`), l'algorithme sous-échantillonne les données pour garder environ 1500 points. On fait aussi attention que le premier et dernier point du sweep soient présents.
 
 === Filtrage des fichiers S1P
 

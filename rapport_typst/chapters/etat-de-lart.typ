@@ -76,7 +76,7 @@ Finalement, après avoir passé en revue ces différents frameworks, ce qui semb
 
 Qt était un bon concurrent, de par sa performance et sa maturité. Mais le problème de déploiement, de compilation multi-plateforme représente un obstacle trop important pour un projet solo mené dans un temps limité. Trop de temps serait potentiellement perdu lorsqu'une compilation devrait être fait.
 
-C'est la raison pour laquelle l'utilisation de Java est logique ici, pas besoin de se focaliser sur la compilation, juste besoin de produire un seul exécutable compatible avec toutes les machines, tant qu'elles ont Java d'installé. 
+C'est la raison pour laquelle l'utilisation de Java est logique ici, pas besoin de se focaliser sur la compilation, juste besoin de produire un seul exécutable compatible avec toutes les machines, tant qu'elles ont une version de Java suffisamment récente d'installé. 
 
 Les autres solutions ont été écartées, car soit le langage n'était pas adapté aux besoins qui dépassent l'étendue de ce TB, notamment si le travail est repris par d'autres étudiants de la filière électrique. 
 
