@@ -35,7 +35,7 @@ Enfin, une classe utilitaire `StageController` a été ajoutée pour gérer le t
 
 Pour offrir à l'utilisateur une flexibilité totale sur l'ajout d'élément dans le circuit, la partie schématique du circuit permet à l'utilisateur de choisir où il rajoute son composant. Ce qui n'est pas possible sur le logiciel Smith.exe par exemple.
 
-Cette fonctionnalité est gérée par le `CircuitRenderer` qui affiche des petits boutons d'ajout entre chaque composant du schéma électrique. Lorsque l'utilisateur clique sur l'un de ces boutons, il sélectionne le point d'insertion. Ensuite, le prochain composant ajouté sera mis juste après ce point. La prévisualisation se fait de façon logique selon l'endroit ou le composant est inséré.
+Cette fonctionnalité est gérée par le `CircuitRenderer` qui affiche des petits boutons d'ajout entre chaque composant du schéma électrique. Lorsque l'utilisateur clique sur l'un de ces boutons, il sélectionne le point d'insertion. Ensuite, le prochain composant ajouté sera mis juste après ce point. La prévisualisation se fait de façon logique selon l'endroit où le composant est inséré.
 
 En plus de la fonction d'insertion, il est possible de cliquer sur chaque élément du schéma électrique du circuit pour pouvoir effectuer le fine-tuning et de complètement modifier le composant sélectionné. Le circuit est alors complètement modifiable. 
 
@@ -117,6 +117,6 @@ Ce binding va alors changer dynamiquement la référence sur le circuit actif et
 
 === Utilisation du pattern Singleton
 
-Dans la logique de l'application, il ne doit y avoir qu'un seul ViewModel vu que c'est, comme dit plus tôt, l'unique source de vérité. Pour imposer cet aspect, l'utilisation d'un pattern Singleton a été choisi pour sa simplicité de mise en place. Il était aussi utile, dans certaines classes, de pouvoir simplement accéder à l'état de l'application avec un simple `SmithChartViewModel.getInstance()`, cela évite de devoir passer l'objet en référence directement.
+Dans la logique de l'application, il ne doit y avoir qu'un seul ViewModel vu que c'est, comme dit plus tôt, l'unique source de vérité. Pour imposer cet aspect, l'utilisation d'un pattern Singleton a été choisie pour sa simplicité de mise en place. Il était aussi utile, dans certaines classes, de pouvoir simplement accéder à l'état de l'application avec un simple `SmithChartViewModel.getInstance()`, cela évite de devoir passer l'objet en référence directement.
 
 On utilise aussi ce pattern pour la fenêtre du graphe MagLog pour les fichiers S1P.

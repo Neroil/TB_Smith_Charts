@@ -17,7 +17,7 @@ caption: [L'abaque de Smith tel que présenté dans le journal "Electronics"])
 
 == Actualité
 
-En 2025, plus de 85 ans après sa première publication, l'abaque de Smith reste un outil incontournable pour les ingénieurs et les étudiants du monde entier. Si son adoption fut lente au début, elle a été considérablement accélérée par le MIT Radiation Laboratory, qui l'a massivement utilisée dès 1940 pour le développement du radar durant la Seconde Guerre mondiale. @smith_history
+En 2025, plus de 85 ans après sa première publication, l'abaque de Smith reste un outil incontournable pour les ingénieurs et les étudiants du monde entier. Si son adoption fut lente au début, elle a été considérablement accélérée par le MIT Radiation Laboratory, qui l'a massivement utilisé dès 1940 pour le développement du radar durant la Seconde Guerre mondiale. @smith_history
 
 Aujourd'hui, même à l'ère du numérique, son importance n'a pas diminué. Elle offre une manière visuelle et intuitive de comprendre des phénomènes complexes, comme l'adaptation d'impédance, permettant à presque n'importe qui de concevoir un circuit d'antenne fonctionnel. C'est l'affichage de référence lorsqu'on veut faire de l'adaptation d'impédance. C'est dans ce contexte que ce travail de bachelor prend tout son sens, moderniser un outil fondamental pour répondre aux besoins actuels des étudiants et des ingénieurs.
 

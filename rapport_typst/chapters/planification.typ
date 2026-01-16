@@ -53,7 +53,7 @@ Finalement, à la fin de la semaine, un framework doit être choisi pour ensuite
 - (Optionnel si le temps est disponible) Ajouter les options de personnalisation de l'interface (couleurs, etc.).
 - Début d'une phase de tests et de debuggage de l'application générale.
 
-=== Semaine 9 du 05.01.2026 au 11.01.2026 : Redaction et correction de problèmes
+=== Semaine 9 du 05.01.2026 au 11.01.2026 : Rédaction et correction de problèmes
 - Correction des bugs critiques identifiés et amélioration/finalisation des features si besoin.
 - Rédaction du corps du rapport (architecture, implémentation, choix techniques).
 

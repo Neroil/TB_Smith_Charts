@@ -24,7 +24,7 @@ Par exemple, *SimSmith* (un outil très complet développé par AE6TY) @simsmith
 Il existait également *Iowa Hills Smith Chart*, mais le développement semble être tombé en désuétude et il n'y a apparemment plus de moyen de télécharger l'application actuellement.
 
 
-Finalement, il existe des solutions purement en ligne telles que QuickSmith#footnote("Lien du site : https://quicksmith.online/") et Online Smith Chart Tool#footnote("Lien du site : https://onlinesmithchart.com/"). Ces outils fonctionnent mais ne proposent pas forcément les fonctionnalités voulues pour l'étendue de ce TB. Aussi avoir une application tournant nativement sur sa machine et hors ligne est un plus.
+Finalement, il existe des solutions purement en ligne telles que QuickSmith#footnote("Lien du site : https://quicksmith.online/") et Online Smith Chart Tool#footnote("Lien du site : https://onlinesmithchart.com/"). Ces outils fonctionnent, mais ne proposent pas forcément les fonctionnalités voulues pour l'étendue de ce TB. Aussi, avoir une application tournant nativement sur sa machine et hors ligne est un plus.
 
 === Solutions possibles <solutions-possibles>
 
@@ -61,6 +61,6 @@ Fonctionnalités avancées :
 - (Optionnel) Affichage Z, Y, Mod/Arg pour les points intermédiaires.
 
 === Déroulement <déroulement>
-Le travail commence le 3 novembre 2025 et se termine le 16 janvier 2026. L'entièreté de ce travail sera réalisé à plein temps.
+Le travail commence le 3 novembre 2025 et se termine le 16 janvier 2026. L'entièreté de ce travail sera réalisée à plein temps.
 
 Un rendu intermédiaire noté est demandé le 25 novembre 2025 à 15 heures et le rendu final est prévu pour le 16 janvier 2026 à 18 heures.

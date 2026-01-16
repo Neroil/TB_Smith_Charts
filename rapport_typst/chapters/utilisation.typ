@@ -61,7 +61,7 @@ Vous devriez voir quelque chose comme `java 25.0.x` ou supérieur.
 
 === Projet par défaut au lancement
 
-Au premier lancement, l'application démarre automatiquement avec un projet pré-configuré :
+Au premier lancement, l'application démarre automatiquement avec un projet préconfiguré :
 - *Fréquence* : 1 GHz
 - *Impédance caractéristique* ($Z_0$) : 50 Ω
 - *Impédance de charge* ($Z_L$) : 100 + j150 Ω (point de démonstration)
@@ -134,7 +134,7 @@ Pour effectuer le "fine-tuning" d'un composant déjà placé :
 ==== Modification
 
 Lorsqu'on clique sur un des composants dans le schéma électrique, le panneau "Add Component" devient "Modify Component" :
-1. Vous pouvez complètement changer le type du composant (passer d'un condensateur à une inductance par exemple).
+1. Vous pouvez complètement changer le type du composant (passer d'un condensateur à une inductance, par exemple).
 2. Vous pouvez changer sa position (série ↔ parallèle).
 3. Les modifications se font de la même manière que l'ajout : soit manuellement en entrant une nouvelle valeur, soit visuellement avec *Mouse add*.
 4. Pour annuler la modification, cliquez ailleurs ou appuyez sur `ESC`.

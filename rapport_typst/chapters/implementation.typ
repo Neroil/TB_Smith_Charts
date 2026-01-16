@@ -70,13 +70,13 @@ Ces méthodes sont ensuite appelées dans le `MainController` qui, à chaque cli
 
 ==== Modification des composants
 
-Lorsqu'on clique sur un composant, on le sélectionne grâce à la fonction `selectElement()` et on affiche le panneau de fine-tuning, permettant d'ajuster sa valeur en temps réel et si disponible, son facteur de qualité via des sliders. Ce clic change aussi la fenêtre d'ajout de composant en une fenêtre de modification du composant sélectionné.
+Lorsqu'on clique sur un composant, on le sélectionne grâce à la fonction `selectElement()` et on affiche le panneau de fine-tuning, permettant d'ajuster sa valeur en temps réel et, si disponible, son facteur de qualité via des sliders. Ce clic change aussi la fenêtre d'ajout de composant en une fenêtre de modification du composant sélectionné.
 
 Lorsqu'un composant est sélectionné via `selectElement()`, une copie de son état est immédiatement sauvegardée dans une variable nommée `originalElement` se trouvant dans le viewModel. Les modifications sont alors appliquées directement sur le composant actif, permettant une prévisualisation en temps réel sur l'abaque sans devoir grandement changer le code. Si l'utilisateur valide les changements, la copie est supprimée et le composant modifié est conservé. Si l'utilisateur annule l'opération en cliquant sur le bouton ESC, le `MainController` appelle la méthode `cancelTuningAdjustments()`, le composant modifié est alors restauré à son état d'origine grâce à la copie sauvegardée.
 
 == Calculs Mathématiques et Physique
 
-Vu que l'abaque de Smith est une projection du plan complexe, il a fallu mettre en place une classe qui gère ces nombres. La classe `Complex` est un record java qui représente un nombre complexe avec sa partie réelle et imaginaire. En plus de cette représentation, elle implémente toutes les opérations nécessaires pour le projet. Un point important de cette classe est la gestion des cas limites mathématiques. Tout ce qui est division par zéro, valeurs infinies, et opérations avec des nombres non-finis sont gérés.
+Vu que l'abaque de Smith est une projection du plan complexe, il a fallu mettre en place une classe qui gère ces nombres. La classe `Complex` est un record Java qui représente un nombre complexe avec sa partie réelle et imaginaire. En plus de cette représentation, elle implémente toutes les opérations nécessaires pour le projet. Un point important de cette classe est la gestion des cas limites mathématiques. Tout ce qui concerne la division par zéro, les valeurs infinies et les opérations avec des nombres non finis est géré.
 
 Ensuite, une grande partie des calculs mathématiques utilisés pour l'abaque de Smith se trouvent dans la classe `SmithCalculator`. On y trouve les fonctions de conversions d'impédance au coefficient de réflexion et inversement : `gammaToImpedance(gamma, z0)` qui calcule $Z = Z_0 (1 + Gamma)/(1 - Gamma)$ et `impedanceToGamma(z, z0)` qui calcule $Gamma = (Z - Z_0)/(Z + Z_0)$. La classe fournit aussi des méthodes pour calculer le VSWR (Voltage Standing Wave Ratio) via la formule $(1 + |Gamma|)/(1 - |Gamma|)$ et le Return Loss en dB via $-20 log_10(|Gamma|)$ à partir du gamma.
 
@@ -90,7 +90,7 @@ Un facteur de qualité (Q) a été mis en place pour les condensateurs et les in
 
 Puisque la réactance (X) d'un condensateur est négative, on utilise sa valeur absolue pour garantir une résistance toujours positive. Selon la configuration choisie, cette résistance est combinée à la réactance pure pour former l'impédance réelle du composant.
 
-Ce même champ "facteur de qualité" est réutilisé pour les lignes de transmission, mais avec une signification différente, il modélise les pertes exprimées en dB/m. Ce choix peut sembler un peu bizarre (réutiliser une variable pour une unité physique différente), mais il a été fait par souci de simplicité dans le modèle de données. Il était aussi voulu d'essayer de garder la logique des interactions dans le code, ces intéractions étant les même entre le facteur de qualité des composants classiques et les pertes des lignes de transmission. Plus d'explication sur son utilisation plus bas dans la section "Calcul de la valeur des composants".
+Ce même champ "facteur de qualité" est réutilisé pour les lignes de transmission, mais, avec une signification différente, il modélise les pertes exprimées en dB/m. Ce choix peut sembler un peu bizarre (réutiliser une variable pour une unité physique différente), mais il a été fait par souci de simplicité dans le modèle de données. Il était aussi voulu d'essayer de garder la logique des interactions dans le code, ces interactions étant les mêmes entre le facteur de qualité des composants classiques et les pertes des lignes de transmission. Plus d'explication sur son utilisation plus bas dans la section "Calcul de la valeur des composants".
 
 === Calcul des arcs graphiques
 
@@ -124,7 +124,7 @@ où $Gamma$ est le coefficient de réflexion du point de départ. Le rayon est s
 
 - *Condensateurs et inductances* : Ils suivent des cercles de résistance constante (en série) ou de conductance constante (en parallèle). Le centre en série est $(r/(r+1), 0)$ avec rayon $1/(r+1)$, où $r$ est la résistance normalisée. En parallèle, le centre est $(-g/(g+1), 0)$ avec rayon $1/(g+1)$, où $g$ est la conductance normalisée.
 
-Ces équations sont les équations de base de l'abaque de smith.
+Ces équations sont les équations de base de l'abaque de Smith.
 
 Maintenant qu'on peut savoir sur quel cercle le composant va agir, on peut utiliser la fonction `getExpectedDirection(element, previousGamma)` qui calcule la direction (horaire ou antihoraire) dans laquelle le composant doit se déplacer. C'est très important, car, par exemple, un condensateur en série tourne dans le sens horaire (réactance négative), une inductance en série dans le sens antihoraire (réactance positive). Le cercle sur lequel le composant bouge est le même, mais la direction change selon le composant.
 
@@ -206,7 +206,7 @@ Après avoir dessiné les points d'impédance de chaque élément constituant le
 
 Contrairement à un graphique classique, on ne relie pas les points par des lignes droites. Le déplacement d'un point à un autre, suite à l'ajout d'un composant, suit toujours une trajectoire courbe spécifique (cercle de résistance constante pour une réactance série par exemple).
 
-Pour dessiner cela, l'algorithme calcule d'abord le centre et le rayon du cercle de mouvement. Ensuite, il détermine l'angle de départ et l'angle d'arrivée. Enfin, il vérifie dans quelle direction tracer l'arc (horaire ou antihoraire) selon la nature du composant (resistance, condensateur, etc.) et sa position dans le circuit. Finalement on réutilise le même système que pour la magnétisation de la souris.
+Pour dessiner cela, l'algorithme calcule d'abord le centre et le rayon du cercle de mouvement. Ensuite, il détermine l'angle de départ et l'angle d'arrivée. Enfin, il vérifie dans quelle direction tracer l'arc (horaire ou antihoraire) selon la nature du composant (résistance, condensateur, etc.) et sa position dans le circuit. Finalement on réutilise le même système que pour la magnétisation de la souris.
 
 == Gestion des fichiers S1P (format Touchstone)
 
@@ -218,21 +218,21 @@ La classe `TouchstoneS1P` est un parser développé pour cette application qui e
 
 La méthode statique `parse(file)` lit le fichier ligne par ligne. Elle commence par parser les options via `parseOptionLine()`, puis convertit chaque ligne de données en un `DataPoint`. Elle gère les différents formats de données (DB, MA, RI) via la méthode `calculateComplexValue()`, convertit ensuite les paramètres S en impédance grâce à `calculateImpedance()`, et finalement calcule le vrai gamma avec `calculateGammaFromZ()`.
 
-Cette classe permet aussi d'exporter les SWEEPS de fréquence du circuit créer sur l'application en fichier S1P. Les points du sweep sont alors exporté selon de format S MA R (qui sont les paramètres par défaut de ces fichiers).
+Cette classe permet aussi d'exporter les SWEEPS de fréquence du circuit créer sur l'application en fichier S1P. Les points du sweep sont alors exportés selon de format S MA R (qui sont les paramètres par défaut de ces fichiers).
 
 === Optimisation et Downsampling
 
-Les fichiers S1P peuvent contenir énormément de points. Afficher tout ça ralentit l'interface. Pour éviter ce problème, un mécanisme de downsampling a été mis en place dans `S1PPlotterWindow`. Si le fichier dépasse 1500 points (`MAX_RENDER_POINTS`), l'algorithme sous-échantillonne les données pour garder environ 1500 points. On fait aussi attention que le premier et dernier point du sweep soient présents.
+Les fichiers S1P peuvent contenir énormément de points. Afficher tout ça ralentit l'interface. Pour éviter ce problème, un mécanisme de downsampling a été mis en place dans `S1PPlotterWindow`. Si le fichier dépasse 1500 points (`MAX_RENDER_POINTS`), l'algorithme sous-échantillonne les données pour garder environ 1500 points. On fait aussi attention à ce que le premier et dernier point du sweep soient présents.
 
 === Filtrage des fichiers S1P
 
-Le logiciel permet de simplement mettre en évidence des parties du fichier S1P importé sur l'interface. Après des discussions sur l'utilité de ces mises en évidence, le système a été mis en place de façon à avoir trois plages de mise en évidence au maximum. Essayer de créer un circuit d'adaptation qui permet de satisfaire trois plages est déjà très complexe, donc il était inutile d'en choisir plus.
+Le logiciel permet de simplement mettre en évidence des parties du fichier S1P importé sur l'interface. Après des discussions sur l'utilité de ces mises en évidence, le système a été mis en place de façon à avoir trois plages de mises en évidence au maximum. Essayer de créer un circuit d'adaptation qui permet de satisfaire trois plages est déjà très complexe, donc il était inutile d'en choisir plus.
 
 Ces plages de fréquences sont définies par l'utilisateur via des contrôles de type `RangeSlider` dans l'interface. Chaque filtre peut être activé ou désactivé indépendamment via des propriétés booléennes (`filter1Enabled`, `filter2Enabled`, `filter3Enabled`) stockées dans le ViewModel. Pour chaque filtre actif, on définit une fréquence minimale et maximale (`freqRangeMinF1`/`freqRangeMaxF1`, etc.).
 
 Lors du dessin de l'abaque, le `SmithChartRenderer` parcourt tous les points S1P transformés et appelle la méthode `whichFrequencyRange(frequency)` du ViewModel pour déterminer dans quelle plage se trouve chaque point. Cette méthode retourne 1, 2 ou 3 si le point appartient à l'un des trois filtres actifs, ou -1 si aucun filtre ne correspond.
 
-Selon le résultat, le point est dessiné avec une couleur et un style différent, si le point ne se trouve dans aucune de ces plages, il est alors mis en retrait avec une opacité moindre pour éviter d'avoir trop de points sur l'abaque, l'utilisateur peut se focaliser sur les fréquences sur lesquelles il travail.
+Selon le résultat, le point est dessiné avec une couleur et un style différent, si le point ne se trouve dans aucune de ces plages, il est alors mis en retrait avec une opacité moindre pour éviter d'avoir trop de points sur l'abaque, l'utilisateur peut se focaliser sur les fréquences sur lesquelles il travaille.
 
 == Gestion des "undo/redo"
 
@@ -240,7 +240,7 @@ Comme tout bon programme informatique, il est très utile de revenir sur ce qu'o
 
 Un système générique `HistoryManager` qui permet d'avoir une gestion de deux piles génériques. Une pile de redo et une pile de undo. Lorsqu'on consomme une action undo, l'état actuel est sauvegardé dans la pile de redo, puis l'état précédent est restauré depuis la pile d'undo. Inversement, lorsqu'on fait un redo, l'état actuel est remis dans la pile d'undo et l'état suivant est récupéré depuis la pile de redo.
 
-Ensuite pour pouvoir utiliser ce gestionnaire, un record `UndoRedoEntry` a été mis en place qui garde comme information l'opération effectuée (ADD, REMOVE, MODIFY), l'index du circuit modifié ainsi qu'une paire d'élément qui lie l'élément du circuit subissant l'opération et son index dans le circuit choisi. Ensuite selon ce que l'utilisateur fait, chaque action est gardée dans le manager et l'utilisateur peut a choix revenir sur ce qu'il a fait! Le viewModel lui s'occupe de reconstruire le circuit à chaque undo/redo.
+Ensuite pour pouvoir utiliser ce gestionnaire, un record `UndoRedoEntry` a été mis en place, qui garde comme information l'opération effectuée (ADD, REMOVE, MODIFY), l'index du circuit modifié ainsi qu'une paire d'éléments qui lie l'élément du circuit subissant l'opération et son index dans le circuit choisi. Ensuite, selon ce que l'utilisateur fait, chaque action est gardée dans le manager et l'utilisateur peut a choix revenir sur ce qu'il a fait! Le viewModel lui s'occupe de reconstruire le circuit à chaque undo/redo.
 
 == Les composants discrets
 
@@ -260,8 +260,8 @@ Les éléments sauvegardés, stockés dans un record agissant comme DTO (Data Tr
 
 La classe `ProjectManager` s'occupe de la sérialisation et désérialisation des projets. Elle utilise la bibliothèque Jackson pour convertir les données en format JSON avec le module `Jdk8Module` pour gérer correctement les types Java modernes (comme `Optional`).
 
-Lors de la sauvegarde du projet via la méthode `saveProject()`, le logiciel vérifie si le projet est déjà associé à un fichier. Si non, un dialogue de sélection demande à l'utilisateur de choisir un emplacement où stocker le fichier (avec l'extension `.jsmfx`). Ensuite, le chemin du fichier est sauvegardé dans la classe et toutes les sauvegardes ultérieures se feront automatiquement sur ce même fichier. Une option "Save As" existe aussi pour pouvoir sauvegarder dans un nouveau fichier même si le projet est déjà lié à un fichier existant.
+Lors de la sauvegarde du projet via la méthode `saveProject()`, le logiciel vérifie si le projet est déjà associé à un fichier. Sinon, un dialogue de sélection demande à l'utilisateur de choisir un emplacement où stocker le fichier (avec l'extension `.jsmfx`). Ensuite, le chemin du fichier est sauvegardé dans la classe et toutes les sauvegardes ultérieures se feront automatiquement sur ce même fichier. Une option "Save As" existe aussi pour pouvoir sauvegarder dans un nouveau fichier, même si le projet est déjà lié à un fichier existant.
 
 Lors du chargement via `loadProject()`, le fichier JSON est désérialisé et toutes les propriétés du ViewModel sont restaurées. Une fois le chargement terminé, les flags `hasBeenSaved` et `isModified` sont mis à jour pour refléter l'état du projet. Ces flags sont mis à jour à chaque interaction que l'utilisateur a avec l'abaque pour indiquer si le projet a eu des changements depuis la dernière sauvegarde.
 
-Finalement, si des changements ont eu lieu, mais qu'aucune sauvegarde n'a été effectué lorsque l'utilisateur souhaite quitter l'application, on demande à l'utilisateur s'il est sûr de vouloir quitter. Un comportement classique de ce genre d'application.
+Finalement, si des changements ont eu lieu, mais qu'aucune sauvegarde n'a été effectuée lorsque l'utilisateur souhaite quitter l'application, on demande à l'utilisateur s'il est sûr de vouloir quitter. Un comportement classique de ce genre d'application.

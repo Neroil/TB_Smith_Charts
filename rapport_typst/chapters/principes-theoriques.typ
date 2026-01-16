@@ -4,7 +4,7 @@ Pour pouvoir développer une solution d'abaque de Smith numérique, il faut tout
 
 == Pourquoi l'abaque de Smith ?
 
-L'abaque de Smith existe dans le contexte de l'utilisation et la transmission des fréquences radio (RF). Dans ce domaine, on a souvent affaire à des circuits qui opèrent à hautes fréquences et dont le comportement est décrit par une grandeur complexe, l'impédance.
+L'abaque de Smith existe dans le contexte de l'utilisation et la transmission des fréquences radio (RF). Dans ce domaine, on a souvent affaire à des circuits qui opèrent à haute fréquence et dont le comportement est décrit par une grandeur complexe, l'impédance.
 
 L'impédance $Z$ est une grandeur complexe qui allie une partie réelle, la résistance $R$ totale d'un circuit, avec une partie imaginaire qui s'appelle la réactance $X$. @tme_impedance
 
@@ -51,7 +51,7 @@ Sans entrer dans des détails trop exhaustifs pour le projet, les calculs pour t
 
 La représentation graphique est une représentation du point d'impédance de la charge $Z_L$ par rapport à l'impédance de référence de la ligne $Z_O$. On pose alors sur l'axe des ordonnées la relation imaginaire, la réactance $X$. Et sur l'axe des abscisses, la partie réelle, la résistance.
 
- Il est complexe de représenter cette relation sur le plan cartésien, car on utilise d'une part seulement le côté droit du plan, étant donné que la résistance ne peut être négative, mais surtout que les valeurs de réactance comme celles de résistance peuvent tendre vers l'infini, rendant impossible la visualisation de toutes les impédances sur une seule feuille. @youtube_rohdeschwarz_smith
+ Il est complexe de représenter cette relation sur le plan cartésien, car on utilise d'une part seulement le côté droit du plan, étant donné que la résistance ne peut être négative, mais surtout que les valeurs de réactance, comme celles de résistance peuvent tendre vers l'infini, rendant impossible la visualisation de toutes les impédances sur une seule feuille. @youtube_rohdeschwarz_smith
 
 C'est là que l'abaque de Smith offre la solution. Au lieu de représenter directement le plan des impédances, l'abaque de Smith est une représentation graphique du plan du coefficient de réflexion complexe $Gamma$.
 
