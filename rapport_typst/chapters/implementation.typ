@@ -78,7 +78,7 @@ Lorsqu'un composant est sélectionné via `selectElement()`, une copie de son é
 
 Vu que l'abaque de Smith est une projection du plan complexe, il a fallu mettre en place une classe qui gère ces nombres. La classe `Complex` est un record Java qui représente un nombre complexe avec sa partie réelle et imaginaire. En plus de cette représentation, elle implémente toutes les opérations nécessaires pour le projet. Un point important de cette classe est la gestion des cas limites mathématiques. Tout ce qui concerne la division par zéro, les valeurs infinies et les opérations avec des nombres non finis est géré.
 
-Ensuite, une grande partie des calculs mathématiques utilisés pour l'abaque de Smith se trouvent dans la classe `SmithCalculator`. On y trouve les fonctions de conversions d'impédance au coefficient de réflexion et inversement : `gammaToImpedance(gamma, z0)` qui calcule $Z = Z_0 (1 + Gamma)/(1 - Gamma)$ et `impedanceToGamma(z, z0)` qui calcule $Gamma = (Z - Z_0)/(Z + Z_0)$. La classe fournit aussi des méthodes pour calculer le VSWR (Voltage Standing Wave Ratio) via la formule $(1 + |Gamma|)/(1 - |Gamma|)$ et le Return Loss en dB via $-20 log_10(|Gamma|)$ à partir du gamma.
+Ensuite, une grande partie des calculs mathématiques utilisés pour l'abaque de Smith se trouvent dans la classe `SmithCalculator`. On y trouve les fonctions de conversions d'impédance au coefficient de réflexion et inversement : `gammaToImpedance(gamma, z0)` qui calcule $Z = Z_0 (1 + Gamma)/(1 - Gamma)$ et `impedanceToGamma(z, z0)` qui calcule $Gamma = (Z - Z_0)/(Z + Z_0)$. La classe fournit aussi des méthodes pour calculer le VSWR (Voltage Standing Wave Ratio) via la formule $(1 + |Gamma|)/(1 - |Gamma|)$ et le Return Loss en dB via $-20 log_10(|Gamma|)$ à partir du gamma. 
 
 === Facteur de qualité
 
@@ -174,7 +174,7 @@ On fait cela jusqu'à ce que tous les éléments soient traités. Pour pouvoir a
 
 $ Z_"in" = Z_0 (Z_L + Z_0 tanh(gamma l))/(Z_0 + Z_L tanh(gamma l)) $
 
-où $gamma = alpha + j beta$ est l'exposant de propagation (qui prend en compte les pertes via le facteur de qualité réutilisé comme perte en dB/m, ici $alpha$), et $beta = (2 pi f)/c sqrt(epsilon_r)$ est la constante de phase.
+où $gamma = alpha + j beta$ est l'exposant de propagation (qui prend en compte les pertes via le facteur de qualité réutilisé comme perte en dB/m, convertie en Neper/m pour obtenir $alpha$), et $beta = (2 pi f)/c sqrt(epsilon_r)$ est la constante de phase.
 
 *Pour les stubs* (court-circuit ou circuit ouvert), on part de la même formule générale avec pertes, mais avec des charges particulières. Pour un stub court-circuité ($Z_L = 0$), on obtient :
 
@@ -216,6 +216,8 @@ La classe `TouchstoneS1P` est un parser développé pour cette application qui e
 - Le format des données (DB pour dB/angle, MA pour magnitude/angle, RI pour réel/imaginaire - par défaut MA)
 - La résistance de référence (R suivi de la valeur, par défaut 50$Omega$)
 
+Vu que le logiciel supporte uniquement l'importation des fichiers S1P, la spécification Touchstone a été implémentée dans sa version 1.1, ce qui est amplement suffisant @touchstone_spec.
+
 La méthode statique `parse(file)` lit le fichier ligne par ligne. Elle commence par parser les options via `parseOptionLine()`, puis convertit chaque ligne de données en un `DataPoint`. Elle gère les différents formats de données (DB, MA, RI) via la méthode `calculateComplexValue()`, convertit ensuite les paramètres S en impédance grâce à `calculateImpedance()`, et finalement calcule le vrai gamma avec `calculateGammaFromZ()`.
 
 Cette classe permet aussi d'exporter les SWEEPS de fréquence du circuit créer sur l'application en fichier S1P. Les points du sweep sont alors exportés selon de format S MA R (qui sont les paramètres par défaut de ces fichiers).
@@ -244,7 +246,7 @@ Ensuite pour pouvoir utiliser ce gestionnaire, un record `UndoRedoEntry` a été
 
 == Les composants discrets
 
-Dans le monde réel, les composants ne peuvent pas prendre n'importe quelle valeur. Ils existent en séries normalisées (séries E12, E24, E96, etc.) et il est pratique de pouvoir visualiser directement les valeurs des composants qu'on a sous la main, plutôt que des valeurs théoriques idéales.
+Dans le monde réel, les composants ne peuvent pas prendre n'importe quelle valeur. Ils existent en séries normalisées (séries E12, E24, E96, etc.) @iec_60063 et il est pratique de pouvoir visualiser directement les valeurs des composants qu'on a sous la main, plutôt que des valeurs théoriques idéales.
 
 L'utilisateur peut créer sa propre bibliothèque de composants disponibles via une fenêtre de dialogue (`DiscreteComponentConfigDialog`). Cette fenêtre permet d'ajouter des composants avec leur valeur exacte et leurs caractéristiques parasites, soit en utilisant le facteur de qualité, soit sous forme d'ESR. Dépendamment du constructeur du composant et de son type, les datasheets mettent à disposition soit l'un, soit l'autre (ou les deux).
 

@@ -4,13 +4,17 @@ Lors de la conception de ce travail de Bachelor, différents outils sont utilis�
 
 == Programmation
 
-L'IDE utilisé est IntelliJ. L'application étant développée en Java, IntelliJ de JetBrains est l'environnement que je maîtrise le mieux, ce choix était donc logique. Les technologies principales s'articulent autour de JavaFX version 25, qui nécessite JDK 23, pour la gestion de l'interface graphique. C'est le squelette du projet, l'ensemble de l'application repose sur cette bibliothèque, que ce soit pour le dessin de l'abaque ou pour la logique de l'interface utilisateur. 
+L'IDE utilisé est IntelliJ. L'application étant développée en Java, IntelliJ de JetBrains est l'environnement que je maîtrise le mieux, ce choix était donc logique. Les technologies principales s'articulent autour de JavaFX version 25 (nécessitant le JDK 23) pour la gestion de l'interface graphique. C'est le squelette du projet, l'ensemble de l'application repose sur cette bibliothèque, que ce soit pour le dessin de l'abaque ou pour la logique de l'interface utilisateur. 
 
-Un outil intéressant, supporté nativement dans IntelliJ, est JavaFX Scene Builder. À la manière de QtCreator, il permet de s'aider d'une interface visuelle pour créer les vues de l'application.
+Un outil intéressant, supporté nativement dans IntelliJ, est JavaFX Scene Builder. À la manière de QtCreator, il permet de s'aider d'une interface visuelle pour créer les fichiers FXML des vues de l'application.
 
-AtlantaFX @atlantafx est une bibliothèque qui permet d'ajouter un thème moderne à l'application JavaFX. Cela évite de devoir créer des composants personnalisés pour les éléments simples et me permet de me focaliser sur l'écriture du code.
+AtlantaFX @atlantafx est une bibliothèque qui permet d'ajouter un thème moderne à l'application JavaFX. Cela évite de devoir créer des composants personnalisés pour les éléments simples et me permet de me focaliser sur l'écriture du code. En complément, la bibliothèque FXThemes#footnote("Lien de la bibliothèque : https://github.com/dukke/FXThemes") (de Pixelduke) permet de gérer le style de l'encadrement de la fenêtre sous Windows (Win10/11 Dark Mode). En parallèle, la bibliothèque jSystemThemeDetector#footnote("Lien de la bibliothèque : https://github.com/Dansoftowner/jSystemThemeDetector") de Daniel Gyoerffy est utilisée pour détecter automatiquement le thème actuel du système d'exploitation de l'utilisateur (sombre ou clair).
 
-Ensuite, pour compiler l'application, j'utilise Gradle. C'est un concurrent à Maven qui est, d'après mon expérience, plus performant et plus stable.
+Pour enrichir l'interface utilisateur, la bibliothèque ControlsFX est utilisée, notamment pour les composants avancés comme les `RangeSlider` ou les `ToggleSwitch` qui ne sont pas disponibles dans JavaFX de base.
+
+Pour la sérialisation et la désérialisation des données (sauvegarde des projets), la bibliothèque Jackson est utilisée avec son module `jackson-datatype-jdk8` pour gérer les types modernes de Java (comme `Optional`). Les tests unitaires sont réalisés avec JUnit Jupiter (version 6.0.2).
+
+Enfin, pour la gestion des dépendances et la compilation, j'utilise Gradle. C'est un outil performant et flexible. Le projet utilise également le plugin Gradle "Shadow" pour la génération d'un "Fat Jar" (ou UberJar), une archive exécutable unique incluant toutes les dépendances nécessaires au lancement de l'application sur n'importe quelle machine équipée d'une JVM dans la bonne version.
 
 == Conception
 
@@ -30,4 +34,4 @@ Ensuite le template Typst utilisé est un projet GitHub#footnote("Lien du repos 
 
 == Utilisation de LLMs
 
-Différents LLMs (Gemini et GPT majoritairement) ont été utilisés pour aider à la reformulation de certaines parties du rapport. L'outil GitHub Copilot a également été utilisé comme aide à la conception du code et à la documentation de celui-ci (surtout la JavaDoc).
+Différents LLMs (Gemini et GPT majoritairement) ont été utilisés pour aider à la reformulation et vérification de certaines parties du rapport. L'outil GitHub Copilot a également été utilisé comme aide à la conception du code, à la documentation de celui-ci (surtout la JavaDoc) et à la réalisation des tests unitaires.

@@ -35,11 +35,11 @@ Physiquement, les conséquences de cette réflexion sont l'apparition d'ondes st
 
 #figure(image("../template/images/01-Standing-Wave-t0-1024x448.jpg", width:80%), caption: [Phénomène des ondes stationnaires @science_sanctuary])
 
-Ce sont ces ondes stationnaires qui sont la cause physique des problèmes mentionnés plus haut. Et à partir de ces ondes stationnaires, on peut calculer le VSWR (Voltage Standing Wave Ratio) qui est une mesure du rapport entre l'amplitude maximale et l'amplitude minimale que peut atteindre l'onde stationnaire.
+Ce sont ces ondes stationnaires qui sont la cause physique des problèmes mentionnés plus haut. Et à partir de ces ondes stationnaires, on peut calculer le VSWR (Voltage Standing Wave Ratio) qui est une mesure du rapport entre l'amplitude maximale et l'amplitude minimale que peut atteindre l'onde stationnaire.@wiki_vswr
 
 #align(center, $"VSWR" = frac(1 + |Gamma| , 1 - |Gamma|)$)
 
-Finalement, à partir de cette mesure, on peut aussi calculer le montant de puissance du signal qui est retourné à la source, une mesure appelée Return Loss, qui est exprimée en décibel.
+Finalement, à partir de cette mesure, on peut aussi calculer le montant de puissance du signal qui est retourné à la source, une mesure appelée Return Loss, qui est exprimée en décibel.@ib-lenhart_return_loss
 
 #align(center, $"Return Loss" = 20 log_10 (frac("VSWR" + 1 , "VSWR" - 1))$)
 
