@@ -70,7 +70,9 @@ Ensuite, des courbes partent toutes du même point de circuit ouvert et s'étend
 
 #figure(image("../images/capactitancereactancecourbe.png", width:40%), caption: [Représentation des courbes de réactance constante])
 
-Jusqu'ici, on a parlé de l'abaque d'impédance, aussi appelé la forme Z de l'abaque. Il est parfait pour visualiser l'ajout de composants en série, car les impédances s'additionnent. Mais pour pouvoir pleinement utiliser l'outil dans le cas de la recherche de circuits d'adaptation, il nous faut aussi pouvoir gérer les composants en parallèle (shunt).
+Jusqu'ici, on a parlé de l'abaque d'impédance, aussi appelé la forme Z de l'abaque. Il est parfait pour visualiser l'ajout de composants en série, car les impédances s'additionnent. Mais pour pouvoir pleinement utiliser l'outil dans le cas de la recherche de circuits d'adaptation, il nous faut aussi pouvoir gérer les composants en parallèle.
+
+_Note : Dans ce rapport, les termes "parallèle" et "shunt" sont utilisés de façon interchangeable pour désigner un composant placé en dérivation vers la masse. Si le terme "shunt" est plus juste dans le contexte de l'ingénierie radiofréquence, le terme "parallèle" reste tout à fait correct, car les deux concepts décrivent une configuration où le composant est connecté en dérivation par rapport au trajet principal du signal._
 
 Pour cela, on utilise aussi un abaque d'admittance ($Y$) qui est simplement l'inverse de l'impédance ($Y = 1/Z$). La partie réelle de l'admittance est appelée la conductance et la partie imaginaire la susceptance. 
 
