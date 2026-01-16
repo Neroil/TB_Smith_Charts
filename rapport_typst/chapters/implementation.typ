@@ -31,7 +31,7 @@ Pour déployer l'application de façon multiplateforme, deux choix s'offrent à 
 
 Le point fort de la seconde méthode est qu'on n'oblige pas l'utilisateur à avoir Java installé sur son appareil, mais on perd la portabilité du `.jar`.
 
-Mon choix se porte alors sur un déploiement utilisant les outils de CI/CD de GitHub pour proposer la solution portable avec l'utilisation du `ShadowJar`.
+Mon choix se porte alors sur un déploiement utilisant les outils de CI/CD de GitHub pour automatiser la génération du `ShadowJar`, privilégiant ainsi la portabilité. À noter qu'actuellement, à la demande du professeur de TB, le dépôt GitHub est en privé. La question de la licence et de l'ouverture publique du projet reste à discuter pour définir son avenir.
 
 == Logique du contrôleur d'interaction
 

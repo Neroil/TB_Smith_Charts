@@ -32,7 +32,7 @@ Ce travail de Bachelor développe *JSmithFX*, un éditeur d'abaque de Smith mode
 L'application propose un éditeur graphique où l'utilisateur place des composants directement sur l'abaque :
 
 - *Édition intuitive :* Le curseur se magnétise automatiquement sur la trajectoire physique du composant ajouté.
-- *Gestion S1P :* Import de mesures S1P Touchstone, filtrage par plages de fréquences et visualisation temps réel.
+- *Gestion S1P :* Import de mesures S1P Touchstone, sélection de plages de fréquences et visualisation temps réel.
 - *Outils d'analyse :* Sweep fréquentiel, fine-tuning via sliders et catalogue de composants normalisés CEI.
 - *Simulation réaliste :* Prise en compte du facteur de qualité (Q) pour les composants passifs et gestion des pertes dans les lignes de transmission.
 
