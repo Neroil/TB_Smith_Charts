@@ -40,7 +40,7 @@ Il est aussi possible de lancer l'application en double-cliquant directement des
 ==== Résolution des problèmes courants
 
 - *`java: command not found`* : Java n'est pas installé ou n'est pas dans le `PATH` système.
-- *`UnsupportedClassVersionError`* : La version de Java installée est trop ancienne. Tapez `java -version` pour vérifier qu'elle soit $\ge$ 23.
+- *`UnsupportedClassVersionError`* : La version de Java installée est trop ancienne. Tapez `java -version` et vérifiez le retour de la commande. Si la version affichée est en dessous de 23, il est temps de mettre à jour!
 
 ==== Installation du JRE si nécessaire
 
@@ -55,7 +55,7 @@ Après installation, on peut vérifier la version installée :
 java -version
 ```
 
-On devrait voir quelque chose comme `java 25.0.x` ou supérieur.
+On devrait voir quelque chose comme `java version "25.0.x"` ou supérieur.
 
 == Guide de démarrage rapide
 
@@ -78,7 +78,7 @@ Pour changer les valeurs de base :
 
 *Modifier l'impédance de charge :*
 1. Menu *Set > Change load*
-2. Entrez la nouvelle impédance au format cartésien (ex: `75 + j50`) ou polaire (ex: `90.14 < 33.69°`)
+2. Entrez la nouvelle impédance au format cartésien (ex: `75 + j50`) ou polaire
 
 *Modifier l'impédance caractéristique :*
 1. Menu *Set > Set Characteristic Impedance*
@@ -170,7 +170,7 @@ JSmithFX permet de visualiser des mesures réelles ou simulées :
 Le sweep permet d'analyser le comportement du circuit sur une plage de fréquences :
 
 1. Construisez le circuit d'adaptation.
-2. Allez dans *Simulation > Frequency Sweep*.
+2. Cliquez sur le bouton Sweep dans la barre des menus.
 3. Configurez les paramètres du sweep :
    - Fréquence de début 
    - Fréquence de fin
@@ -205,13 +205,13 @@ Pour mieux visualiser une zone précise de l'abaque :
 *Zoom :*
 - Utilisez la molette de la souris pour zoomer/dézoomer.
 - Le zoom se fait autour de la position du curseur.
-- Le zoom peut aussi se faire avec les boutons "+" et "-" dans le panneau de droite, le zoom sera alors centré sur le dernier point du circuit.
+- Le zoom peut aussi se faire avec les boutons "+" et "-" dans le panneau de droite, le zoom sera alors centré sur le point sélectionné du circuit.
 
 *Pan (Déplacement) :*
 - Cliquez et glissez sur l'abaque pour déplacer la vue.
 
 *Réinitialiser la vue :*
-- Bouton *Reset View* dans le panneau de droite
+- Bouton *Reset* directement sur l'abaque.
 - Ou double-clic gauche n'importe où sur l'abaque
 
 === Composants discrets (Catalogue)
@@ -253,7 +253,7 @@ _Note : Les fichiers S1P importés et les sweeps effectués ne sont pas sauvegar
 
 === Tableau des points (DataPoints)
 
-Le tableau en bas de l'interface affiche tous les points calculés du circuit :
+Le tableau en bas du côté droit de l'interface affiche tous les points calculés du circuit :
 - Chaque ligne correspond à un composant ou une étape du circuit
 - Les colonnes montrent : Label, Impédance (Z), VSWR, Return Loss (dB), Fréquence, Facteur Q
 - Cliquez sur une ligne pour la sélectionner et la mettre en évidence sur l'abaque
