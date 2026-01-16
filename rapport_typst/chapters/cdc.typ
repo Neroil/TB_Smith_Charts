@@ -28,7 +28,7 @@ Finalement, il existe des solutions purement en ligne telles que QuickSmith#foot
 
 === Solutions possibles <solutions-possibles>
 
-Pour ce travail de bachelor, la meilleure option semble être de développer une solution dédiée, directement avec les utilisateurs de l'abaque de Smith à l'HEIG. Ça permettra de remplacer les logiciels obsolètes ou qui ne font pas exactement ce qu'on veut. En plus, avoir une solution multiplateforme est un point vraiment important.
+Pour ce travail de bachelor, la meilleure option semble être de développer une solution dédiée, directement avec les utilisateurs de l'abaque de Smith à l'HEIG. Cela permettra de remplacer les logiciels obsolètes ou qui ne font pas exactement ce qu'on veut. En plus, avoir une solution multiplateforme est un point vraiment important.
 
 == Cahier des charges <cahier-des-charges-1>
 

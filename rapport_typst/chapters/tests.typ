@@ -16,7 +16,7 @@ Cette classe gère toutes les opérations sur les nombres complexes utilisés da
 Cette classe contient la logique centrale des calculs sur l'abaque de Smith. Les tests couvrent :
 
 - Les conversions bidirectionnelles entre $Gamma$ et impédance, incluant les cas limites (centre de l'abaque, court-circuit, circuit ouvert).
-- Les conversions aller-retour pour vérifier la cohérence mathématique et qu'il n'y aie pas trop de perte par rapport aux arrondis et aux calculs à virgule flottante.
+- Les conversions aller-retour pour vérifier la cohérence mathématique et qu'il n'y ait pas trop de perte par rapport aux arrondis et aux calculs à virgule flottante.
 - Le calcul du VSWR et du Return Loss avec les cas d'adaptation parfaite où leurs valeurs se rapproche de l'infini.
 - L'addition d'impédances en parallèle avec diverses configurations.
 - La vérification des propriétés physiques : $|Gamma| lt.eq 1$ pour les impédances passives.
@@ -30,7 +30,7 @@ Le parser de fichiers Touchstone (.s1p) nécessitait des tests pour garantir la 
 - Test d'un cycle complet d'export vers fichier S1P puis réimport pour vérifier la cohérence des données.
 - La robustesse du parser avec la gestion des commentaires, lignes vides et fichiers vides. 
 
-Ces tests couvrent les cas d'usage principaux et les cas limites identifiés même s'il ne sont sûrement pas exhaustifs, c'est assez pour le cadre de ce travail de bachelor.
+Ces tests couvrent les cas d'usage principaux et les cas limites identifiés même s'ils ne sont sûrement pas exhaustifs, c'est assez pour le cadre de ce travail de Bachelor.
 
 == Tests de validation de circuits complets
 

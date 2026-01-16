@@ -1,15 +1,15 @@
 = Planification <planification>
 == Planification initiale <planification-initiale>
 
-Ce document détaille la planification semaine par semaine pour la réalisation du travail de bachelor. Le projet se déroule à temps plein sur une période de 10 semaines, avec un rendu final fixé au *vendredi 16 janvier 2026 à 18h00*. La planification intègre des phases de développement, de test, de rédaction et une marge de sécurité pour les imprévus.
+Ce document détaille la planification semaine par semaine pour la réalisation du travail de Bachelor. Le projet se déroule à temps plein sur une période de 10 semaines, avec un rendu final fixé au *vendredi 16 janvier 2026 à 18h00*. La planification intègre des phases de développement, de test, de rédaction et une marge de sécurité pour les imprévus.
 
 == Planification semaine par semaine
 
 === Semaine 1 du 03.11.2025 au 09.11.2025 : Début du travail de bachelor
 
-Durant la première semaine de travail, l'idée est de se focaliser sur les aspects techniques et théoriques de l'abaque de Smith, comprendre ses enjeux et son utilisation. Un début de rédaction du rapport est aussi nécessaire avec l'aspect historique et une analyse des différents outils possibles à utiliser pour la conception du logiciel de l'abaque de Smith. 
+Durant la première semaine de travail, l'idée est de se focaliser sur les aspects techniques et théoriques de l'abaque de Smith, de comprendre ses enjeux et son utilisation. Un début de rédaction du rapport est aussi nécessaire avec l'aspect historique et une analyse des différents outils possibles à utiliser pour la conception du logiciel de l'abaque de Smith. 
 
-Finalement à la fin de la semaine, un framework doit être choisi pour ensuite commencer à mettre en place les différentes étapes du développement.
+Finalement, à la fin de la semaine, un framework doit être choisi pour ensuite commencer à mettre en place les différentes étapes du développement.
 
 === Semaine 2 du 10.11.2025 au 16.11.2025 : Prise en main et bases
 - Gestion et validation de la planification totale.
@@ -22,7 +22,7 @@ Finalement à la fin de la semaine, un framework doit être choisi pour ensuite 
 === Semaine 3 du 17.11.2025 au 23.11.2025 : Interaction de base sur l'abaque
 - Dessin du chemin du circuit en fonction des éléments ajoutés (inductance, capacité, série/shunt).
 - Implémentation du curseur aimanté sur les points calculés.
-- Affichage des informations du curseur dans une fenêtre dédiée (“Cursor”) comme Smith.exe le fait.
+- Affichage des informations du curseur dans une fenêtre dédiée ("Cursor"), comme Smith.exe le fait.
 - Finalisation et relecture du rapport.
 
 === Semaine 4 du 24.11.2025 au 30.11.2025 : Finalisation de l'interface et jalon

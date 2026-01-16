@@ -10,13 +10,13 @@ L'impédance $Z$ est une grandeur complexe qui allie une partie réelle, la rés
 
 #align(center, $Z = R + j X$)
 
-Ensuite cette réactance peut soit être capacitive $X_C$ (comme un condensateur) ou bien elle peut être inductive $X_L$ (comme une bobine). La valeur de la résistance est généralement considérée comme constante par rapport à la fréquence, tandis que la réactance en dépend fortement, la réactance inductive augmente avec la fréquence, alors que la réactance capacitive diminue. 
+Ensuite, cette réactance peut soit être capacitive $X_C$ (comme un condensateur), ou bien elle peut être inductive $X_L$ (comme une bobine). La valeur de la résistance est généralement considérée comme constante par rapport à la fréquence, tandis que la réactance en dépend fortement, la réactance inductive augmente avec la fréquence, alors que la réactance capacitive diminue. 
 
 #align(center, $X_C = -frac(1,2 pi f C) wide X_L = 2 pi f L$)
 
-En radiofréquence, l'objectif est de transférer un signal le plus efficacement possible entre une source émettrice et une charge (une antenne, par exemple). Pour ce faire, il faut assurer que le transfert de puissance soit maximal. Si l'on envoie 100W de puissance RF, on veut maximiser la puissance rayonnée par l'antenne en minimisant les pertes par réflexion, potentiellement 100W de rayonnement (quasi impossible).
+En radiofréquence, l'objectif est de transférer un signal le plus efficacement possible entre une source émettrice et une charge (une antenne, par exemple). Pour ce faire, il faut assurer que le transfert de puissance soit maximal. Si l'on envoie 100W de puissance RF, on veut maximiser la puissance rayonnée par l'antenne en minimisant les pertes par réflexion, potentiellement 100W de rayonnement (presque impossible).
 
-Si ce n'est pas le cas, on parle de désadaptation d'impédance. L'énergie qui n'est pas transmise à la charge est alors réfléchie vers la source, ce qui induit deux problèmes majeurs: une perte d'efficacité, car une partie de la puissance transmise n'est tout simplement pas rayonnée et un danger pour la source qui peut être endommagée par cette réflexion.
+Si ce n'est pas le cas, on parle de désadaptation d'impédance. L'énergie qui n'est pas transmise à la charge est alors réfléchie vers la source, ce qui induit deux problèmes majeurs : une perte d'efficacité, car une partie de la puissance transmise n'est tout simplement pas rayonnée, et un danger pour la source qui peut être endommagée par cette réflexion.
 
 Pour obtenir ce transfert de puissance maximal, l'impédance de la charge doit être le conjugué complexe de l'impédance de la source. Malheureusement, ce cas idéal n'arrive que très rarement en pratique. Il faut alors insérer un circuit d'adaptation entre la source et la charge. Le rôle de ce circuit est de transformer l'impédance de la charge pour qu'elle soit adaptée à sa source.
 
@@ -31,11 +31,11 @@ Cette désadaptation est quantifiable mathématiquement avec le coefficient de r
 
 Où $Z_L$ est l'impédance de la charge et $Z_0$ est l'impédance de la ligne de transmission (50 Ohm dans les cas les plus courants). Avec cette formule, on peut voir que, si l'impédance de la source et de la charge sont les mêmes, on obtient alors 0, une adaptation parfaite. Alors qu'inversement, plus la différence entre $Z_0$ et $Z_L$ est grande, plus le module du coefficient se rapprochera du 1, une réflexion alors totale de l'énergie.
 
-Physiquement, les conséquences de cette réflexion sont l'apparition d'onde stationnaire. Ces ondes sont des pics de courant qui arrivent lorsqu'un milieu câblé reçoit un courant de retour en plus d'un courant aller. Ce qu'il se passe, c'est que les deux fréquences vont se superposer et former des ondes stationnaires. 
+Physiquement, les conséquences de cette réflexion sont l'apparition d'ondes stationnaires. Ces ondes sont des pics de courant qui arrivent lorsqu'un milieu câblé reçoit un courant de retour en plus d'un courant aller. Ce qu'il se passe, c'est que les deux fréquences vont se superposer et former des ondes stationnaires. 
 
 #figure(image("../template/images/01-Standing-Wave-t0-1024x448.jpg", width:80%), caption: [Phénomène des ondes stationnaires @science_sanctuary])
 
-Ce sont ces ondes stationnaires qui sont les causes physiques des problèmes mentionnés plus haut. Et à partir de ces ondes stationnaires, on peut calculer le VSWR (Voltage Standing Wave Ratio) qui est une mesure du rapport entre l'amplitude maximale et l'amplitude minimale que peut atteindre l'onde stationnaire.
+Ce sont ces ondes stationnaires qui sont la cause physique des problèmes mentionnés plus haut. Et à partir de ces ondes stationnaires, on peut calculer le VSWR (Voltage Standing Wave Ratio) qui est une mesure du rapport entre l'amplitude maximale et l'amplitude minimale que peut atteindre l'onde stationnaire.
 
 #align(center, $"VSWR" = frac(1 + |Gamma| , 1 - |Gamma|)$)
 
@@ -51,7 +51,7 @@ Sans entrer dans des détails trop exhaustifs pour le projet, les calculs pour t
 
 La représentation graphique est une représentation du point d'impédance de la charge $Z_L$ par rapport à l'impédance de référence de la ligne $Z_O$. On pose alors sur l'axe des ordonnées la relation imaginaire, la réactance $X$. Et sur l'axe des abscisses, la partie réelle, la résistance.
 
- Il est complexe de représenter cette relation sur le plan cartésien, car on utilise d'une part seulement le côté droit du plan, étant donné que la résistance ne peut être négative, mais surtout qu'autant les valeurs de réactance comme celles de résistance peuvent pointer vers l'infini, rendant impossible la visualisation de toutes les impédances sur une seule feuille. @youtube_rohdeschwarz_smith
+ Il est complexe de représenter cette relation sur le plan cartésien, car on utilise d'une part seulement le côté droit du plan, étant donné que la résistance ne peut être négative, mais surtout que les valeurs de réactance comme celles de résistance peuvent tendre vers l'infini, rendant impossible la visualisation de toutes les impédances sur une seule feuille. @youtube_rohdeschwarz_smith
 
 C'est là que l'abaque de Smith offre la solution. Au lieu de représenter directement le plan des impédances, l'abaque de Smith est une représentation graphique du plan du coefficient de réflexion complexe $Gamma$.
 
@@ -74,7 +74,7 @@ Jusqu'ici, on a parlé de l'abaque d'impédance, aussi appelé la forme Z de l'a
 
 Pour cela, on utilise aussi un abaque d'admittance ($Y$) qui est simplement l'inverse de l'impédance ($Y = 1/Z$). La partie réelle de l'admittance est appelée la conductance et la partie imaginaire la susceptance. 
 
-Graphiquement, cet abaque est exactement le même que l'abaque des impédances, mais pivoté de 180 degrés, on peut alors superposer les deux abaques dans un graphe combiné qui est aussi appelé abaque $Z-Y$. C'est cette visualisation de l'abaque qui est le plus pratique et qui est utilisée majoritairement par les logiciels actuels. Cela sera aussi cet abaque que nous allons dessiner dans notre version du logiciel.
+Graphiquement, cet abaque est exactement le même que l'abaque des impédances, mais pivoté de 180 degrés, on peut alors superposer les deux abaques dans un graphe combiné qui est aussi appelé abaque $Z-Y$. C'est cette visualisation de l'abaque qui est la plus pratique et qui est utilisée majoritairement par les logiciels actuels. Cela sera aussi cet abaque que nous allons dessiner dans notre version du logiciel.
 
 === Utiliser l'abaque
 
@@ -90,7 +90,7 @@ Ensuite, le but du jeu est de ramener ce point le plus proche du centre de l'aba
 
 #figure(image("../template/images/incidance_composants_smith.png", width:40%), caption: [Effet d'ajouts d'inductances et de capacités en série et parallèle @cours_rabaste])
 
-Selon le composant qu'on ajoute et selon son placement dans le circuit, l'impédance vue depuis la source va changer de position sur l'abaque. En se basant sur l'exemple de notre impédance mesurée (de 75 + j50 Ohms à 500MHz), une des possibilités est d'utiliser le circuit ci-dessous pour réaliser l'adaptation:
+Selon le composant que l'on ajoute et selon son placement dans le circuit, l'impédance vue depuis la source va changer de position sur l'abaque. En se basant sur l'exemple de notre impédance mesurée (de 75 + j50 Ohms à 500MHz), une des possibilités est d'utiliser le circuit ci-dessous pour réaliser l'adaptation:
 
 #align(grid(
     columns:(1fr,0.3fr,2fr),

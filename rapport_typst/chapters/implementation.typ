@@ -27,7 +27,7 @@ L'interface a été pensée pour être moderne (basée sur le thème Nord Dark d
 On obtient alors un logiciel complet et utilisable pour effectuer des adaptations d'impédance.
 
 == Déploiement
-Pour déployer l'application de façon multi-plateforme, deux choix s'offrent à nous. Soit on construit une image `.jar` (un *UberJar* plus précisément, en utilisant l'outil Gradle `ShadowJar`, qui est tout simplement un jar qui contient toutes les dépendances nécessaires par le programme, obligatoire ici vu l'utilisation de JavaFX) qui permet de lancer l'application n'importe où, là où la JVM est installée. Soit on génère une application propre à chaque plateforme que l'utilisateur télécharge selon son système.
+Pour déployer l'application de façon multiplateforme, deux choix s'offrent à nous. Soit on construit une image `.jar` (un *UberJar* plus précisément, en utilisant l'outil Gradle `ShadowJar`, qui est tout simplement un jar qui contient toutes les dépendances nécessaires par le programme, obligatoire ici vu l'utilisation de JavaFX) qui permet de lancer l'application n'importe où, là où la JVM est installée. Soit on génère une application propre à chaque plateforme que l'utilisateur télécharge selon son système.
 
 Le point fort de la seconde méthode est qu'on n'oblige pas l'utilisateur à avoir Java installé sur son appareil, mais on perd la portabilité du `.jar`.
 
