@@ -8,29 +8,21 @@
   author: "", 
   supervisor: "", 
   industryContact: "", 
-  industryName: ""
+  industryName: "",
+  main_figure: none 
   ) = {
   // Style
   set heading(numbering: none)
   set text(font: "Arial", size: 14pt)
 
-  show heading.where(
-    level: 1
-  ): it => [
-    #v(0.4em)
-    #it
-    #v(0.4em)
+  show heading.where(level: 1): it => [
+    #v(0.4em) #it #v(0.4em)
   ]
 
-  // Set global page layout
   set page(
     paper: "a3",
     numbering: none,
-    margin: (
-      top: 35pt,
-      bottom: 25pt,
-      x: 35pt
-    )
+    margin: (top: 35pt, bottom: 25pt, x: 35pt)
   )
   set par(leading: 0.55em, spacing: 0.55em, justify: true)
 
@@ -46,24 +38,35 @@
     ])
   )
   
-  v(7%)
+  v(1%)
 
   // Title
-  align(center, par(justify: false, text(size: 54pt)[*#title*]))
+  align(center, par(justify: false, text(size: 42pt)[*#title*]))
 
-  v(4%)
+  v(0.5%)
 
-  set par(spacing: 2em)
+  set par(spacing: 0.7em)
+  
   block(
-    height: 55%, 
-    columns(
-      2, 
-      content
+    height: 77%, 
+    grid(
+      columns: 1,
+      rows: if main_figure != none { (auto, 1fr) } else { (1fr) },
+      gutter: 20pt, 
+      
+      if main_figure != none {
+        align(center, main_figure)
+      },
+
+      columns(2, content)
     )
   )
+
   set par(spacing: 0.55em)
 
-  // Teacher, industry and HES-SO logo
+// Teacher, industry and HES-SO logo
+ line(length: 100%)
+
   align(bottom, grid(
     columns: (50%, 50%), 
     align: (left + top, bottom + right),
